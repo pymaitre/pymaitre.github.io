@@ -1,0 +1,21 @@
+SQLHub package
+==============
+
+Submodules
+----------
+
+SQLHub.sql\_library module
+--------------------------
+
+.. automodule:: SQLHub.sql_library
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: SQLHub
+   :members:
+   :undoc-members:
+   :show-inheritance:
