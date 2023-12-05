@@ -1,0 +1,21 @@
+dcm\_anonymize.main\_scripts package
+====================================
+
+Submodules
+----------
+
+dcm\_anonymize.main\_scripts.anonimization\_main module
+-------------------------------------------------------
+
+.. automodule:: dcm_anonymize.main_scripts.anonimization_main
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: dcm_anonymize.main_scripts
+   :members:
+   :undoc-members:
+   :show-inheritance:
