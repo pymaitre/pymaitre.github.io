@@ -1,0 +1,7 @@
+SQLHub
+======
+
+.. toctree::
+   :maxdepth: 4
+
+   SQLHub
