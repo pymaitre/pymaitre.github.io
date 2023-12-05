@@ -1,0 +1,21 @@
+dcm\_folder.main\_scripts package
+=================================
+
+Submodules
+----------
+
+dcm\_folder.main\_scripts.organization\_main module
+---------------------------------------------------
+
+.. automodule:: dcm_folder.main_scripts.organization_main
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: dcm_folder.main_scripts
+   :members:
+   :undoc-members:
+   :show-inheritance:

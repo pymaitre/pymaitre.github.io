@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dcm_folder package &mdash; dcm_folder 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="dcm_folder.main_scripts package" href="dcm_folder.main_scripts.html" />
+    <link rel="prev" title="dcm_folder" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            dcm_folder
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">dcm_folder</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">dcm_folder package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="dcm_folder.main_scripts.html">dcm_folder.main_scripts package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dcm_folder.folder_organization">dcm_folder.folder_organization module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_folder.folder_organization.Patient"><code class="docutils literal notranslate"><span class="pre">Patient</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_folder.folder_organization.copy_patient"><code class="docutils literal notranslate"><span class="pre">copy_patient()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_folder.folder_organization.move_dx_sx_patient"><code class="docutils literal notranslate"><span class="pre">move_dx_sx_patient()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_folder.folder_organization.process_patient_name"><code class="docutils literal notranslate"><span class="pre">process_patient_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_folder.folder_organization.read_patients"><code class="docutils literal notranslate"><span class="pre">read_patients()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_folder.folder_organization.rename_dcm"><code class="docutils literal notranslate"><span class="pre">rename_dcm()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dcm_folder.rtv_parameter">dcm_folder.rtv_parameter module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rtv-paramater-py">rtv_paramater.py</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_folder.rtv_parameter.parse_args"><code class="docutils literal notranslate"><span class="pre">parse_args()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_folder.rtv_parameter.rtv_configuration_file"><code class="docutils literal notranslate"><span class="pre">rtv_configuration_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dcm_folder">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">dcm_folder</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">dcm_folder</a></li>
+      <li class="breadcrumb-item active">dcm_folder package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/dcm_folder.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dcm-folder-package">
+<h1>dcm_folder package<a class="headerlink" href="#dcm-folder-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dcm_folder.main_scripts.html">dcm_folder.main_scripts package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dcm_folder.main_scripts.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcm_folder.main_scripts.html#module-dcm_folder.main_scripts.organization_main">dcm_folder.main_scripts.organization_main module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dcm_folder.main_scripts.html#dcm_folder.main_scripts.organization_main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dcm_folder.main_scripts.html#module-dcm_folder.main_scripts">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-dcm_folder.folder_organization">
+<span id="dcm-folder-folder-organization-module"></span><h2>dcm_folder.folder_organization module<a class="headerlink" href="#module-dcm_folder.folder_organization" title="Permalink to this heading"></a></h2>
+<p>folder_organization.py</p>
+<p>Library to organize folder thanks to information in a excel.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="dcm_folder.folder_organization.Patient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">dcm_folder.folder_organization.</span></span><span class="sig-name descname"><span class="pre">Patient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patient_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patient_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patient_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dx_sx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_folder/folder_organization.html#Patient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_folder.folder_organization.Patient" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dcm_folder.folder_organization.Patient.dx_sx">
+<span class="sig-name descname"><span class="pre">dx_sx</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#dcm_folder.folder_organization.Patient.dx_sx" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dcm_folder.folder_organization.Patient.patient_id">
+<span class="sig-name descname"><span class="pre">patient_id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#dcm_folder.folder_organization.Patient.patient_id" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dcm_folder.folder_organization.Patient.patient_name">
+<span class="sig-name descname"><span class="pre">patient_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#dcm_folder.folder_organization.Patient.patient_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="dcm_folder.folder_organization.Patient.patient_path">
+<span class="sig-name descname"><span class="pre">patient_path</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">DataFrame</span></em><a class="headerlink" href="#dcm_folder.folder_organization.Patient.patient_path" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dcm_folder.folder_organization.copy_patient">
+<span class="sig-prename descclassname"><span class="pre">dcm_folder.folder_organization.</span></span><span class="sig-name descname"><span class="pre">copy_patient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patient</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_folder/folder_organization.html#copy_patient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_folder.folder_organization.copy_patient" title="Permalink to this definition"></a></dt>
+<dd><p>Copy patients ordered per patient ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>patient</strong> – Patient class with keyword - patient_name, patient_id, patient_path, dx_sx (Patient Class)</p></li>
+<li><p><strong>conf</strong> – Configuration dictionary containing process settings (Dict).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dcm_folder.folder_organization.move_dx_sx_patient">
+<span class="sig-prename descclassname"><span class="pre">dcm_folder.folder_organization.</span></span><span class="sig-name descname"><span class="pre">move_dx_sx_patient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_patient</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info_db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_folder/folder_organization.html#move_dx_sx_patient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_folder.folder_organization.move_dx_sx_patient" title="Permalink to this definition"></a></dt>
+<dd><p>Read the clinical dataframe (info_db). Find the patient_id (patient.patient_id).
+Add “dx” or “sx” to the patient class object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>old_patient</strong> – Input patient class (Patient class).</p></li>
+<li><p><strong>info_db</strong> – clinical dataframe with right or left informations (pd.DataFrame()).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>patient: the updated patient class (Patient class).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dcm_folder.folder_organization.process_patient_name">
+<span class="sig-prename descclassname"><span class="pre">dcm_folder.folder_organization.</span></span><span class="sig-name descname"><span class="pre">process_patient_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_folder/folder_organization.html#process_patient_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_folder.folder_organization.process_patient_name" title="Permalink to this definition"></a></dt>
+<dd><p>Fix casing. Remove double spaces. Remove accents
+Remove asterisks TODO
+:param p_name: name to be processed (str).
+:return: processed_name: name processed (str).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dcm_folder.folder_organization.read_patients">
+<span class="sig-prename descclassname"><span class="pre">dcm_folder.folder_organization.</span></span><span class="sig-name descname"><span class="pre">read_patients</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_folder/folder_organization.html#read_patients"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_folder.folder_organization.read_patients" title="Permalink to this definition"></a></dt>
+<dd><p>Read the name of all folders containing CT/RS/RD/…
+Save all information into a class (Patient) and a dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dir_list</strong> – list of directory paths where images are stored (List of Path)</p></li>
+<li><p><strong>conf</strong> – Configuration dictionary containing process settings (Dict).</p></li>
+<li><p><strong>data_info</strong> – DataFrame with columns ‘patient_name’,’patient_id’,’patient_type’,’path_in’,’sx_dx’ (pd.DataFrame())</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>patients: list of patient information (list(Patient class)).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dcm_folder.folder_organization.rename_dcm">
+<span class="sig-prename descclassname"><span class="pre">dcm_folder.folder_organization.</span></span><span class="sig-name descname"><span class="pre">rename_dcm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patient</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_folder/folder_organization.html#rename_dcm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_folder.folder_organization.rename_dcm" title="Permalink to this definition"></a></dt>
+<dd><p>Rename patients files to be more compact.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>patient</strong> – Patient class with keyword - patient_name, patient_id, patient_path, dx_sx (Patient Class)</p></li>
+<li><p><strong>conf</strong> – Configuration dictionary containing process settings (Dict).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dcm_folder.rtv_parameter">
+<span id="dcm-folder-rtv-parameter-module"></span><h2>dcm_folder.rtv_parameter module<a class="headerlink" href="#module-dcm_folder.rtv_parameter" title="Permalink to this heading"></a></h2>
+<section id="rtv-paramater-py">
+<h3>rtv_paramater.py<a class="headerlink" href="#rtv-paramater-py" title="Permalink to this heading"></a></h3>
+<p>Library to retrive configuration file and parameters in input.</p>
+</section>
+<dl class="py function">
+<dt class="sig sig-object py" id="dcm_folder.rtv_parameter.parse_args">
+<span class="sig-prename descclassname"><span class="pre">dcm_folder.rtv_parameter.</span></span><span class="sig-name descname"><span class="pre">parse_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_folder/rtv_parameter.html#parse_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_folder.rtv_parameter.parse_args" title="Permalink to this definition"></a></dt>
+<dd><p>Parse command line arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>args</strong> – arguments</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>arguments</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dcm_folder.rtv_parameter.rtv_configuration_file">
+<span class="sig-prename descclassname"><span class="pre">dcm_folder.rtv_parameter.</span></span><span class="sig-name descname"><span class="pre">rtv_configuration_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_conf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_conf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_folder/rtv_parameter.html#rtv_configuration_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_folder.rtv_parameter.rtv_configuration_file" title="Permalink to this definition"></a></dt>
+<dd><p>It reads the configuration file from a .yml file and it gives it as output as a dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param<span class="colon">:</span></dt>
+<dd class="field-odd"><p>name_conf: name of configuration file.</p>
+</dd>
+<dt class="field-even">Param<span class="colon">:</span></dt>
+<dd class="field-even"><p>path_conf: full path of the configuration file.</p>
+</dd>
+<dt class="field-odd">Param<span class="colon">:</span></dt>
+<dd class="field-odd"><p>save: boolean value to save the configuration inside the results folder.</p>
+</dd>
+<dt class="field-even">Param<span class="colon">:</span></dt>
+<dd class="field-even"><p>pathout: where to save a copy of configuration file.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>config_parameters: dictionary with parameters config.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-dcm_folder">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dcm_folder" title="Permalink to this heading"></a></h2>
+<p>dcm_folder.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="dcm_folder" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dcm_folder.main_scripts.html" class="btn btn-neutral float-right" title="dcm_folder.main_scripts package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, L. Alborghetti, G. Palazzo, M. Pavarini, M. G. Ubeira Gabellini.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

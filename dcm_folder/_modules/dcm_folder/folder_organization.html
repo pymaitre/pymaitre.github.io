@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>dcm_folder.folder_organization &mdash; dcm_folder 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            dcm_folder
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">dcm_folder</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">dcm_folder</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">dcm_folder.folder_organization</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for dcm_folder.folder_organization</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">folder_organization.py</span>
+
+<span class="sd">Library to organize folder thanks to information in a excel.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">unidecode</span>
+<span class="kn">from</span> <span class="nn">pydicom</span> <span class="kn">import</span> <span class="n">dcmread</span>
+<span class="kn">from</span> <span class="nn">natsort</span> <span class="kn">import</span> <span class="n">natsorted</span>
+
+<div class="viewcode-block" id="Patient"><a class="viewcode-back" href="../../dcm_folder.html#dcm_folder.folder_organization.Patient">[docs]</a><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Patient</span><span class="p">:</span>
+    <span class="n">patient_name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">patient_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">patient_path</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span>
+    <span class="n">dx_sx</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="read_patients"><a class="viewcode-back" href="../../dcm_folder.html#dcm_folder.folder_organization.read_patients">[docs]</a><span class="k">def</span> <span class="nf">read_patients</span><span class="p">(</span><span class="n">dir_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span> <span class="n">conf</span><span class="p">:</span><span class="n">Dict</span><span class="p">,</span> <span class="n">data_info</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read the name of all folders containing CT/RS/RD/...</span>
+<span class="sd">    Save all information into a class (Patient) and a dataframe.</span>
+
+<span class="sd">    :param dir_list: list of directory paths where images are stored (List of Path)</span>
+<span class="sd">    :param conf: Configuration dictionary containing process settings (Dict).</span>
+<span class="sd">    :param data_info: DataFrame with columns &#39;patient_name&#39;,&#39;patient_id&#39;,&#39;patient_type&#39;,&#39;path_in&#39;,&#39;sx_dx&#39; (pd.DataFrame())</span>
+<span class="sd">    :return: patients: list of patient information (list(Patient class)).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">data_info</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;patient_name&#39;</span><span class="p">,</span> <span class="s1">&#39;patient_id&#39;</span><span class="p">,</span> <span class="s1">&#39;patient_type&#39;</span><span class="p">,</span> <span class="s2">&quot;path_in&quot;</span><span class="p">,</span> <span class="s1">&#39;sx_dx&#39;</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">dir_dicom</span> <span class="ow">in</span> <span class="n">dir_list</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">ds</span> <span class="o">=</span> <span class="n">dcmread</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">dir_dicom</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*.dcm&#39;</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This is not a DICOM file!&quot;</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ds</span> <span class="o">=</span> <span class="n">dcmread</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">dir_dicom</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*.dcm&#39;</span><span class="p">))[</span><span class="mi">0</span><span class="p">],</span> <span class="n">force</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;error on file: &#39;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">dir_dicom</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;*.dcm&#39;</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">data_info_tmp</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;patient_name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ds</span><span class="p">[</span><span class="s2">&quot;PatientName&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">],</span>
+                         <span class="s1">&#39;patient_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ds</span><span class="p">[</span><span class="s2">&quot;PatientID&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">],</span>
+                         <span class="s1">&#39;patient_type&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ds</span><span class="p">[</span><span class="s2">&quot;Modality&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="p">(</span><span class="n">dir_dicom</span><span class="o">.</span><span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span>
+                         <span class="s2">&quot;path_in&quot;</span><span class="p">:</span> <span class="n">dir_dicom</span><span class="p">,</span>
+                         <span class="s1">&#39;sx_dx&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ds</span><span class="p">[</span><span class="s2">&quot;StudyDescription&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">],</span>
+                         <span class="p">}</span>
+        <span class="n">data_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">data_info</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data_info_tmp</span><span class="p">)],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="c1">#print(data_info_tmp)</span>
+    <span class="n">data_info</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">conf</span><span class="p">[</span><span class="s1">&#39;images_path_out&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="s1">&#39;check_copy.xlsx&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Create a list of Patient objects</span>
+    <span class="n">unique_patient_ids</span> <span class="o">=</span> <span class="n">data_info</span><span class="p">[</span><span class="s2">&quot;patient_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+    <span class="n">patients</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">patient_id</span> <span class="ow">in</span> <span class="n">unique_patient_ids</span><span class="p">:</span>
+        <span class="n">patient_name</span> <span class="o">=</span> <span class="n">data_info</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data_info</span><span class="p">[</span><span class="s1">&#39;patient_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">patient_id</span><span class="p">][</span><span class="s2">&quot;patient_name&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">patient_path_inout</span> <span class="o">=</span> <span class="n">data_info</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">data_info</span><span class="p">[</span><span class="s1">&#39;patient_id&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">patient_id</span><span class="p">][[</span><span class="s2">&quot;patient_type&quot;</span><span class="p">,</span> <span class="s2">&quot;path_in&quot;</span><span class="p">]]</span>
+
+        <span class="n">patient</span> <span class="o">=</span> <span class="n">Patient</span><span class="p">(</span>
+            <span class="n">patient_name</span><span class="o">=</span><span class="n">patient_name</span><span class="p">,</span>
+            <span class="n">patient_id</span><span class="o">=</span><span class="n">patient_id</span><span class="p">,</span>
+            <span class="n">patient_path</span><span class="o">=</span><span class="n">patient_path_inout</span>
+        <span class="p">)</span>
+        <span class="n">patients</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">patient</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">patients</span></div>
+
+
+<div class="viewcode-block" id="process_patient_name"><a class="viewcode-back" href="../../dcm_folder.html#dcm_folder.folder_organization.process_patient_name">[docs]</a><span class="k">def</span> <span class="nf">process_patient_name</span><span class="p">(</span><span class="n">p_name</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fix casing. Remove double spaces. Remove accents</span>
+<span class="sd">    Remove asterisks TODO</span>
+<span class="sd">    :param p_name: name to be processed (str).</span>
+<span class="sd">    :return: processed_name: name processed (str).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">processed_name</span> <span class="o">=</span> <span class="n">p_name</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="n">processed_name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot; *|&#39;*|\**|\^&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">processed_name</span><span class="p">)</span>
+    <span class="n">processed_name</span> <span class="o">=</span> <span class="n">unidecode</span><span class="o">.</span><span class="n">unidecode</span><span class="p">(</span><span class="n">processed_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">processed_name</span></div>
+
+
+<div class="viewcode-block" id="move_dx_sx_patient"><a class="viewcode-back" href="../../dcm_folder.html#dcm_folder.folder_organization.move_dx_sx_patient">[docs]</a><span class="k">def</span> <span class="nf">move_dx_sx_patient</span><span class="p">(</span><span class="n">old_patient</span><span class="p">,</span> <span class="n">info_db</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Read the clinical dataframe (info_db). Find the patient_id (patient.patient_id).</span>
+<span class="sd">    Add &quot;dx&quot; or &quot;sx&quot; to the patient class object.</span>
+
+<span class="sd">    :param old_patient: Input patient class (Patient class).</span>
+<span class="sd">    :param info_db: clinical dataframe with right or left informations (pd.DataFrame()).</span>
+<span class="sd">    :return: patient: the updated patient class (Patient class).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">patient</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">old_patient</span><span class="p">)</span>
+    <span class="n">info_db</span><span class="p">[</span><span class="s2">&quot;patient_name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">process_patient_name</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">info_db</span><span class="p">[</span><span class="s2">&quot;patient_name&quot;</span><span class="p">]]</span>
+    <span class="n">p_name</span> <span class="o">=</span> <span class="n">process_patient_name</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">patient</span><span class="o">.</span><span class="n">patient_name</span><span class="p">))</span>
+    <span class="n">selected_patient</span> <span class="o">=</span> <span class="n">info_db</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">info_db</span><span class="p">[</span><span class="s2">&quot;patient_name&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">p_name</span><span class="p">]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">((</span><span class="n">selected_patient</span><span class="p">[</span><span class="s1">&#39;Dx o Sx&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;nan&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="n">dx_sx</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;^s&quot;</span><span class="p">,</span> <span class="n">selected_patient</span><span class="p">[</span><span class="s1">&#39;Dx o Sx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dx_sx</span> <span class="o">=</span> <span class="s2">&quot;Sx&quot;</span>
+        <span class="k">elif</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;^d&quot;</span><span class="p">,</span> <span class="n">selected_patient</span><span class="p">[</span><span class="s1">&#39;Dx o Sx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">dx_sx</span> <span class="o">=</span> <span class="s2">&quot;Dx&quot;</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">dx_sx</span> <span class="o">=</span> <span class="s1">&#39;not present&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Allert!!!&#39;</span><span class="p">)</span>
+
+    <span class="n">patient</span><span class="o">.</span><span class="n">dx_sx</span> <span class="o">=</span> <span class="n">dx_sx</span>
+    <span class="k">return</span> <span class="n">patient</span></div>
+
+<div class="viewcode-block" id="copy_patient"><a class="viewcode-back" href="../../dcm_folder.html#dcm_folder.folder_organization.copy_patient">[docs]</a><span class="k">def</span> <span class="nf">copy_patient</span><span class="p">(</span><span class="n">patient</span><span class="p">,</span> <span class="n">conf</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Copy patients ordered per patient ID.</span>
+
+<span class="sd">    :param patient: Patient class with keyword - patient_name, patient_id, patient_path, dx_sx (Patient Class)</span>
+<span class="sd">    :param conf: Configuration dictionary containing process settings (Dict).</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">row_idx</span> <span class="ow">in</span> <span class="n">patient</span><span class="o">.</span><span class="n">patient_path</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="n">folder_name</span> <span class="o">=</span> <span class="n">patient</span><span class="o">.</span><span class="n">patient_path</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_idx</span><span class="p">,</span> <span class="s1">&#39;patient_type&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">folder_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;00000&#39;</span><span class="p">:</span>
+            <span class="n">path_tmp</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">conf</span><span class="p">[</span><span class="s1">&#39;images_path_out&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="nb">str</span><span class="p">(</span><span class="n">patient</span><span class="o">.</span><span class="n">dx_sx</span><span class="p">)</span> <span class="o">/</span> <span class="n">patient</span><span class="o">.</span><span class="n">patient_id</span> <span class="o">/</span> <span class="n">folder_name</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">path_tmp</span><span class="p">,</span> <span class="n">ignore_errors</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="p">(</span><span class="n">path_tmp</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">row_idx</span><span class="p">,</span> <span class="n">patient</span><span class="o">.</span><span class="n">patient_id</span><span class="p">,</span> <span class="n">patient</span><span class="o">.</span><span class="n">dx_sx</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">copytree</span><span class="p">(</span><span class="n">patient</span><span class="o">.</span><span class="n">patient_path</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">row_idx</span><span class="p">,</span> <span class="s1">&#39;path_in&#39;</span><span class="p">],</span> <span class="n">path_tmp</span><span class="p">,</span> <span class="n">dirs_exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">patient</span><span class="o">.</span><span class="n">patient_name</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">patient</span><span class="o">.</span><span class="n">patient_path</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="rename_dcm"><a class="viewcode-back" href="../../dcm_folder.html#dcm_folder.folder_organization.rename_dcm">[docs]</a><span class="k">def</span> <span class="nf">rename_dcm</span><span class="p">(</span><span class="n">patient</span><span class="p">,</span> <span class="n">conf</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rename patients files to be more compact.</span>
+
+<span class="sd">    :param patient: Patient class with keyword - patient_name, patient_id, patient_path, dx_sx (Patient Class)</span>
+<span class="sd">    :param conf: Configuration dictionary containing process settings (Dict).</span>
+<span class="sd">    :return:</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">patient_folder_name</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">conf</span><span class="p">[</span><span class="s1">&#39;images_path_out&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="nb">str</span><span class="p">(</span><span class="n">patient</span><span class="o">.</span><span class="n">dx_sx</span><span class="p">)</span> <span class="o">/</span> <span class="n">patient</span><span class="o">.</span><span class="n">patient_id</span>
+    <span class="k">for</span> <span class="n">modality_folder</span> <span class="ow">in</span> <span class="n">patient_folder_name</span><span class="o">.</span><span class="n">iterdir</span><span class="p">():</span>
+        <span class="n">modality</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;_[0-9]*$&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">modality_folder</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">files</span> <span class="o">=</span> <span class="n">natsorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">modality_folder</span><span class="o">.</span><span class="n">iterdir</span><span class="p">()))</span>
+        <span class="k">for</span> <span class="n">count</span><span class="p">,</span> <span class="n">modality_file</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">files</span><span class="p">):</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">modality_file</span><span class="p">,</span> <span class="n">modality_folder</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">modality</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s1">.dcm&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">modality_file</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, L. Alborghetti, G. Palazzo, M. Pavarini, M. G. Ubeira Gabellini.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

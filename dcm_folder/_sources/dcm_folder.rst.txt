@@ -1,0 +1,37 @@
+dcm\_folder package
+===================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   dcm_folder.main_scripts
+
+Submodules
+----------
+
+dcm\_folder.folder\_organization module
+---------------------------------------
+
+.. automodule:: dcm_folder.folder_organization
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+dcm\_folder.rtv\_parameter module
+---------------------------------
+
+.. automodule:: dcm_folder.rtv_parameter
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: dcm_folder
+   :members:
+   :undoc-members:
+   :show-inheritance:
