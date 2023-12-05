@@ -1,0 +1,7 @@
+dcm_anonymize
+=============
+
+.. toctree::
+   :maxdepth: 4
+
+   dcm_anonymize
