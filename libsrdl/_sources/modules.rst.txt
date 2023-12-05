@@ -1,0 +1,7 @@
+libsrdl
+=======
+
+.. toctree::
+   :maxdepth: 4
+
+   libsrdl

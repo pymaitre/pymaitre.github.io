@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>libsrdl.my_plots &mdash; libsrdl 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            libsrdl
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">libsrdl</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">libsrdl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">libsrdl.my_plots</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for libsrdl.my_plots</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Plots needed for checks.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.patches</span> <span class="kn">import</span> <span class="n">Rectangle</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">ConfusionMatrixDisplay</span>
+<span class="kn">import</span> <span class="nn">roc_utils</span> <span class="k">as</span> <span class="nn">ru</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">matplotlib.ticker</span> <span class="kn">import</span> <span class="n">FormatStrFormatter</span>
+<span class="kn">from</span> <span class="nn">cycler</span> <span class="kn">import</span> <span class="n">cycler</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="kn">import</span> <span class="nn">libsrdl.objects</span> <span class="k">as</span> <span class="nn">my_obj</span>
+
+<div class="viewcode-block" id="plot_history"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.plot_history">[docs]</a><span class="k">def</span> <span class="nf">plot_history</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">pathout</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">),</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print graphics of loss during training and validation.</span>
+
+<span class="sd">    :param history: callback of model history (history object)</span>
+<span class="sd">    :param pathout: directory path for the plot image (Path)</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;conf&quot;</span> <span class="o">/</span> <span class="s2">&quot;presentation.mplstyle&quot;</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">))</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">17</span><span class="p">))</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">hspace</span><span class="o">=-</span><span class="mi">15</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Classifier loss&quot;</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Bounding box loss&quot;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;classifier_loss&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;classifier loss&quot;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_classifier_loss&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;val classifier loss&quot;</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;bounding_box_loss&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;bounding box loss&quot;</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_bounding_box_loss&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;val bounding box loss&quot;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Epochs&quot;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Classifier_loss&quot;</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Epochs&quot;</span><span class="p">)</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Bounding_box_loss&quot;</span><span class="p">)</span>
+        <span class="n">pathout</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">pathout</span> <span class="o">/</span> <span class="s2">&quot;history.png&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="plot_classifier_loss"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.plot_classifier_loss">[docs]</a><span class="k">def</span> <span class="nf">plot_classifier_loss</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">pathout</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">),</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print graphics of classifier loss during training and validation.</span>
+
+<span class="sd">    :param history: callback of model history (history object)</span>
+<span class="sd">    :param pathout: directory path for the plot image (Path)</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;conf&quot;</span> <span class="o">/</span> <span class="s2">&quot;presentation.mplstyle&quot;</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Classifier loss&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;classifier_loss&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;classifier loss&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_classifier_loss&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;val classifier loss&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epochs&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Classifier_loss&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+            <span class="n">pathout</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">pathout</span> <span class="o">/</span> <span class="s2">&quot;classifier_loss.png&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="plot_bounding_box_loss"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.plot_bounding_box_loss">[docs]</a><span class="k">def</span> <span class="nf">plot_bounding_box_loss</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">pathout</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">),</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print graphics of classifier loss during training and validation.</span>
+
+<span class="sd">    :param history: callback of model history (history object)</span>
+<span class="sd">    :param pathout: directory path for the plot image (Path)</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;conf&quot;</span> <span class="o">/</span> <span class="s2">&quot;presentation.mplstyle&quot;</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Bounding box loss&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;bounding_box_loss&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;bounding box loss&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_bounding_box_loss&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;val bounding box loss&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epochs&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Bounding_box_loss&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+            <span class="n">pathout</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">pathout</span> <span class="o">/</span> <span class="s2">&quot;bounding_box_loss.png&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="plot_accuracy"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.plot_accuracy">[docs]</a><span class="k">def</span> <span class="nf">plot_accuracy</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">pathout</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">),</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print graphics of accuracy during training and validation.</span>
+
+<span class="sd">    :param history: callback of model history (history object)</span>
+<span class="sd">    :param pathout: directory path for the plot image (Path)</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;conf&quot;</span> <span class="o">/</span> <span class="s2">&quot;presentation.mplstyle&quot;</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Accuracy&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;classifier_acc&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;classifier acc&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_classifier_acc&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;val classifier acc&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epochs&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Classifier_acc&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+            <span class="n">pathout</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">pathout</span> <span class="o">/</span> <span class="s2">&quot;accuracy.png&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="plot_sample"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.plot_sample">[docs]</a><span class="k">def</span> <span class="nf">plot_sample</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">boxes</span><span class="p">,</span> <span class="n">pclasses</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pboxes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">scaling</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">plot_predictions</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+     <span class="n">pathout</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">),</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Print of some images with real bounding box and its prediction.</span>
+
+<span class="sd">    :param images: images to plot (numpy array)</span>
+<span class="sd">    :param classes: labels of images (boolean array)</span>
+<span class="sd">    :param boxes: bounding box to plot (array)</span>
+<span class="sd">    :param pclasses: int variable describing type of target (int)</span>
+<span class="sd">    :param pboxes: coordinate of predicted boxes (array)</span>
+<span class="sd">    :param scaling: boolean variable which allows to scale images (bool)</span>
+<span class="sd">    :param plot_predictions: boolean for presence of target (bool)</span>
+<span class="sd">    :param pathout: directory path for the plot image (Path)</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">scaling</span><span class="p">:</span>
+        <span class="n">image_size</span> <span class="o">=</span> <span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">image_size</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">25</span><span class="p">):</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">([])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">images</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">)</span>
+        <span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">boxes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">image_size</span><span class="p">,</span> <span class="n">boxes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">image_size</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
+            <span class="n">Rectangle</span><span class="p">(</span>
+                <span class="n">center</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">boxes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">boxes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">image_size</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">boxes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">boxes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">image_size</span><span class="p">,</span>
+                <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+                <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+                <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;observed&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">plot_predictions</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">pclasses</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">pboxes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">image_size</span><span class="p">,</span> <span class="n">pboxes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">image_size</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
+                    <span class="n">Rectangle</span><span class="p">(</span>
+                        <span class="n">center</span><span class="p">,</span>
+                        <span class="p">(</span><span class="n">pboxes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">pboxes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">image_size</span><span class="p">,</span>
+                        <span class="p">(</span><span class="n">pboxes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">pboxes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">image_size</span><span class="p">,</span>
+                        <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+                        <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+                        <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;predicted&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
+                    <span class="n">Rectangle</span><span class="p">(</span>
+                        <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">),</span>
+                        <span class="mi">0</span><span class="p">,</span>
+                        <span class="mi">0</span><span class="p">,</span>
+                        <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span>
+                        <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span>
+                        <span class="n">lw</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;predicted&quot;</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+        <span class="c1"># plt.legend(loc=&quot;upper left&quot;, prop={&quot;size&quot;: 6})</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+            <span class="mf">0.05</span> <span class="o">*</span> <span class="n">image_size</span><span class="p">,</span>
+            <span class="mf">0.14</span> <span class="o">*</span> <span class="n">image_size</span><span class="p">,</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">classes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+            <span class="mf">0.22</span> <span class="o">*</span> <span class="n">image_size</span><span class="p">,</span>
+            <span class="mf">0.14</span> <span class="o">*</span> <span class="n">image_size</span><span class="p">,</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">pclasses</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span>
+            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.2</span><span class="p">),</span>
+        <span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;observed&quot;</span><span class="p">,</span> <span class="s2">&quot;predicted&quot;</span><span class="p">],</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.33</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.05</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="n">pathout</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">pathout</span> <span class="o">/</span> <span class="s2">&quot;validation_images_boxes.png&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="my_roc_plot"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.my_roc_plot">[docs]</a><span class="k">def</span> <span class="nf">my_roc_plot</span><span class="p">(</span><span class="n">pathout</span><span class="p">,</span> <span class="n">pred_train</span><span class="p">,</span> <span class="n">obs_train</span><span class="p">,</span> <span class="n">pred_val</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">obs_val</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ROC Curve plot.</span>
+
+<span class="sd">    :param pathout: directory path for the plot image (Path)</span>
+<span class="sd">    :param pred_train: predicted labels from training (int array)</span>
+<span class="sd">    :param obs_train: labels of training images (int array)</span>
+<span class="sd">    :param pred_val: predicted labels from validation (int array)</span>
+<span class="sd">    :param obs_val: labels of validation images (int array)</span>
+<span class="sd">    :param n_samples: number of samples (int)</span>
+<span class="sd">    :return: rocT.opd[&quot;youden&quot;].opt: ROC value obtained for training (double)</span>
+<span class="sd">    :return: rocV.opd[&quot;youden&quot;].opt: ROC value obtained for validation (double)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">pos_label</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">rocT</span> <span class="o">=</span> <span class="n">ru</span><span class="o">.</span><span class="n">compute_roc</span><span class="p">(</span>
+        <span class="n">X</span><span class="o">=</span><span class="n">pred_train</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">obs_train</span><span class="p">,</span>
+        <span class="n">pos_label</span><span class="o">=</span><span class="n">pos_label</span><span class="p">,</span>
+        <span class="n">objective</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;minopt&quot;</span><span class="p">,</span> <span class="s2">&quot;minoptsym&quot;</span><span class="p">,</span> <span class="s2">&quot;youden&quot;</span><span class="p">,</span> <span class="s2">&quot;cost&quot;</span><span class="p">,</span> <span class="s2">&quot;concordance&quot;</span><span class="p">,</span> <span class="s2">&quot;acc&quot;</span><span class="p">,</span> <span class="s2">&quot;cohen&quot;</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">pred_val</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">rocV</span> <span class="o">=</span> <span class="n">ru</span><span class="o">.</span><span class="n">compute_roc</span><span class="p">(</span>
+            <span class="n">X</span><span class="o">=</span><span class="n">pred_val</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">obs_val</span><span class="p">,</span>
+            <span class="n">pos_label</span><span class="o">=</span><span class="n">pos_label</span><span class="p">,</span>
+            <span class="n">objective</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;minopt&quot;</span><span class="p">,</span> <span class="s2">&quot;minoptsym&quot;</span><span class="p">,</span> <span class="s2">&quot;youden&quot;</span><span class="p">,</span> <span class="s2">&quot;cost&quot;</span><span class="p">,</span> <span class="s2">&quot;concordance&quot;</span><span class="p">,</span> <span class="s2">&quot;acc&quot;</span><span class="p">,</span> <span class="s2">&quot;cohen&quot;</span><span class="p">],</span>
+        <span class="p">)</span>
+    <span class="c1"># To perform a ROC analysis using bootstrapping</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+        <span class="n">rocT</span><span class="p">[</span><span class="s2">&quot;opd&quot;</span><span class="p">][</span><span class="s2">&quot;youden&quot;</span><span class="p">][</span><span class="s2">&quot;opp&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">rocT</span><span class="p">[</span><span class="s2">&quot;opd&quot;</span><span class="p">][</span><span class="s2">&quot;youden&quot;</span><span class="p">][</span><span class="s2">&quot;opp&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;crimson&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Opt point Train, tr: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">rocT</span><span class="o">.</span><span class="n">opd</span><span class="p">[</span><span class="s2">&quot;youden&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">opt</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">ru</span><span class="o">.</span><span class="n">plot_roc_bootstrap</span><span class="p">(</span>
+        <span class="n">X</span><span class="o">=</span><span class="n">pred_train</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">obs_train</span><span class="p">,</span>
+        <span class="n">pos_label</span><span class="o">=</span><span class="n">pos_label</span><span class="p">,</span>
+        <span class="n">n_bootstrap</span><span class="o">=</span><span class="n">n_samples</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;crimson&quot;</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Data Train&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">pred_val</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="n">rocV</span><span class="p">[</span><span class="s2">&quot;opd&quot;</span><span class="p">][</span><span class="s2">&quot;youden&quot;</span><span class="p">][</span><span class="s2">&quot;opp&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">rocV</span><span class="p">[</span><span class="s2">&quot;opd&quot;</span><span class="p">][</span><span class="s2">&quot;youden&quot;</span><span class="p">][</span><span class="s2">&quot;opp&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;royalblue&quot;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Opt point Val, tr: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">rocV</span><span class="o">.</span><span class="n">opd</span><span class="p">[</span><span class="s2">&quot;youden&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">opt</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">ru</span><span class="o">.</span><span class="n">plot_roc_bootstrap</span><span class="p">(</span>
+            <span class="n">X</span><span class="o">=</span><span class="n">pred_val</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">obs_val</span><span class="p">,</span>
+            <span class="n">pos_label</span><span class="o">=</span><span class="n">pos_label</span><span class="p">,</span>
+            <span class="n">n_bootstrap</span><span class="o">=</span><span class="n">n_samples</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;royalblue&quot;</span><span class="p">,</span>
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Data Val&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pathout</span><span class="p">,</span> <span class="s2">&quot;ROC_train_val.png&quot;</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">rocT</span><span class="o">.</span><span class="n">opd</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span>
+            <span class="s2">&quot;train: </span><span class="si">%-15s</span><span class="s2"> thr=</span><span class="si">% .3f</span><span class="s2">, J=</span><span class="si">%7.3f</span><span class="s2">, opt point=</span><span class="si">%7.3f</span><span class="s2">, </span><span class="si">%7.3f</span><span class="s2">&quot;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">.</span><span class="n">opt</span><span class="p">,</span> <span class="n">val</span><span class="o">.</span><span class="n">opo</span><span class="p">,</span> <span class="n">val</span><span class="o">.</span><span class="n">opp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">val</span><span class="o">.</span><span class="n">opp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">pred_val</span><span class="p">)</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">rocV</span><span class="o">.</span><span class="n">opd</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span>
+                <span class="s2">&quot;val: </span><span class="si">%-15s</span><span class="s2"> thr=</span><span class="si">% .3f</span><span class="s2">, J=</span><span class="si">%7.3f</span><span class="s2">, opt point=</span><span class="si">%7.3f</span><span class="s2">, </span><span class="si">%7.3f</span><span class="s2">&quot;</span>
+                <span class="o">%</span> <span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">val</span><span class="o">.</span><span class="n">opt</span><span class="p">,</span> <span class="n">val</span><span class="o">.</span><span class="n">opo</span><span class="p">,</span> <span class="n">val</span><span class="o">.</span><span class="n">opp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">val</span><span class="o">.</span><span class="n">opp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">rocT</span><span class="o">.</span><span class="n">opd</span><span class="p">[</span><span class="s2">&quot;youden&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">opt</span><span class="p">,</span> <span class="n">rocV</span><span class="o">.</span><span class="n">opd</span><span class="p">[</span><span class="s2">&quot;youden&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">opt</span></div>
+
+
+<div class="viewcode-block" id="my_confusion_matrix"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.my_confusion_matrix">[docs]</a><span class="k">def</span> <span class="nf">my_confusion_matrix</span><span class="p">(</span><span class="n">pathout</span><span class="p">,</span> <span class="n">obs_y</span><span class="p">,</span> <span class="n">pred_y</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot of confusion matrix and main features of the used model</span>
+
+<span class="sd">    :param pathout: directory path for the plot of confusion matrix (Path)</span>
+<span class="sd">    :param obs_y: labels of validation images (int array)</span>
+<span class="sd">    :param pred_y: predicted labels from validation (int array)</span>
+<span class="sd">    :return: class_report: text with main feature of the model (str)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Confusion matrix</span>
+    <span class="n">cm</span> <span class="o">=</span> <span class="n">ConfusionMatrixDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span><span class="n">obs_y</span><span class="p">,</span> <span class="n">pred_y</span><span class="p">)</span>  <span class="c1"># , thresholds[ix]</span>
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="n">cm</span><span class="o">.</span><span class="n">figure_</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pathout</span><span class="p">,</span> <span class="s2">&quot;conf_matrix_train.png&quot;</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">class_report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span><span class="n">obs_y</span><span class="p">,</span> <span class="n">pred_y</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">class_report</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">class_report</span></div>
+
+
+<div class="viewcode-block" id="my_classification_report"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.my_classification_report">[docs]</a><span class="k">def</span> <span class="nf">my_classification_report</span><span class="p">(</span><span class="n">pathout</span><span class="p">,</span> <span class="n">obs_y</span><span class="p">,</span> <span class="n">pred_y</span><span class="p">,</span> <span class="n">classes</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    plot of classification report with the main feature of the model.</span>
+
+<span class="sd">    :param pathout: directory path for the plot of classification report (Path)</span>
+<span class="sd">    :param obs_y: labels of validation images (int array)</span>
+<span class="sd">    :param pred_y: predicted labels from validation (int array)</span>
+<span class="sd">    :param classes: classes to analize (2d array of str)</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="c1"># print(classification_report(obs_y, pred_y))</span>
+    <span class="n">clf_report</span> <span class="o">=</span> <span class="n">classification_report</span><span class="p">(</span>
+        <span class="n">obs_y</span><span class="p">,</span> <span class="n">pred_y</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">target_names</span><span class="o">=</span><span class="n">classes</span><span class="p">,</span> <span class="n">output_dict</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">clf_report</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Classification report&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">pathout</span> <span class="o">/</span> <span class="s2">&quot;classification_report.png&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="history_to_csv"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.history_to_csv">[docs]</a><span class="k">def</span> <span class="nf">history_to_csv</span><span class="p">(</span><span class="n">pathout</span><span class="p">,</span> <span class="n">history</span><span class="p">,</span> <span class="n">name_file</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    save history model in .csv file.</span>
+
+<span class="sd">    :param pathout: directory path for .csv file (Path)</span>
+<span class="sd">    :param history: report of model</span>
+<span class="sd">    :param name_file: name of .csv file (str)</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">name_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">name_file</span> <span class="o">=</span> <span class="s2">&quot;history.csv&quot;</span>
+    <span class="n">hist_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">)</span>
+    <span class="n">hist_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">pathout</span> <span class="o">/</span> <span class="n">name_file</span><span class="p">,</span> <span class="n">sep</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="rtv_configuration_file"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.rtv_configuration_file">[docs]</a><span class="k">def</span> <span class="nf">rtv_configuration_file</span><span class="p">(</span><span class="n">conf_file</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">pathout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Save a copy of.yaml file in .txt format in pathout.</span>
+
+<span class="sd">    :param conf_file: name of the configuration file (str)</span>
+<span class="sd">    :param path: path of configuration file (Path)</span>
+<span class="sd">    :param save: boolean variable to enable saving (bool)</span>
+<span class="sd">    :param pathout: path for a copy of .yaml file (Path)</span>
+<span class="sd">    :return: config: python object of configuration variables (object)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">config_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">config_path</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;conf&quot;</span> <span class="o">/</span> <span class="n">conf_file</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">FullLoader</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">pathout</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">pathout</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">source</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">pathout</span> <span class="o">/</span> <span class="s2">&quot;conf.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dest</span><span class="p">:</span>
+            <span class="n">dest</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">source</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">config</span></div>
+
+
+<div class="viewcode-block" id="plot_isocentre_xy_distribution"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.plot_isocentre_xy_distribution">[docs]</a><span class="k">def</span> <span class="nf">plot_isocentre_xy_distribution</span><span class="p">(</span><span class="n">aggregated_xy</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">save</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">save_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot x and y median isocentre distibution between different patients and the median of distribution.</span>
+
+<span class="sd">    :param aggregated_xy: dataframe with median_x, median_y for each patient (pd.DataFrame())</span>
+<span class="sd">    :param save: boolean to save plot or not (bool). Default=False.</span>
+<span class="sd">    :param save_path: path where to save the plot (Path). Default=None.</span>
+<span class="sd">    :return: ax: axis with plots.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">aggregated_xy</span><span class="p">[</span><span class="s1">&#39;median_x&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;royalblue&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">aggregated_xy</span><span class="p">[</span><span class="s1">&#39;median_x&#39;</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;x center&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">aggregated_xy</span><span class="p">[</span><span class="s1">&#39;median_y&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;crimson&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">aggregated_xy</span><span class="p">[</span><span class="s1">&#39;median_y&#39;</span><span class="p">]),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;y center&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">([</span><span class="s1">&#39;default&#39;</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Center distribution&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">FormatStrFormatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%.2f</span><span class="s1">&#39;</span><span class="p">))</span>
+    <span class="c1"># ax.yaxis.set_major_formatter(FormatStrFormatter(&#39;%.1f&#39;))</span>
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_path</span> <span class="o">/</span> <span class="s2">&quot;Isocentre_xy_distribution.jpeg&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ax</span></div>
+
+
+<div class="viewcode-block" id="random_npatient_nslice"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.random_npatient_nslice">[docs]</a><span class="k">def</span> <span class="nf">random_npatient_nslice</span><span class="p">(</span><span class="n">n_patient</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n_random</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Random list of patient and random list of slices derived in the list of patient considered and in a range of central slices.</span>
+
+<span class="sd">    :param n_patient: number of patients considered (int).</span>
+<span class="sd">    :param n_random: number of random numbers to be generated (int).</span>
+<span class="sd">    :param seed: seed used a starting point to generate random numbers (int).</span>
+<span class="sd">    :return: index_sample: list of random indexes for patients.</span>
+<span class="sd">    :return: index_slice: list of random indexes for slices.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span> <span class="o">=</span> <span class="n">seed</span>
+    <span class="n">index_sample</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">n_patient</span><span class="p">),</span> <span class="n">n_random</span><span class="p">))</span>
+    <span class="n">index_slice</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">36</span><span class="p">),</span> <span class="n">n_random</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">index_sample</span><span class="p">,</span> <span class="n">index_slice</span></div>
+
+
+<div class="viewcode-block" id="plot_single_image_mask"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.plot_single_image_mask">[docs]</a><span class="k">def</span> <span class="nf">plot_single_image_mask</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">n_slice</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot one patient slice with its mask.</span>
+
+<span class="sd">    :param image: CT image slice (np.ndarray, shape (x,y)).</span>
+<span class="sd">    :param mask: mask of RT structure relative to image (np.ndarray).</span>
+<span class="sd">    :param n_slice: number of slice to be plotted (int).</span>
+<span class="sd">    :param axes: pre given axis. Default=None.</span>
+<span class="sd">    :return: axes: set of 3 images (ct slice, mask and slice*mask)</span>
+<span class="sd">    :return: im: output of axes.imshow()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Plot CT, RT, CT*RT&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="n">n_slice</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1000</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mask</span><span class="p">[</span><span class="n">n_slice</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># axes[0,1].scatter(aggregated_xy[&#39;median_x&#39;][index_sample[0]]-shift_all[2][&quot;left&quot;], aggregated_xy[&#39;median_y&#39;][2]-shift_all[2][&quot;upper&quot;],zorder=2, color=&#39;r&#39;)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="n">n_slice</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">*</span> <span class="n">mask</span><span class="p">[</span><span class="n">n_slice</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:],</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">axes</span><span class="p">,</span> <span class="n">im</span></div>
+
+
+<div class="viewcode-block" id="plot_single_ct"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.plot_single_ct">[docs]</a><span class="k">def</span> <span class="nf">plot_single_ct</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">center_xy</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot one image with on top its isocentre.</span>
+
+<span class="sd">    :param image: ct image slice (np.ndarray, shape (x,y)).</span>
+<span class="sd">    :param center_xy: isocentre center_xy[0] is x and center_xy[1] is y (list).</span>
+<span class="sd">    :param axes: pre given axis. Default=None.</span>
+<span class="sd">    :return: axes: set of images.</span>
+<span class="sd">    :return: im: output of axes.imshow().</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+        <span class="c1"># plt.title(&#39;Plot CT, RT, CT*RT&#39;, size=15)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1000</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="n">axes</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">center_xy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">center_xy</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">axes</span><span class="p">,</span> <span class="n">im</span></div>
+
+
+<div class="viewcode-block" id="plot_crop_rectangle_over_image"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.plot_crop_rectangle_over_image">[docs]</a><span class="k">def</span> <span class="nf">plot_crop_rectangle_over_image</span><span class="p">(</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">crop_rectangle</span><span class="p">:</span> <span class="n">my_obj</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">,</span>
+    <span class="n">isocentre</span><span class="p">:</span> <span class="n">my_obj</span><span class="o">.</span><span class="n">Point</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">rectangle_color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">isocentre_color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">axes</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">padding</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot CT slice for one patient with on top first guess rectangle (in blue) and adjusted rectangle (in red) to be</span>
+<span class="sd">    used for crop and isocentre derived as red point.</span>
+
+<span class="sd">    :param image: CT image slice (np.ndarray, shape (x,y)).</span>
+<span class="sd">    :param crop_rectangle: Rectangle used for crop (Rectangle).</span>
+<span class="sd">    :param isocentre: isocentre x and y positions (Point).</span>
+<span class="sd">    :param rectangle_color: color of rectangle superimposed (str).</span>
+<span class="sd">    :param isocentre_color: color of isocentre superimposed (str).</span>
+<span class="sd">    :param axes: pre given axis. Default=None.</span>
+<span class="sd">    :param padding: value used to enlarge the image to have the rectangle subscripted in it (int).</span>
+<span class="sd">    :param kwargs: extra arguments.</span>
+<span class="sd">    :return: axes: set of images.</span>
+<span class="sd">    :return: im: output of axes.imshow().</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+    <span class="n">padded_image</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">((</span><span class="n">padding</span><span class="p">,</span> <span class="n">padding</span><span class="p">),</span> <span class="p">(</span><span class="n">padding</span><span class="p">,</span> <span class="n">padding</span><span class="p">)),</span> <span class="s1">&#39;constant&#39;</span><span class="p">,</span> <span class="n">constant_values</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+    <span class="n">im</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">padded_image</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greys_r&quot;</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mi">1000</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+    <span class="n">crop_rectangle</span><span class="o">.</span><span class="n">upper_left_x</span> <span class="o">+=</span> <span class="n">padding</span>
+    <span class="n">crop_rectangle</span><span class="o">.</span><span class="n">upper_left_y</span> <span class="o">+=</span> <span class="n">padding</span>
+    <span class="n">isocentre</span> <span class="o">+=</span> <span class="n">my_obj</span><span class="o">.</span><span class="n">Point</span><span class="p">(</span><span class="n">padding</span><span class="p">,</span> <span class="n">padding</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">rectangle_color</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">rectangle_plot_options</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">rectangle_color</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rectangle_plot_options</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">crop_rectangle</span><span class="o">.</span><span class="n">draw</span><span class="p">(),</span> <span class="o">**</span><span class="n">rectangle_plot_options</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">isocentre</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">isocentre_color</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">isocentre_plot_options</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;color&quot;</span><span class="p">:</span> <span class="n">isocentre_color</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">isocentre_plot_options</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">axes</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">isocentre</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">isocentre</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">isocentre_plot_options</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">axes</span><span class="p">,</span> <span class="n">im</span></div>
+
+
+<div class="viewcode-block" id="plot_multi_image_masks"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.plot_multi_image_masks">[docs]</a><span class="k">def</span> <span class="nf">plot_multi_image_masks</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">my_obj</span><span class="o">.</span><span class="n">ImageCT</span><span class="p">],</span> <span class="n">index_sample</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">index_slice</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">n_patient</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                           <span class="n">save</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">pathout</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot of multi patient of the function plot_single_image_mask.</span>
+
+<span class="sd">    :param image: list of ImageCT objects (list[my_obj.ImageCT]).</span>
+<span class="sd">    :param index_sample: list with indexes of patients to be plotted (list).</span>
+<span class="sd">    :param index_slice: list with indexes of slices to be plotted (list).</span>
+<span class="sd">    :param n_patient: number of images+rtstruct+images*rtstruct to be plotted (int).</span>
+<span class="sd">    :param save: boolean to save plot or not (bool). Default=False.</span>
+<span class="sd">    :param pathout: path where to save the plot (Path). Default=None.</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="n">n_patient</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">2.3</span> <span class="o">*</span> <span class="n">n_patient</span><span class="p">))</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i_sample</span> <span class="ow">in</span> <span class="n">index_sample</span><span class="p">:</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:],</span> <span class="n">im</span> <span class="o">=</span> <span class="n">plot_single_image_mask</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="n">i_sample</span><span class="p">]</span><span class="o">.</span><span class="n">array_ct</span><span class="p">,</span> <span class="n">image</span><span class="p">[</span><span class="n">i_sample</span><span class="p">]</span><span class="o">.</span><span class="n">masks</span><span class="p">[</span><span class="s2">&quot;Target&quot;</span><span class="p">],</span>
+                                              <span class="n">index_slice</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])</span>
+        <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="s1">&#39;ID:&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="n">i_sample</span><span class="p">]</span><span class="o">.</span><span class="n">patient_id</span><span class="p">),</span>
+                      <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="p">[</span><span class="n">axi</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span> <span class="k">for</span> <span class="n">axi</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">()]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="c1"># plt.subplots_adjust(wspace=0.01, hspace=0.0)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;HU&quot;</span><span class="p">)</span>  <span class="c1"># , anchor=(0.5,0.0)</span>
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">pathout</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;multi_ct_mask.png&#39;</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="plot_multi_ct"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.plot_multi_ct">[docs]</a><span class="k">def</span> <span class="nf">plot_multi_ct</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">my_obj</span><span class="o">.</span><span class="n">ImageCT</span><span class="p">],</span> <span class="n">index_sample</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">index_slice</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">n_patient</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                           <span class="n">save</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">pathout</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot of multi patient of the function plot_single_ct.</span>
+
+<span class="sd">    :param image: list of ImageCT objects (list[my_obj.ImageCT]).</span>
+<span class="sd">    :param index_sample: list with indexes of patients to be plotted (list).</span>
+<span class="sd">    :param index_slice: list with indexes of slices to be plotted (list).</span>
+<span class="sd">    :param n_patient: number of images to be plotted (int).</span>
+<span class="sd">    :param save: boolean to save plot or not (bool). Default=False.</span>
+<span class="sd">    :param pathout: path where to save the plot (Path). Default=None.</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">2.3</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_patient</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">patient_id</span> <span class="o">=</span> <span class="n">index_sample</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span>
+            <span class="n">i_slice</span> <span class="o">=</span> <span class="n">index_slice</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span>
+            <span class="n">single_image</span> <span class="o">=</span> <span class="n">image</span><span class="p">[</span><span class="n">patient_id</span><span class="p">]</span><span class="o">.</span><span class="n">array_ct</span><span class="p">[</span><span class="n">i_slice</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+            <span class="n">center_xy</span> <span class="o">=</span> <span class="p">[</span><span class="n">image</span><span class="p">[</span><span class="n">patient_id</span><span class="p">]</span><span class="o">.</span><span class="n">isocentre</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">image</span><span class="p">[</span><span class="n">patient_id</span><span class="p">]</span><span class="o">.</span><span class="n">isocentre</span><span class="o">.</span><span class="n">y</span><span class="p">]</span>
+            <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">im</span> <span class="o">=</span> <span class="n">plot_single_ct</span><span class="p">(</span><span class="n">single_image</span><span class="p">,</span> <span class="n">center_xy</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
+            <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="s1">&#39;ID:&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="n">patient_id</span><span class="p">]</span><span class="o">.</span><span class="n">patient_id</span><span class="p">),</span>
+                            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+    <span class="p">[</span><span class="n">axi</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span> <span class="k">for</span> <span class="n">axi</span> <span class="ow">in</span> <span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">()]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="c1"># plt.subplots_adjust(wspace=0.01, hspace=0.01)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;HU&quot;</span><span class="p">)</span>  <span class="c1"># , cax=cbaxes)</span>
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">pathout</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;multi_ct_isocenter.png&#39;</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="plot_multi_crop_rect_over_image"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.my_plots.plot_multi_crop_rect_over_image">[docs]</a><span class="k">def</span> <span class="nf">plot_multi_crop_rect_over_image</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">my_obj</span><span class="o">.</span><span class="n">ImageCT</span><span class="p">],</span> <span class="n">index_sample</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">index_slice</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> <span class="n">n_patient</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+                                    <span class="n">crop_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">save</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">pathout</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">plot_orig_rect</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Plot of multi patient of the function plot_crop_rectangle_over_image.</span>
+
+<span class="sd">    :param image: list of ImageCT objects (list[my_obj.ImageCT]).</span>
+<span class="sd">    :param index_sample: list with indexes of patients to be plotted (list).</span>
+<span class="sd">    :param index_slice: list with indexes of slices to be plotted (list).</span>
+<span class="sd">    :param n_patient: number of images to be plotted (int).</span>
+<span class="sd">    :param crop_size: final xy size of the cropped image (int).</span>
+<span class="sd">    :param save: boolean to save plot or not (bool). Default=False.</span>
+<span class="sd">    :param pathout: path where to save the plot (Path). Default=None.</span>
+<span class="sd">    :param plot_orig_rect: boolean to plot or not the original rectangle (bool). Default=False.</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">padding</span> <span class="o">=</span> <span class="mi">40</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mf">2.3</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_patient</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">patient_id</span> <span class="o">=</span> <span class="n">index_sample</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span>
+            <span class="n">i_slice</span> <span class="o">=</span> <span class="n">index_slice</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span>
+            <span class="n">single_image</span> <span class="o">=</span> <span class="n">image</span><span class="p">[</span><span class="n">patient_id</span><span class="p">]</span><span class="o">.</span><span class="n">array_ct</span><span class="p">[</span><span class="n">i_slice</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span>
+            <span class="n">rectangle</span> <span class="o">=</span> <span class="n">my_obj</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span><span class="n">lower_right_point</span><span class="o">=</span><span class="n">image</span><span class="p">[</span><span class="n">patient_id</span><span class="p">]</span><span class="o">.</span><span class="n">isocentre</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">crop_size</span><span class="p">)</span>
+            <span class="n">crop_rectangle</span> <span class="o">=</span> <span class="n">my_obj</span><span class="o">.</span><span class="n">CropRectangle</span><span class="p">(</span><span class="n">original_rectangle</span><span class="o">=</span><span class="n">rectangle</span><span class="p">,</span> <span class="n">image_to_crop</span><span class="o">=</span><span class="n">single_image</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">plot_orig_rect</span><span class="p">:</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">im</span> <span class="o">=</span> <span class="n">plot_crop_rectangle_over_image</span><span class="p">(</span><span class="n">single_image</span><span class="p">,</span> <span class="n">rectangle</span><span class="p">,</span> <span class="n">image</span><span class="p">[</span><span class="n">patient_id</span><span class="p">]</span><span class="o">.</span><span class="n">isocentre</span><span class="p">,</span>
+                                                                <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="n">padding</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">im</span> <span class="o">=</span> <span class="n">plot_crop_rectangle_over_image</span><span class="p">(</span><span class="n">single_image</span><span class="p">,</span> <span class="n">crop_rectangle</span><span class="p">,</span> <span class="n">image</span><span class="p">[</span><span class="n">patient_id</span><span class="p">]</span><span class="o">.</span><span class="n">isocentre</span><span class="p">,</span>
+                                                            <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="n">padding</span><span class="p">)</span>
+            <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">30</span> <span class="o">+</span> <span class="n">padding</span><span class="p">,</span> <span class="mi">512</span> <span class="o">-</span> <span class="mi">50</span> <span class="o">+</span> <span class="n">padding</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;ID: </span><span class="si">{</span><span class="n">image</span><span class="p">[</span><span class="n">patient_id</span><span class="p">]</span><span class="o">.</span><span class="n">patient_id</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>
+                            <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span>
+                            <span class="n">color</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+    <span class="p">[</span><span class="n">axi</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span> <span class="k">for</span> <span class="n">axi</span> <span class="ow">in</span> <span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">()]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="c1"># plt.subplots_adjust(wspace=0.01, hspace=0.01)</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="n">shrink</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;HU&quot;</span><span class="p">)</span>  <span class="c1"># , cax=cbaxes)</span>
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">pathout</span> <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;multi_ct_crop_rects.png&#39;</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, G. Palazzo, M.G. Ubeira-Gabellini.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

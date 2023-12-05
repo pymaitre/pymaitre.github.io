@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>libsrdl.test.test_metrics &mdash; srmip 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            srmip
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">libsrdl</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">srmip</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">libsrdl.test.test_metrics</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for libsrdl.test.test_metrics</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Test metrics functions.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">random</span><span class="p">,</span> <span class="n">randint</span>
+
+<span class="kn">from</span> <span class="nn">libsrdl</span> <span class="kn">import</span> <span class="n">intersection_over_union</span><span class="p">,</span> <span class="n">check_iou</span>
+
+
+<div class="viewcode-block" id="generate_random_bounding_box"><a class="viewcode-back" href="../../../libsrdl.test.html#libsrdl.test.test_metrics.generate_random_bounding_box">[docs]</a><span class="k">def</span> <span class="nf">generate_random_bounding_box</span><span class="p">(</span>
+    <span class="n">image_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span> <span class="n">x_rand_min</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y_rand_min</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate a random bounding box.</span>
+
+<span class="sd">    :param image_size: maximum value for x and y (int)</span>
+<span class="sd">    :param x_rand_min: minimum value for random generated x (int)</span>
+<span class="sd">    :param y_rand_min: minimum value for random generated y (int)</span>
+<span class="sd">    :return: list containing the bounding box (x_min, y_min, x_max, y_max) (list(int))</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x_1</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="n">x_rand_min</span><span class="p">,</span> <span class="n">image_size</span><span class="p">)</span>
+    <span class="n">x_2</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="n">x_rand_min</span><span class="p">,</span> <span class="n">image_size</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">x_2</span> <span class="o">==</span> <span class="n">x_1</span><span class="p">:</span>
+        <span class="n">x_2</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="n">x_rand_min</span><span class="p">,</span> <span class="n">image_size</span><span class="p">)</span>
+    <span class="n">x_min</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x_1</span><span class="p">,</span> <span class="n">x_2</span><span class="p">)</span>
+    <span class="n">x_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">x_1</span><span class="p">,</span> <span class="n">x_2</span><span class="p">)</span>
+    <span class="n">y_1</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="n">y_rand_min</span><span class="p">,</span> <span class="n">image_size</span><span class="p">)</span>
+    <span class="n">y_2</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="n">y_rand_min</span><span class="p">,</span> <span class="n">image_size</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">y_2</span> <span class="o">==</span> <span class="n">y_1</span><span class="p">:</span>
+        <span class="n">y_2</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="n">y_rand_min</span><span class="p">,</span> <span class="n">image_size</span><span class="p">)</span>
+    <span class="n">y_min</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">y_1</span><span class="p">,</span> <span class="n">y_2</span><span class="p">)</span>
+    <span class="n">y_max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">y_1</span><span class="p">,</span> <span class="n">y_2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">x_min</span><span class="p">,</span> <span class="n">y_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">y_max</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="generate_overlapping_boxes"><a class="viewcode-back" href="../../../libsrdl.test.html#libsrdl.test.test_metrics.generate_overlapping_boxes">[docs]</a><span class="k">def</span> <span class="nf">generate_overlapping_boxes</span><span class="p">(</span>
+    <span class="n">num_boxes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate perfectly overlapping bounding boxes.</span>
+
+<span class="sd">    :param num_boxes: number of bounding boxes to generate</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">image_size</span> <span class="o">=</span> <span class="mi">256</span>
+    <span class="n">overlapping_boxes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">overlapping_ious</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_boxes</span><span class="p">):</span>
+        <span class="n">overlapping_boxes</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">generate_random_bounding_box</span><span class="p">(</span><span class="n">image_size</span><span class="o">=</span><span class="n">image_size</span><span class="p">)])</span>
+        <span class="n">overlapping_ious</span><span class="o">.</span><span class="n">extend</span><span class="p">([[</span><span class="mi">1</span><span class="p">]])</span>
+
+    <span class="k">return</span> <span class="n">overlapping_boxes</span><span class="p">,</span> <span class="n">overlapping_boxes</span><span class="p">,</span> <span class="n">overlapping_ious</span></div>
+
+
+<div class="viewcode-block" id="generate_non_overlapping_boxes"><a class="viewcode-back" href="../../../libsrdl.test.html#libsrdl.test.test_metrics.generate_non_overlapping_boxes">[docs]</a><span class="k">def</span> <span class="nf">generate_non_overlapping_boxes</span><span class="p">(</span>
+    <span class="n">num_boxes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate non overlapping bounding boxes (zero intersection).</span>
+
+<span class="sd">    :param num_boxes: number of bounding boxes to generate</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">image_size</span> <span class="o">=</span> <span class="mi">256</span>
+    <span class="n">non_overlapping_boxes_1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">non_overlapping_boxes_2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">overlapping_iou</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_boxes</span><span class="p">):</span>
+        <span class="n">non_overlapping_box_1</span> <span class="o">=</span> <span class="n">generate_random_bounding_box</span><span class="p">(</span><span class="n">image_size</span><span class="o">=</span><span class="n">image_size</span><span class="p">)</span>
+        <span class="n">non_overlapping_box_2</span> <span class="o">=</span> <span class="n">generate_random_bounding_box</span><span class="p">(</span>
+            <span class="n">image_size</span><span class="o">=</span><span class="n">image_size</span><span class="p">,</span>
+            <span class="n">x_rand_min</span><span class="o">=</span><span class="n">non_overlapping_box_1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+            <span class="n">y_rand_min</span><span class="o">=</span><span class="n">non_overlapping_box_1</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="n">non_overlapping_boxes_1</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">non_overlapping_box_1</span><span class="p">])</span>
+        <span class="n">non_overlapping_boxes_2</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">non_overlapping_box_2</span><span class="p">])</span>
+        <span class="n">overlapping_iou</span><span class="o">.</span><span class="n">extend</span><span class="p">([[</span><span class="mi">0</span><span class="p">]])</span>
+
+    <span class="k">return</span> <span class="n">non_overlapping_boxes_1</span><span class="p">,</span> <span class="n">non_overlapping_boxes_2</span><span class="p">,</span> <span class="n">overlapping_iou</span></div>
+
+
+<div class="viewcode-block" id="generated_dilated_boxes"><a class="viewcode-back" href="../../../libsrdl.test.html#libsrdl.test.test_metrics.generated_dilated_boxes">[docs]</a><span class="k">def</span> <span class="nf">generated_dilated_boxes</span><span class="p">(</span>
+    <span class="n">num_boxes</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate one bounding boxe (zero intersection).</span>
+
+<span class="sd">    The second bounding box is a dilation of the first one.</span>
+<span class="sd">    :param num_boxes: number of bounding boxes to generate</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">image_size</span> <span class="o">=</span> <span class="mi">256</span>
+    <span class="n">dilated_boxes_1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">dilated_boxes_2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">overlapping_iou</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_boxes</span><span class="p">):</span>
+        <span class="n">dilation_factor</span> <span class="o">=</span> <span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">2</span>
+        <span class="n">dilated_box_1</span> <span class="o">=</span> <span class="n">generate_random_bounding_box</span><span class="p">(</span><span class="n">image_size</span><span class="o">=</span><span class="n">image_size</span><span class="p">)</span>
+        <span class="n">dilated_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">dilated_box_1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">dilated_box_1</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">dilation_factor</span> <span class="o">+</span> <span class="n">dilated_box_1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">dilated_y</span> <span class="o">=</span> <span class="p">(</span><span class="n">dilated_box_1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">dilated_box_1</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">dilation_factor</span> <span class="o">+</span> <span class="n">dilated_box_1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">dilated_box_2</span> <span class="o">=</span> <span class="p">[</span><span class="n">dilated_box_1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dilated_box_1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dilated_x</span><span class="p">,</span> <span class="n">dilated_y</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">dilation_factor</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">dilation_factor</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">dilation_factor</span>
+
+        <span class="n">dilated_boxes_1</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">dilated_box_1</span><span class="p">])</span>
+        <span class="n">dilated_boxes_2</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">dilated_box_2</span><span class="p">])</span>
+        <span class="n">overlapping_iou</span><span class="o">.</span><span class="n">extend</span><span class="p">([[</span><span class="n">dilation_factor</span><span class="o">**</span><span class="mi">2</span><span class="p">]])</span>
+
+    <span class="k">return</span> <span class="n">dilated_boxes_1</span><span class="p">,</span> <span class="n">dilated_boxes_2</span><span class="p">,</span> <span class="n">overlapping_iou</span></div>
+
+
+<div class="viewcode-block" id="test_intersection_over_union"><a class="viewcode-back" href="../../../libsrdl.test.html#libsrdl.test.test_metrics.test_intersection_over_union">[docs]</a><span class="k">def</span> <span class="nf">test_intersection_over_union</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test function for intersection_over_union.&quot;&quot;&quot;</span>
+    <span class="n">boxes_1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">boxes_2</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">expected_iou</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Add overlapping boxes (iou==1)</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">generate_overlapping_boxes</span><span class="p">()</span>
+    <span class="n">boxes_1</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">boxes_2</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+    <span class="n">expected_iou</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+    <span class="c1"># Add non-overlapping boxes (iou==0)</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">generate_non_overlapping_boxes</span><span class="p">()</span>
+    <span class="n">boxes_1</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">boxes_2</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+    <span class="n">expected_iou</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">generated_dilated_boxes</span><span class="p">()</span>
+    <span class="n">boxes_1</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">boxes_2</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+    <span class="n">expected_iou</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+
+    <span class="c1"># separate_point_1 = [0, 1, 0, 1]</span>
+    <span class="c1"># separate_point_2 = [1, 2, 1, 2]</span>
+    <span class="c1"># boxes_1.append(separate_point_1)</span>
+    <span class="c1"># boxes_2.append(separate_point_2)</span>
+    <span class="c1"># expected_iou.append([1])</span>
+
+    <span class="n">boxes_1_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">boxes_1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">boxes_2_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">boxes_2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">expected_iou_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">expected_iou</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">computed_iou_array</span> <span class="o">=</span> <span class="n">intersection_over_union</span><span class="p">(</span><span class="n">boxes_1_array</span><span class="p">,</span> <span class="n">boxes_2_array</span><span class="p">)</span>
+
+    <span class="c1"># CHeck if iou array has the expected shape</span>
+    <span class="k">assert</span> <span class="n">computed_iou_array</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">expected_iou_array</span><span class="o">.</span><span class="n">shape</span>
+    <span class="c1"># Check if all iou are within range [0,1]</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">computed_iou_array</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">computed_iou_array</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Check if all values are equal</span>
+    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">computed_iou_array</span><span class="p">,</span> <span class="n">expected_iou_array</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="mf">1e-1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="test_check_iou"><a class="viewcode-back" href="../../../libsrdl.test.html#libsrdl.test.test_metrics.test_check_iou">[docs]</a><span class="k">def</span> <span class="nf">test_check_iou</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Test function for check_iou.&quot;&quot;&quot;</span>
+    <span class="n">boxes_1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">boxes_2</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">iou_thresholds</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Add overlapping boxes (iou==1)</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">generate_overlapping_boxes</span><span class="p">()</span>
+    <span class="n">boxes_1</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">boxes_2</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+    <span class="c1"># Add non-overlapping boxes (iou==0)</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">generate_non_overlapping_boxes</span><span class="p">()</span>
+    <span class="n">boxes_1</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">boxes_2</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">generated_dilated_boxes</span><span class="p">()</span>
+    <span class="n">boxes_1</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">boxes_2</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+    <span class="n">boxes_1_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">boxes_1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">boxes_2_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">boxes_2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">computed_iou_array</span> <span class="o">=</span> <span class="n">intersection_over_union</span><span class="p">(</span><span class="n">boxes_1_array</span><span class="p">,</span> <span class="n">boxes_2_array</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">iou_threshold</span> <span class="ow">in</span> <span class="n">iou_thresholds</span><span class="p">:</span>
+        <span class="n">good</span><span class="p">,</span> <span class="n">bad</span> <span class="o">=</span> <span class="n">check_iou</span><span class="p">(</span><span class="n">computed_iou_array</span><span class="p">,</span> <span class="n">iou_threshold</span><span class="p">)</span>
+        <span class="n">expected_good</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">expected_bad</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">computed_iou</span> <span class="ow">in</span> <span class="n">computed_iou_array</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">computed_iou</span> <span class="o">&gt;=</span> <span class="n">iou_threshold</span><span class="p">:</span>
+                <span class="n">expected_good</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">expected_bad</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># Check if good + bad = total</span>
+        <span class="k">assert</span> <span class="n">good</span> <span class="o">+</span> <span class="n">bad</span> <span class="o">==</span> <span class="n">computed_iou_array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># Check if good is correct</span>
+        <span class="k">assert</span> <span class="n">good</span> <span class="o">==</span> <span class="n">expected_good</span>
+        <span class="c1"># Check if bad is correct</span>
+        <span class="k">assert</span> <span class="n">bad</span> <span class="o">==</span> <span class="n">expected_bad</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, G. Palazzo, M.G. Ubeira-Gabellini.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

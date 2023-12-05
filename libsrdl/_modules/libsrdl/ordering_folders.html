@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>libsrdl.ordering_folders &mdash; libsrdl 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            libsrdl
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">libsrdl</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">libsrdl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">libsrdl.ordering_folders</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for libsrdl.ordering_folders</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Module containing functions of image reordering.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">import</span> <span class="nn">glob2</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">natsort</span> <span class="kn">import</span> <span class="n">natsorted</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pydicom</span> <span class="kn">import</span> <span class="n">dcmread</span>
+<span class="kn">from</span> <span class="nn">tqdm</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+
+<div class="viewcode-block" id="regex_path_list"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.ordering_folders.regex_path_list">[docs]</a><span class="k">def</span> <span class="nf">regex_path_list</span><span class="p">(</span><span class="n">regex_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert a regular expression path into a list of matching paths.</span>
+
+<span class="sd">    :param regex_path: regular expression pathlib Path</span>
+<span class="sd">    :return: list of matching paths</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="n">single_path</span><span class="p">)</span> <span class="k">for</span> <span class="n">single_path</span> <span class="ow">in</span> <span class="n">natsorted</span><span class="p">(</span><span class="n">glob2</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">regex_path</span><span class="p">)))]</span></div>
+
+
+<div class="viewcode-block" id="load_full_data"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.ordering_folders.load_full_data">[docs]</a><span class="k">def</span> <span class="nf">load_full_data</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to load .dcm files. The elements are loaded in the original order.</span>
+
+<span class="sd">    :param path: path of directories with CT and RS files (Path)</span>
+<span class="sd">    :return: path_ct: path of CT files (Path)</span>
+<span class="sd">    :return: path_rs: path of RS files (Path)</span>
+<span class="sd">    :return: path_rd: path of RD files (Path)</span>
+<span class="sd">    :return: path_rp: path of RP files (Path)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">path_ct</span> <span class="o">=</span> <span class="n">regex_path_list</span><span class="p">(</span><span class="n">path</span> <span class="o">/</span> <span class="s2">&quot;*&quot;</span> <span class="o">/</span> <span class="s2">&quot;*CT.*.dcm&quot;</span><span class="p">)</span>
+    <span class="n">path_rs</span> <span class="o">=</span> <span class="n">regex_path_list</span><span class="p">(</span><span class="n">path</span> <span class="o">/</span> <span class="s2">&quot;*&quot;</span> <span class="o">/</span> <span class="s2">&quot;*RS*.dcm&quot;</span><span class="p">)</span>
+    <span class="n">path_rd</span> <span class="o">=</span> <span class="n">regex_path_list</span><span class="p">(</span><span class="n">path</span> <span class="o">/</span> <span class="s2">&quot;*&quot;</span> <span class="o">/</span> <span class="s2">&quot;*RD*.dcm&quot;</span><span class="p">)</span>
+    <span class="n">path_rp</span> <span class="o">=</span> <span class="n">regex_path_list</span><span class="p">(</span><span class="n">path</span> <span class="o">/</span> <span class="s2">&quot;*&quot;</span> <span class="o">/</span> <span class="s2">&quot;*RP*.dcm&quot;</span><span class="p">)</span>  <span class="c1"># &quot;*R[SDP]*.dcm&quot;</span>
+
+    <span class="k">return</span> <span class="n">path_ct</span><span class="p">,</span> <span class="n">path_rs</span><span class="p">,</span> <span class="n">path_rd</span><span class="p">,</span> <span class="n">path_rp</span></div>
+
+
+<div class="viewcode-block" id="reorder_directories"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.ordering_folders.reorder_directories">[docs]</a><span class="k">def</span> <span class="nf">reorder_directories</span><span class="p">(</span><span class="n">paths</span><span class="p">,</span> <span class="n">name_directory</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to create a directory with name_folder and copy path in it.</span>
+
+<span class="sd">    :param paths: list of path files which must be copied (Path)</span>
+<span class="sd">    :param name_directory: name of the directory which is created (str)</span>
+<span class="sd">    :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+        <span class="n">pathout</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">name_directory</span>
+        <span class="n">pathout</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">pathout</span><span class="p">)</span>
+
+    <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="test_copy"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.ordering_folders.test_copy">[docs]</a><span class="k">def</span> <span class="nf">test_copy</span><span class="p">(</span><span class="n">dictionary_paths</span><span class="p">,</span> <span class="n">patient_dirs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to check copy of dicom files.</span>
+
+<span class="sd">    :param dictionary_paths: dictionary of information with field names:</span>
+<span class="sd">            &quot;from&quot;, &quot;out_folder&quot;, &quot;fname (dictionary)</span>
+<span class="sd">    :param patient_dirs: path of patient directories with considered files (e.g., CT, RS) (Path)</span>
+<span class="sd">    :return: check: boolean list to check that the files have been copied correctly</span>
+<span class="sd">            (True: correct) (bool)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">patient_dirs</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="n">pbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">patient_dirs</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;GLOBAL&quot;</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">patient_dir</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">patient_dirs</span><span class="p">):</span>
+        <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="n">new_path</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">dictionary_path</span> <span class="ow">in</span> <span class="n">dictionary_paths</span><span class="p">:</span>
+            <span class="n">new_path</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span>
+                <span class="n">regex_path_list</span><span class="p">(</span>
+                    <span class="n">patient_dir</span>
+                    <span class="o">/</span> <span class="n">dictionary_path</span><span class="p">[</span><span class="s2">&quot;out_folder&quot;</span><span class="p">]</span>
+                    <span class="o">/</span> <span class="sa">f</span><span class="s1">&#39;*</span><span class="si">{</span><span class="n">dictionary_path</span><span class="p">[</span><span class="s2">&quot;fname&quot;</span><span class="p">]</span><span class="si">}</span><span class="s1">*.dcm&#39;</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="n">initial_path</span> <span class="o">=</span> <span class="n">regex_path_list</span><span class="p">(</span><span class="n">patient_dir</span> <span class="o">/</span> <span class="s2">&quot;*.dcm&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">new_path</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">initial_path</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">initial_path</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="n">check</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Control all have been copied correctly: &quot;</span><span class="p">,</span> <span class="nb">all</span><span class="p">(</span><span class="n">check</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">check</span></div>
+
+
+<div class="viewcode-block" id="reorder_both_directories"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.ordering_folders.reorder_both_directories">[docs]</a><span class="k">def</span> <span class="nf">reorder_both_directories</span><span class="p">(</span><span class="n">dictionary_paths</span><span class="p">,</span> <span class="n">patients_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to reorder all the directories created and which checks all copied files.</span>
+
+<span class="sd">    :param dictionary_paths: dictionary of information with field names:</span>
+<span class="sd">            &quot;from&quot;, &quot;out_folder&quot;, &quot;fname&quot;</span>
+<span class="sd">            (ex:&quot;from&quot;: paths_ct, out_folder&quot;: &quot;CT&quot;, &quot;fname&quot;: &quot;CT.&quot;) (Path)</span>
+<span class="sd">    :param patients_path: path of patient directories with considered files (e.g., CT, RS) (Path)</span>
+<span class="sd">    :return: check: boolean list to check if all the files are correctly copied</span>
+<span class="sd">            (True if copied) (boolean list)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">dictionary_path</span> <span class="ow">in</span> <span class="n">dictionary_paths</span><span class="p">:</span>
+        <span class="n">reorder_directories</span><span class="p">(</span><span class="n">dictionary_path</span><span class="p">[</span><span class="s2">&quot;from&quot;</span><span class="p">],</span> <span class="n">dictionary_path</span><span class="p">[</span><span class="s2">&quot;out_folder&quot;</span><span class="p">])</span>
+        <span class="c1"># print(&#39;Done patient n. &#39; + dictionary_path[&quot;from&quot;].name)</span>
+
+    <span class="n">check</span> <span class="o">=</span> <span class="n">test_copy</span><span class="p">(</span><span class="n">dictionary_paths</span><span class="p">,</span> <span class="n">patients_path</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">check</span></div>
+
+
+<div class="viewcode-block" id="remove_duplicates"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.ordering_folders.remove_duplicates">[docs]</a><span class="k">def</span> <span class="nf">remove_duplicates</span><span class="p">(</span><span class="n">patient_dirs</span><span class="p">,</span> <span class="n">check</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to remove original .dcm files if they were successfully copied (check is True).</span>
+
+<span class="sd">    :param patient_dirs: path of patient directories with considered files (e.g., CT, RS) (Path)</span>
+<span class="sd">    :param check: boolean list saying that files are correctly copied (True) (boolean list)</span>
+<span class="sd">    :return: check_rm: boolean list to check if files have been correctly removed</span>
+<span class="sd">            (True if removed) (boolean list)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">check_rm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">patient_dirs</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="n">pbar</span> <span class="o">=</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">total</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">patient_dirs</span><span class="p">),</span> <span class="n">desc</span><span class="o">=</span><span class="s2">&quot;GLOBAL&quot;</span><span class="p">,</span> <span class="n">colour</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">patient_dir</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">patient_dirs</span><span class="p">):</span>
+        <span class="n">initial_path</span> <span class="o">=</span> <span class="n">regex_path_list</span><span class="p">(</span><span class="n">patient_dir</span> <span class="o">/</span> <span class="s2">&quot;*.dcm&quot;</span><span class="p">)</span>
+        <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">check</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+            <span class="n">check_rm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">initial_path</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Control all have been removed correctly: &quot;</span><span class="p">,</span> <span class="nb">all</span><span class="p">(</span><span class="n">check</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">check_rm</span></div>
+
+
+<div class="viewcode-block" id="ctv_or_ptv_performance"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.ordering_folders.ctv_or_ptv_performance">[docs]</a><span class="k">def</span> <span class="nf">ctv_or_ptv_performance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">path_rs</span><span class="p">,</span> <span class="n">name_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">save_csv</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to create name_file which show if a patient has PTV or CTV.</span>
+
+<span class="sd">    :param path: path of directories where name_file will be saved (Path)</span>
+<span class="sd">    :param path_rs: path of RS files (Path)</span>
+<span class="sd">    :param name_file: file name you want to create (add .xlsx) (str)</span>
+<span class="sd">    :param save_csv:</span>
+<span class="sd">    :return: ctv_or_ptv_df: DataFrame to say if CTV/PTV is present for each patient,</span>
+<span class="sd">            column names: &quot;CTV&quot;, &quot;PTV&quot;, &quot;Patient_Name&quot; (DataFrame)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># contour names to be found</span>
+    <span class="n">contour_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;CTV&quot;</span><span class="p">,</span> <span class="s2">&quot;PTV&quot;</span><span class="p">]</span>
+
+    <span class="n">num_patients</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">path_rs</span><span class="p">)</span>
+
+    <span class="c1"># dataframe containing contour names (and patient names)</span>
+    <span class="c1"># 0: contour name not found</span>
+    <span class="c1"># 1: contour name found</span>
+    <span class="c1"># to be saved as xlsx file</span>
+    <span class="n">ctv_or_ptv_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">contour_names</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Patient_Name&quot;</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">patient_path</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">path_rs</span><span class="p">):</span>
+        <span class="c1"># set all values of the ith row to 0</span>
+        <span class="n">ctv_or_ptv_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ctv_or_ptv_df</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span>
+
+        <span class="c1"># dictionary containing contour name and contour number</span>
+        <span class="n">contour_numbers_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">contour_names</span><span class="p">)</span>
+        <span class="c1"># read the rt structure from file</span>
+        <span class="n">rtst</span> <span class="o">=</span> <span class="n">dcmread</span><span class="p">(</span><span class="n">patient_path</span><span class="p">)</span>
+        <span class="c1"># list of ROIs defined in the dicom RTst</span>
+        <span class="n">defined_rois</span> <span class="o">=</span> <span class="n">rtst</span><span class="p">[</span><span class="s2">&quot;StructureSetROISequence&quot;</span><span class="p">]</span>
+
+        <span class="c1"># find CTV and PTV ROI full name and numbers</span>
+        <span class="k">for</span> <span class="n">defined_roi</span> <span class="ow">in</span> <span class="n">defined_rois</span><span class="p">:</span>
+            <span class="n">roi_name</span> <span class="o">=</span> <span class="n">defined_roi</span><span class="p">[</span><span class="s2">&quot;ROIName&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+            <span class="n">roi_number</span> <span class="o">=</span> <span class="n">defined_roi</span><span class="p">[</span><span class="s2">&quot;ROINumber&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">for</span> <span class="n">contour_name</span> <span class="ow">in</span> <span class="n">contour_names</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">contour_name</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="n">roi_name</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="c1"># contour name found (we don&#39;t care about full contour name)</span>
+                    <span class="c1"># save contour number</span>
+                    <span class="n">contour_numbers_dict</span><span class="p">[</span><span class="n">contour_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">roi_number</span>
+                    <span class="c1"># set contour name column to 1 (found)</span>
+                    <span class="n">ctv_or_ptv_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">contour_name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="c1"># look into contour sequences and check if the defined structure is empty or not</span>
+        <span class="n">drawn_rois</span> <span class="o">=</span> <span class="n">rtst</span><span class="p">[</span><span class="s2">&quot;ROIContourSequence&quot;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">drawn_roi</span> <span class="ow">in</span> <span class="n">drawn_rois</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">contour_name</span> <span class="ow">in</span> <span class="n">contour_names</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">drawn_roi</span><span class="p">[</span><span class="s2">&quot;ReferencedROINumber&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="n">contour_numbers_dict</span><span class="p">[</span><span class="n">contour_name</span><span class="p">]:</span>
+                    <span class="c1"># if the structure is not drawn, drop it from the dataframe (not found)</span>
+                    <span class="k">if</span> <span class="s2">&quot;ContourSequence&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">drawn_roi</span><span class="p">:</span>
+                        <span class="n">ctv_or_ptv_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">contour_name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># add patient name to the dataframe</span>
+        <span class="c1"># (in order to be able to find patients with specific structures)</span>
+        <span class="n">ctv_or_ptv_df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s2">&quot;Patient_Name&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">patient_path</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">num_patients</span><span class="si">}</span><span class="s2"> total patients&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">contour_names</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ctv_or_ptv_df</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2"> patients with </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;&quot;&quot;At least one PTV/CTV for patient: </span><span class="se">\</span>
+<span class="s2">            </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">ctv_or_ptv_df</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">numeric_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;&quot;&quot;</span>
+    <span class="p">)</span>
+    <span class="c1"># save the dataframe to csv</span>
+    <span class="k">if</span> <span class="n">save_csv</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name_file</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">name_file</span> <span class="o">=</span> <span class="s2">&quot;ctv_or_ptv.csv&quot;</span>
+        <span class="n">ctv_or_ptv_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span> <span class="o">/</span> <span class="n">name_file</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ctv_or_ptv_df</span></div>
+
+
+<div class="viewcode-block" id="reorder_mim_files"><a class="viewcode-back" href="../../libsrdl.html#libsrdl.ordering_folders.reorder_mim_files">[docs]</a><span class="k">def</span> <span class="nf">reorder_mim_files</span><span class="p">(</span><span class="n">dicom_path</span><span class="p">,</span> <span class="n">patients_path</span><span class="p">,</span> <span class="n">roi_name_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">save</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function to reorder files in folders as created by MIM software.</span>
+
+<span class="sd">    :param dicom_path: path of files .dcm to be reordered (Path)</span>
+<span class="sd">    :param patients_path: path of all the patient directories (Path)</span>
+<span class="sd">    :param roi_name_file: roi label name as written inside the dicom RT (str)</span>
+<span class="sd">    :param save:</span>
+<span class="sd">    :return: check: boolean control that all CT and RT have been copied</span>
+<span class="sd">            in the folder needed to use the loading libraries (boolean list)</span>
+<span class="sd">    :return: check_remove: boolean control that duplicates in the original folder</span>
+<span class="sd">            have been correctly removed for each patient (boolean list)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># TODO load full data mask even if images have already been moved</span>
+    <span class="n">paths_ct</span><span class="p">,</span> <span class="n">paths_rs</span><span class="p">,</span> <span class="n">paths_rd</span><span class="p">,</span> <span class="n">paths_rp</span> <span class="o">=</span> <span class="n">load_full_data</span><span class="p">(</span><span class="n">dicom_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">paths_ct</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">ctv_pd</span> <span class="o">=</span> <span class="n">ctv_or_ptv_performance</span><span class="p">(</span><span class="n">dicom_path</span><span class="p">,</span> <span class="n">paths_rs</span><span class="p">,</span> <span class="n">roi_name_file</span><span class="p">,</span> <span class="n">save</span><span class="p">)</span>
+        <span class="n">dictionary_path</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">{</span><span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="n">paths_ct</span><span class="p">,</span> <span class="s2">&quot;out_folder&quot;</span><span class="p">:</span> <span class="s2">&quot;CT&quot;</span><span class="p">,</span> <span class="s2">&quot;fname&quot;</span><span class="p">:</span> <span class="s2">&quot;CT.&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="n">paths_rs</span><span class="p">,</span> <span class="s2">&quot;out_folder&quot;</span><span class="p">:</span> <span class="s2">&quot;RSRDRP&quot;</span><span class="p">,</span> <span class="s2">&quot;fname&quot;</span><span class="p">:</span> <span class="s2">&quot;RS&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="n">paths_rd</span><span class="p">,</span> <span class="s2">&quot;out_folder&quot;</span><span class="p">:</span> <span class="s2">&quot;RSRDRP&quot;</span><span class="p">,</span> <span class="s2">&quot;fname&quot;</span><span class="p">:</span> <span class="s2">&quot;RD&quot;</span><span class="p">},</span>
+            <span class="p">{</span><span class="s2">&quot;from&quot;</span><span class="p">:</span> <span class="n">paths_rp</span><span class="p">,</span> <span class="s2">&quot;out_folder&quot;</span><span class="p">:</span> <span class="s2">&quot;RSRDRP&quot;</span><span class="p">,</span> <span class="s2">&quot;fname&quot;</span><span class="p">:</span> <span class="s2">&quot;RP&quot;</span><span class="p">},</span>
+        <span class="p">]</span>
+        <span class="n">check</span> <span class="o">=</span> <span class="n">reorder_both_directories</span><span class="p">(</span><span class="n">dictionary_path</span><span class="p">,</span> <span class="n">patients_path</span><span class="p">)</span>
+        <span class="c1"># check_remove = remove_duplicates(patients_path, check)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">check</span><span class="p">,</span> <span class="n">check_remove</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">save</span><span class="p">:</span>
+        <span class="n">all_checks</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+        <span class="n">all_checks</span><span class="p">[</span><span class="s2">&quot;check_copy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">check</span>
+        <span class="n">all_checks</span><span class="p">[</span><span class="s2">&quot;check_remove&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">check_remove</span>
+        <span class="n">all_checks</span><span class="p">[</span><span class="s2">&quot;patient_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">patients_path</span>
+        <span class="c1"># save the dataframe to csv</span>
+        <span class="n">all_checks</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">dicom_path</span> <span class="o">/</span> <span class="s2">&quot;checks.csv&quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">check</span><span class="p">,</span> <span class="n">check_remove</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, G. Palazzo, M.G. Ubeira-Gabellini.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

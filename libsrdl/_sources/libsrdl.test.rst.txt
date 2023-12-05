@@ -1,0 +1,29 @@
+libsrdl.test package
+====================
+
+Submodules
+----------
+
+libsrdl.test.test\_function module
+----------------------------------
+
+.. automodule:: libsrdl.test.test_function
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+libsrdl.test.test\_metrics module
+---------------------------------
+
+.. automodule:: libsrdl.test.test_metrics
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: libsrdl.test
+   :members:
+   :undoc-members:
+   :show-inheritance:

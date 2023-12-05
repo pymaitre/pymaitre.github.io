@@ -1,0 +1,61 @@
+libsrdl package
+===============
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   libsrdl.test
+
+Submodules
+----------
+
+libsrdl.dl\_models module
+-------------------------
+
+.. automodule:: libsrdl.dl_models
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+libsrdl.metric module
+---------------------
+
+.. automodule:: libsrdl.metric
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+libsrdl.my\_plots module
+------------------------
+
+.. automodule:: libsrdl.my_plots
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+libsrdl.ordering\_folders module
+--------------------------------
+
+.. automodule:: libsrdl.ordering_folders
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+libsrdl.preprocessing\_functions module
+---------------------------------------
+
+.. automodule:: libsrdl.preprocessing_functions
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: libsrdl
+   :members:
+   :undoc-members:
+   :show-inheritance:

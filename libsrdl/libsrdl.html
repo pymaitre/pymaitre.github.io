@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>libsrdl package &mdash; libsrdl 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="libsrdl.test package" href="libsrdl.test.html" />
+    <link rel="prev" title="libsrdl" href="modules.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            libsrdl
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">libsrdl</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">libsrdl package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="libsrdl.test.html">libsrdl.test package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-libsrdl.dl_models">libsrdl.dl_models module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.dl_models.classifier"><code class="docutils literal notranslate"><span class="pre">classifier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.dl_models.create_model"><code class="docutils literal notranslate"><span class="pre">create_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.dl_models.feature_extractor"><code class="docutils literal notranslate"><span class="pre">feature_extractor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.dl_models.regressor"><code class="docutils literal notranslate"><span class="pre">regressor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-libsrdl.metric">libsrdl.metric module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.metric.check_iou"><code class="docutils literal notranslate"><span class="pre">check_iou()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.metric.intersection_over_union"><code class="docutils literal notranslate"><span class="pre">intersection_over_union()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-libsrdl.my_plots">libsrdl.my_plots module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.history_to_csv"><code class="docutils literal notranslate"><span class="pre">history_to_csv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.my_classification_report"><code class="docutils literal notranslate"><span class="pre">my_classification_report()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.my_confusion_matrix"><code class="docutils literal notranslate"><span class="pre">my_confusion_matrix()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.my_roc_plot"><code class="docutils literal notranslate"><span class="pre">my_roc_plot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.plot_accuracy"><code class="docutils literal notranslate"><span class="pre">plot_accuracy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.plot_bounding_box_loss"><code class="docutils literal notranslate"><span class="pre">plot_bounding_box_loss()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.plot_classifier_loss"><code class="docutils literal notranslate"><span class="pre">plot_classifier_loss()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.plot_crop_rectangle_over_image"><code class="docutils literal notranslate"><span class="pre">plot_crop_rectangle_over_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.plot_history"><code class="docutils literal notranslate"><span class="pre">plot_history()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.plot_isocentre_xy_distribution"><code class="docutils literal notranslate"><span class="pre">plot_isocentre_xy_distribution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.plot_multi_crop_rect_over_image"><code class="docutils literal notranslate"><span class="pre">plot_multi_crop_rect_over_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.plot_multi_ct"><code class="docutils literal notranslate"><span class="pre">plot_multi_ct()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.plot_multi_image_masks"><code class="docutils literal notranslate"><span class="pre">plot_multi_image_masks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.plot_sample"><code class="docutils literal notranslate"><span class="pre">plot_sample()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.plot_single_ct"><code class="docutils literal notranslate"><span class="pre">plot_single_ct()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.plot_single_image_mask"><code class="docutils literal notranslate"><span class="pre">plot_single_image_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.random_npatient_nslice"><code class="docutils literal notranslate"><span class="pre">random_npatient_nslice()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.my_plots.rtv_configuration_file"><code class="docutils literal notranslate"><span class="pre">rtv_configuration_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-libsrdl.ordering_folders">libsrdl.ordering_folders module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.ordering_folders.ctv_or_ptv_performance"><code class="docutils literal notranslate"><span class="pre">ctv_or_ptv_performance()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.ordering_folders.load_full_data"><code class="docutils literal notranslate"><span class="pre">load_full_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.ordering_folders.regex_path_list"><code class="docutils literal notranslate"><span class="pre">regex_path_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.ordering_folders.remove_duplicates"><code class="docutils literal notranslate"><span class="pre">remove_duplicates()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.ordering_folders.reorder_both_directories"><code class="docutils literal notranslate"><span class="pre">reorder_both_directories()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.ordering_folders.reorder_directories"><code class="docutils literal notranslate"><span class="pre">reorder_directories()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.ordering_folders.reorder_mim_files"><code class="docutils literal notranslate"><span class="pre">reorder_mim_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.ordering_folders.test_copy"><code class="docutils literal notranslate"><span class="pre">test_copy()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-libsrdl.preprocessing_functions">libsrdl.preprocessing_functions module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.Isocentre"><code class="docutils literal notranslate"><span class="pre">Isocentre</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.check_images"><code class="docutils literal notranslate"><span class="pre">check_images()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.check_size"><code class="docutils literal notranslate"><span class="pre">check_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.check_xy_size"><code class="docutils literal notranslate"><span class="pre">check_xy_size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.create_cropped_image_first_quadrant"><code class="docutils literal notranslate"><span class="pre">create_cropped_image_first_quadrant()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.create_resized_image"><code class="docutils literal notranslate"><span class="pre">create_resized_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.crop_loaded_images"><code class="docutils literal notranslate"><span class="pre">crop_loaded_images()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.from_mask_to_bounding_box"><code class="docutils literal notranslate"><span class="pre">from_mask_to_bounding_box()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.import_images_and_rt"><code class="docutils literal notranslate"><span class="pre">import_images_and_rt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.preprocess_image"><code class="docutils literal notranslate"><span class="pre">preprocess_image()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.read_niftii_from_file"><code class="docutils literal notranslate"><span class="pre">read_niftii_from_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.read_npy_from_file"><code class="docutils literal notranslate"><span class="pre">read_npy_from_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.rescale_color"><code class="docutils literal notranslate"><span class="pre">rescale_color()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.resize_images"><code class="docutils literal notranslate"><span class="pre">resize_images()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.resize_z_axis"><code class="docutils literal notranslate"><span class="pre">resize_z_axis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.save_niftii_to_file"><code class="docutils literal notranslate"><span class="pre">save_niftii_to_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.save_npy_to_file"><code class="docutils literal notranslate"><span class="pre">save_npy_to_file()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.upload_all_images"><code class="docutils literal notranslate"><span class="pre">upload_all_images()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#libsrdl.preprocessing_functions.upload_multi_images"><code class="docutils literal notranslate"><span class="pre">upload_multi_images()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-libsrdl">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">libsrdl</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">libsrdl</a></li>
+      <li class="breadcrumb-item active">libsrdl package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/libsrdl.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="libsrdl-package">
+<h1>libsrdl package<a class="headerlink" href="#libsrdl-package" title="Permalink to this heading"></a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="libsrdl.test.html">libsrdl.test package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="libsrdl.test.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libsrdl.test.html#module-libsrdl.test.test_function">libsrdl.test.test_function module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="libsrdl.test.html#libsrdl.test.test_function.test_copy"><code class="docutils literal notranslate"><span class="pre">test_copy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="libsrdl.test.html#libsrdl.test.test_function.test_crop"><code class="docutils literal notranslate"><span class="pre">test_crop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="libsrdl.test.html#libsrdl.test.test_function.test_mask_to_bounding_box"><code class="docutils literal notranslate"><span class="pre">test_mask_to_bounding_box()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="libsrdl.test.html#libsrdl.test.test_function.test_ptv_or_ctv"><code class="docutils literal notranslate"><span class="pre">test_ptv_or_ctv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="libsrdl.test.html#libsrdl.test.test_function.test_rescaling_color"><code class="docutils literal notranslate"><span class="pre">test_rescaling_color()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="libsrdl.test.html#libsrdl.test.test_function.test_upload_multi_images"><code class="docutils literal notranslate"><span class="pre">test_upload_multi_images()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="libsrdl.test.html#module-libsrdl.test.test_metrics">libsrdl.test.test_metrics module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="libsrdl.test.html#libsrdl.test.test_metrics.generate_non_overlapping_boxes"><code class="docutils literal notranslate"><span class="pre">generate_non_overlapping_boxes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="libsrdl.test.html#libsrdl.test.test_metrics.generate_overlapping_boxes"><code class="docutils literal notranslate"><span class="pre">generate_overlapping_boxes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="libsrdl.test.html#libsrdl.test.test_metrics.generate_random_bounding_box"><code class="docutils literal notranslate"><span class="pre">generate_random_bounding_box()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="libsrdl.test.html#libsrdl.test.test_metrics.generated_dilated_boxes"><code class="docutils literal notranslate"><span class="pre">generated_dilated_boxes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="libsrdl.test.html#libsrdl.test.test_metrics.random"><code class="docutils literal notranslate"><span class="pre">random()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="libsrdl.test.html#libsrdl.test.test_metrics.test_check_iou"><code class="docutils literal notranslate"><span class="pre">test_check_iou()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="libsrdl.test.html#libsrdl.test.test_metrics.test_intersection_over_union"><code class="docutils literal notranslate"><span class="pre">test_intersection_over_union()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="libsrdl.test.html#module-libsrdl.test">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-libsrdl.dl_models">
+<span id="libsrdl-dl-models-module"></span><h2>libsrdl.dl_models module<a class="headerlink" href="#module-libsrdl.dl_models" title="Permalink to this heading"></a></h2>
+<p>Model implementation.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.dl_models.classifier">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.dl_models.</span></span><span class="sig-name descname"><span class="pre">classifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/dl_models.html#classifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.dl_models.classifier" title="Permalink to this definition"></a></dt>
+<dd><p>Implement operation of classifier in model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> – tensor with attributes of model (tensor)</p></li>
+<li><p><strong>activation</strong> – activation function (str)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>tensor with final properties of model (tensor)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.dl_models.create_model">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.dl_models.</span></span><span class="sig-name descname"><span class="pre">create_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">activation</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/dl_models.html#create_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.dl_models.create_model" title="Permalink to this definition"></a></dt>
+<dd><p>Create CNN model for classification.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_shape</strong> – shape of images (3d array of int)</p></li>
+<li><p><strong>dropout</strong> – boolean variables which ables dropout (bool)</p></li>
+<li><p><strong>activation</strong> – activation function (str)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return model<span class="colon">:</span></dt>
+<dd class="field-even"><p>model to use for classification (keras class)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.dl_models.feature_extractor">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.dl_models.</span></span><span class="sig-name descname"><span class="pre">feature_extractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dropout</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/dl_models.html#feature_extractor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.dl_models.feature_extractor" title="Permalink to this definition"></a></dt>
+<dd><p>Definition of convolution process.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> – tensor with attributes of model (tensor)</p></li>
+<li><p><strong>dropout</strong> – boolean variables which ables dropout (bool)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>tensor with shape (tensor)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.dl_models.regressor">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.dl_models.</span></span><span class="sig-name descname"><span class="pre">regressor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/dl_models.html#regressor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.dl_models.regressor" title="Permalink to this definition"></a></dt>
+<dd><p>Definition of operation for bounding box.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>inputs</strong> – tensor with attributes of model (tensor)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>tensor with final properties of model (tensor)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-libsrdl.metric">
+<span id="libsrdl-metric-module"></span><h2>libsrdl.metric module<a class="headerlink" href="#module-libsrdl.metric" title="Permalink to this heading"></a></h2>
+<p>Metrics to see the goodness of the prediction.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.metric.check_iou">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.metric.</span></span><span class="sig-name descname"><span class="pre">check_iou</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iou</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iou_threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.6</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libsrdl/metric.html#check_iou"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.metric.check_iou" title="Permalink to this definition"></a></dt>
+<dd><p>Compute how many slices have an intersection over union above a said threshold.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>iou</strong> – np.array of shape (num_slices)
+each slice contains the intersection over union between
+the predicted and the true bounding box</p></li>
+<li><p><strong>iou_threshold</strong> – threshold above which ious are considered good (float)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>number of good ious, number of bad ious</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.metric.intersection_over_union">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.metric.</span></span><span class="sig-name descname"><span class="pre">intersection_over_union</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">true_box</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_box</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/libsrdl/metric.html#intersection_over_union"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.metric.intersection_over_union" title="Permalink to this definition"></a></dt>
+<dd><p>Compute intersection over union for bounding boxes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>true_box</strong> – np.array of shape (num_slices,4)
+each slice contains (x_min, y_min, x_max, y_max)</p></li>
+<li><p><strong>pred_box</strong> – np.array of shape (num_slices,4)
+each slice contains (x_min, y_min, x_max, y_max)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.array of shape (num_slices,1) containing intersection/union ratios for each slice</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-libsrdl.my_plots">
+<span id="libsrdl-my-plots-module"></span><h2>libsrdl.my_plots module<a class="headerlink" href="#module-libsrdl.my_plots" title="Permalink to this heading"></a></h2>
+<p>Plots needed for checks.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.history_to_csv">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">history_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pathout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">history</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/my_plots.html#history_to_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.history_to_csv" title="Permalink to this definition"></a></dt>
+<dd><p>save history model in .csv file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pathout</strong> – directory path for .csv file (Path)</p></li>
+<li><p><strong>history</strong> – report of model</p></li>
+<li><p><strong>name_file</strong> – name of .csv file (str)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.my_classification_report">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">my_classification_report</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pathout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/my_plots.html#my_classification_report"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.my_classification_report" title="Permalink to this definition"></a></dt>
+<dd><p>plot of classification report with the main feature of the model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pathout</strong> – directory path for the plot of classification report (Path)</p></li>
+<li><p><strong>obs_y</strong> – labels of validation images (int array)</p></li>
+<li><p><strong>pred_y</strong> – predicted labels from validation (int array)</p></li>
+<li><p><strong>classes</strong> – classes to analize (2d array of str)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.my_confusion_matrix">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">my_confusion_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pathout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/my_plots.html#my_confusion_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.my_confusion_matrix" title="Permalink to this definition"></a></dt>
+<dd><p>Plot of confusion matrix and main features of the used model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pathout</strong> – directory path for the plot of confusion matrix (Path)</p></li>
+<li><p><strong>obs_y</strong> – labels of validation images (int array)</p></li>
+<li><p><strong>pred_y</strong> – predicted labels from validation (int array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>class_report: text with main feature of the model (str)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.my_roc_plot">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">my_roc_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pathout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/my_plots.html#my_roc_plot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.my_roc_plot" title="Permalink to this definition"></a></dt>
+<dd><p>ROC Curve plot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pathout</strong> – directory path for the plot image (Path)</p></li>
+<li><p><strong>pred_train</strong> – predicted labels from training (int array)</p></li>
+<li><p><strong>obs_train</strong> – labels of training images (int array)</p></li>
+<li><p><strong>pred_val</strong> – predicted labels from validation (int array)</p></li>
+<li><p><strong>obs_val</strong> – labels of validation images (int array)</p></li>
+<li><p><strong>n_samples</strong> – number of samples (int)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>rocT.opd[“youden”].opt: ROC value obtained for training (double)</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>rocV.opd[“youden”].opt: ROC value obtained for validation (double)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.plot_accuracy">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">plot_accuracy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">history</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">WindowsPath('.')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libsrdl/my_plots.html#plot_accuracy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.plot_accuracy" title="Permalink to this definition"></a></dt>
+<dd><p>Print graphics of accuracy during training and validation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>history</strong> – callback of model history (history object)</p></li>
+<li><p><strong>pathout</strong> – directory path for the plot image (Path)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.plot_bounding_box_loss">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">plot_bounding_box_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">history</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">WindowsPath('.')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libsrdl/my_plots.html#plot_bounding_box_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.plot_bounding_box_loss" title="Permalink to this definition"></a></dt>
+<dd><p>Print graphics of classifier loss during training and validation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>history</strong> – callback of model history (history object)</p></li>
+<li><p><strong>pathout</strong> – directory path for the plot image (Path)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.plot_classifier_loss">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">plot_classifier_loss</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">history</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">WindowsPath('.')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libsrdl/my_plots.html#plot_classifier_loss"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.plot_classifier_loss" title="Permalink to this definition"></a></dt>
+<dd><p>Print graphics of classifier loss during training and validation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>history</strong> – callback of model history (history object)</p></li>
+<li><p><strong>pathout</strong> – directory path for the plot image (Path)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.plot_crop_rectangle_over_image">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">plot_crop_rectangle_over_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop_rectangle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Rectangle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isocentre</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Point</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rectangle_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isocentre_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">axes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">padding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/my_plots.html#plot_crop_rectangle_over_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.plot_crop_rectangle_over_image" title="Permalink to this definition"></a></dt>
+<dd><p>Plot CT slice for one patient with on top first guess rectangle (in blue) and adjusted rectangle (in red) to be
+used for crop and isocentre derived as red point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> – CT image slice (np.ndarray, shape (x,y)).</p></li>
+<li><p><strong>crop_rectangle</strong> – Rectangle used for crop (Rectangle).</p></li>
+<li><p><strong>isocentre</strong> – isocentre x and y positions (Point).</p></li>
+<li><p><strong>rectangle_color</strong> – color of rectangle superimposed (str).</p></li>
+<li><p><strong>isocentre_color</strong> – color of isocentre superimposed (str).</p></li>
+<li><p><strong>axes</strong> – pre given axis. Default=None.</p></li>
+<li><p><strong>padding</strong> – value used to enlarge the image to have the rectangle subscripted in it (int).</p></li>
+<li><p><strong>kwargs</strong> – extra arguments.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>axes: set of images.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>im: output of axes.imshow().</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.plot_history">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">plot_history</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">history</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">WindowsPath('.')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libsrdl/my_plots.html#plot_history"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.plot_history" title="Permalink to this definition"></a></dt>
+<dd><p>Print graphics of loss during training and validation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>history</strong> – callback of model history (history object)</p></li>
+<li><p><strong>pathout</strong> – directory path for the plot image (Path)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.plot_isocentre_xy_distribution">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">plot_isocentre_xy_distribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">aggregated_xy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">DataFrame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/my_plots.html#plot_isocentre_xy_distribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.plot_isocentre_xy_distribution" title="Permalink to this definition"></a></dt>
+<dd><p>Plot x and y median isocentre distibution between different patients and the median of distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>aggregated_xy</strong> – dataframe with median_x, median_y for each patient (pd.DataFrame())</p></li>
+<li><p><strong>save</strong> – boolean to save plot or not (bool). Default=False.</p></li>
+<li><p><strong>save_path</strong> – path where to save the plot (Path). Default=None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ax: axis with plots.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.plot_multi_crop_rect_over_image">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">plot_multi_crop_rect_over_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ImageCT</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_sample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_slice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_patient</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_orig_rect</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/my_plots.html#plot_multi_crop_rect_over_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.plot_multi_crop_rect_over_image" title="Permalink to this definition"></a></dt>
+<dd><p>Plot of multi patient of the function plot_crop_rectangle_over_image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> – list of ImageCT objects (list[my_obj.ImageCT]).</p></li>
+<li><p><strong>index_sample</strong> – list with indexes of patients to be plotted (list).</p></li>
+<li><p><strong>index_slice</strong> – list with indexes of slices to be plotted (list).</p></li>
+<li><p><strong>n_patient</strong> – number of images to be plotted (int).</p></li>
+<li><p><strong>crop_size</strong> – final xy size of the cropped image (int).</p></li>
+<li><p><strong>save</strong> – boolean to save plot or not (bool). Default=False.</p></li>
+<li><p><strong>pathout</strong> – path where to save the plot (Path). Default=None.</p></li>
+<li><p><strong>plot_orig_rect</strong> – boolean to plot or not the original rectangle (bool). Default=False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.plot_multi_ct">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">plot_multi_ct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ImageCT</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_sample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_slice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_patient</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/my_plots.html#plot_multi_ct"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.plot_multi_ct" title="Permalink to this definition"></a></dt>
+<dd><p>Plot of multi patient of the function plot_single_ct.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> – list of ImageCT objects (list[my_obj.ImageCT]).</p></li>
+<li><p><strong>index_sample</strong> – list with indexes of patients to be plotted (list).</p></li>
+<li><p><strong>index_slice</strong> – list with indexes of slices to be plotted (list).</p></li>
+<li><p><strong>n_patient</strong> – number of images to be plotted (int).</p></li>
+<li><p><strong>save</strong> – boolean to save plot or not (bool). Default=False.</p></li>
+<li><p><strong>pathout</strong> – path where to save the plot (Path). Default=None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.plot_multi_image_masks">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">plot_multi_image_masks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">ImageCT</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_sample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_slice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_patient</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/my_plots.html#plot_multi_image_masks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.plot_multi_image_masks" title="Permalink to this definition"></a></dt>
+<dd><p>Plot of multi patient of the function plot_single_image_mask.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> – list of ImageCT objects (list[my_obj.ImageCT]).</p></li>
+<li><p><strong>index_sample</strong> – list with indexes of patients to be plotted (list).</p></li>
+<li><p><strong>index_slice</strong> – list with indexes of slices to be plotted (list).</p></li>
+<li><p><strong>n_patient</strong> – number of images+rtstruct+images*rtstruct to be plotted (int).</p></li>
+<li><p><strong>save</strong> – boolean to save plot or not (bool). Default=False.</p></li>
+<li><p><strong>pathout</strong> – path where to save the plot (Path). Default=None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.plot_sample">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">plot_sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pclasses</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pboxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaling</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_predictions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">WindowsPath('.')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libsrdl/my_plots.html#plot_sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.plot_sample" title="Permalink to this definition"></a></dt>
+<dd><p>Print of some images with real bounding box and its prediction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>images</strong> – images to plot (numpy array)</p></li>
+<li><p><strong>classes</strong> – labels of images (boolean array)</p></li>
+<li><p><strong>boxes</strong> – bounding box to plot (array)</p></li>
+<li><p><strong>pclasses</strong> – int variable describing type of target (int)</p></li>
+<li><p><strong>pboxes</strong> – coordinate of predicted boxes (array)</p></li>
+<li><p><strong>scaling</strong> – boolean variable which allows to scale images (bool)</p></li>
+<li><p><strong>plot_predictions</strong> – boolean for presence of target (bool)</p></li>
+<li><p><strong>pathout</strong> – directory path for the plot image (Path)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.plot_single_ct">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">plot_single_ct</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center_xy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">axes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/my_plots.html#plot_single_ct"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.plot_single_ct" title="Permalink to this definition"></a></dt>
+<dd><p>Plot one image with on top its isocentre.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> – ct image slice (np.ndarray, shape (x,y)).</p></li>
+<li><p><strong>center_xy</strong> – isocentre center_xy[0] is x and center_xy[1] is y (list).</p></li>
+<li><p><strong>axes</strong> – pre given axis. Default=None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>axes: set of images.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>im: output of axes.imshow().</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.plot_single_image_mask">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">plot_single_image_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_slice</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">axes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/my_plots.html#plot_single_image_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.plot_single_image_mask" title="Permalink to this definition"></a></dt>
+<dd><p>Plot one patient slice with its mask.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> – CT image slice (np.ndarray, shape (x,y)).</p></li>
+<li><p><strong>mask</strong> – mask of RT structure relative to image (np.ndarray).</p></li>
+<li><p><strong>n_slice</strong> – number of slice to be plotted (int).</p></li>
+<li><p><strong>axes</strong> – pre given axis. Default=None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>axes: set of 3 images (ct slice, mask and slice*mask)</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>im: output of axes.imshow()</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.random_npatient_nslice">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">random_npatient_nslice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_patient</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_random</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/my_plots.html#random_npatient_nslice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.random_npatient_nslice" title="Permalink to this definition"></a></dt>
+<dd><p>Random list of patient and random list of slices derived in the list of patient considered and in a range of central slices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_patient</strong> – number of patients considered (int).</p></li>
+<li><p><strong>n_random</strong> – number of random numbers to be generated (int).</p></li>
+<li><p><strong>seed</strong> – seed used a starting point to generate random numbers (int).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>index_sample: list of random indexes for patients.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>index_slice: list of random indexes for slices.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.my_plots.rtv_configuration_file">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.my_plots.</span></span><span class="sig-name descname"><span class="pre">rtv_configuration_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conf_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/my_plots.html#rtv_configuration_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.my_plots.rtv_configuration_file" title="Permalink to this definition"></a></dt>
+<dd><p>Save a copy of.yaml file in .txt format in pathout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>conf_file</strong> – name of the configuration file (str)</p></li>
+<li><p><strong>path</strong> – path of configuration file (Path)</p></li>
+<li><p><strong>save</strong> – boolean variable to enable saving (bool)</p></li>
+<li><p><strong>pathout</strong> – path for a copy of .yaml file (Path)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>config: python object of configuration variables (object)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-libsrdl.ordering_folders">
+<span id="libsrdl-ordering-folders-module"></span><h2>libsrdl.ordering_folders module<a class="headerlink" href="#module-libsrdl.ordering_folders" title="Permalink to this heading"></a></h2>
+<p>Module containing functions of image reordering.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.ordering_folders.ctv_or_ptv_performance">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.ordering_folders.</span></span><span class="sig-name descname"><span class="pre">ctv_or_ptv_performance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_rs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_csv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/ordering_folders.html#ctv_or_ptv_performance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.ordering_folders.ctv_or_ptv_performance" title="Permalink to this definition"></a></dt>
+<dd><p>Function to create name_file which show if a patient has PTV or CTV.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> – path of directories where name_file will be saved (Path)</p></li>
+<li><p><strong>path_rs</strong> – path of RS files (Path)</p></li>
+<li><p><strong>name_file</strong> – file name you want to create (add .xlsx) (str)</p></li>
+<li><p><strong>save_csv</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>ctv_or_ptv_df: DataFrame to say if CTV/PTV is present for each patient,
+column names: “CTV”, “PTV”, “Patient_Name” (DataFrame)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.ordering_folders.load_full_data">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.ordering_folders.</span></span><span class="sig-name descname"><span class="pre">load_full_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libsrdl/ordering_folders.html#load_full_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.ordering_folders.load_full_data" title="Permalink to this definition"></a></dt>
+<dd><p>Function to load .dcm files. The elements are loaded in the original order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>path</strong> – path of directories with CT and RS files (Path)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>path_ct: path of CT files (Path)</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>path_rs: path of RS files (Path)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>path_rd: path of RD files (Path)</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>path_rp: path of RP files (Path)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.ordering_folders.regex_path_list">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.ordering_folders.</span></span><span class="sig-name descname"><span class="pre">regex_path_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">regex_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Path</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libsrdl/ordering_folders.html#regex_path_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.ordering_folders.regex_path_list" title="Permalink to this definition"></a></dt>
+<dd><p>Convert a regular expression path into a list of matching paths.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>regex_path</strong> – regular expression pathlib Path</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>list of matching paths</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.ordering_folders.remove_duplicates">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.ordering_folders.</span></span><span class="sig-name descname"><span class="pre">remove_duplicates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patient_dirs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/ordering_folders.html#remove_duplicates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.ordering_folders.remove_duplicates" title="Permalink to this definition"></a></dt>
+<dd><p>Function to remove original .dcm files if they were successfully copied (check is True).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>patient_dirs</strong> – path of patient directories with considered files (e.g., CT, RS) (Path)</p></li>
+<li><p><strong>check</strong> – boolean list saying that files are correctly copied (True) (boolean list)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>check_rm: boolean list to check if files have been correctly removed
+(True if removed) (boolean list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.ordering_folders.reorder_both_directories">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.ordering_folders.</span></span><span class="sig-name descname"><span class="pre">reorder_both_directories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dictionary_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patients_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/ordering_folders.html#reorder_both_directories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.ordering_folders.reorder_both_directories" title="Permalink to this definition"></a></dt>
+<dd><p>Function to reorder all the directories created and which checks all copied files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dictionary_paths</strong> – dictionary of information with field names:
+“from”, “out_folder”, “fname”
+(ex:”from”: paths_ct, out_folder”: “CT”, “fname”: “CT.”) (Path)</p></li>
+<li><p><strong>patients_path</strong> – path of patient directories with considered files (e.g., CT, RS) (Path)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>check: boolean list to check if all the files are correctly copied
+(True if copied) (boolean list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.ordering_folders.reorder_directories">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.ordering_folders.</span></span><span class="sig-name descname"><span class="pre">reorder_directories</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name_directory</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/ordering_folders.html#reorder_directories"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.ordering_folders.reorder_directories" title="Permalink to this definition"></a></dt>
+<dd><p>Function to create a directory with name_folder and copy path in it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>paths</strong> – list of path files which must be copied (Path)</p></li>
+<li><p><strong>name_directory</strong> – name of the directory which is created (str)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.ordering_folders.reorder_mim_files">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.ordering_folders.</span></span><span class="sig-name descname"><span class="pre">reorder_mim_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dicom_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patients_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roi_name_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/ordering_folders.html#reorder_mim_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.ordering_folders.reorder_mim_files" title="Permalink to this definition"></a></dt>
+<dd><p>Function to reorder files in folders as created by MIM software.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dicom_path</strong> – path of files .dcm to be reordered (Path)</p></li>
+<li><p><strong>patients_path</strong> – path of all the patient directories (Path)</p></li>
+<li><p><strong>roi_name_file</strong> – roi label name as written inside the dicom RT (str)</p></li>
+<li><p><strong>save</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>check: boolean control that all CT and RT have been copied
+in the folder needed to use the loading libraries (boolean list)</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>check_remove: boolean control that duplicates in the original folder
+have been correctly removed for each patient (boolean list)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.ordering_folders.test_copy">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.ordering_folders.</span></span><span class="sig-name descname"><span class="pre">test_copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dictionary_paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">patient_dirs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/ordering_folders.html#test_copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.ordering_folders.test_copy" title="Permalink to this definition"></a></dt>
+<dd><p>Function to check copy of dicom files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dictionary_paths</strong> – dictionary of information with field names:
+“from”, “out_folder”, “fname (dictionary)</p></li>
+<li><p><strong>patient_dirs</strong> – path of patient directories with considered files (e.g., CT, RS) (Path)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>check: boolean list to check that the files have been copied correctly
+(True: correct) (bool)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-libsrdl.preprocessing_functions">
+<span id="libsrdl-preprocessing-functions-module"></span><h2>libsrdl.preprocessing_functions module<a class="headerlink" href="#module-libsrdl.preprocessing_functions" title="Permalink to this heading"></a></h2>
+<p>Functions for preprocessing.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.Isocentre">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">Isocentre</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#Isocentre"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.Isocentre" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Isocentre of the 2D image slice.</p>
+<p>x: x coordinate of the isocentre starting from the left (in pixels)
+y: y coordinate of the isocentre starting from the bottom (in pixels)</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.Isocentre.x">
+<span class="sig-name descname"><span class="pre">x</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libsrdl.preprocessing_functions.Isocentre.x" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.Isocentre.y">
+<span class="sig-name descname"><span class="pre">y</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#libsrdl.preprocessing_functions.Isocentre.y" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.check_images">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">check_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">masks</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#check_images"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.check_images" title="Permalink to this definition"></a></dt>
+<dd><p>Check if all loaded images have the same size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cts</strong> – loaded cts to check (numpy array)</p></li>
+<li><p><strong>masks</strong> – loaded RT mask to check (numpy array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.check_size">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">check_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#check_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.check_size" title="Permalink to this definition"></a></dt>
+<dd><p>Check if images have the same xy size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>images</strong> – images to check (numpy array)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>check: boolean list to check that the files have been copied correctly (True: correct) (bool)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.check_xy_size">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">check_xy_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using_mask</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#check_xy_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.check_xy_size" title="Permalink to this definition"></a></dt>
+<dd><p>Check if size of images are the same.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>images</strong> – images to check (numpy array)</p></li>
+<li><p><strong>using_mask</strong> – type of image to check (string)</p></li>
+</ul>
+</dd>
+</dl>
+<p>return: check:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.create_cropped_image_first_quadrant">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">create_cropped_image_first_quadrant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_nifti</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#create_cropped_image_first_quadrant"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.create_cropped_image_first_quadrant" title="Permalink to this definition"></a></dt>
+<dd><p>Function to crop the first quadrant (upper left) of the image and its mask .</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> – image to be rescaled (nifti)</p></li>
+<li><p><strong>mask_nifti</strong> – mask of the chosen ROI (nifti)</p></li>
+<li><p><strong>size</strong> – number of pixels of final image (int)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>image_resized: image resized (array)</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>mask_3d_resized: array of mask resized (array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.create_resized_image">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">create_resized_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_nifti</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isocentre</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#create_resized_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.create_resized_image" title="Permalink to this definition"></a></dt>
+<dd><p>Function to resize an image and its mask to a squared image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> – image to be rescaled (nifti)</p></li>
+<li><p><strong>mask_nifti</strong> – mask of the chosen ROI (nifti)</p></li>
+<li><p><strong>isocentre</strong> – isocentre of the image (class Isocentre)</p></li>
+<li><p><strong>size</strong> – number of pixels of final image (int)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>image_resized: image resized (array)</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>mask_3d_resized: array of mask resized (array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.crop_loaded_images">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">crop_loaded_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">final_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_isocentre</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#crop_loaded_images"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.crop_loaded_images" title="Permalink to this definition"></a></dt>
+<dd><p>crop images to final_size from .nii file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>images</strong> – CT images to resize (numpy array)</p></li>
+<li><p><strong>final_size</strong> – final size (int)</p></li>
+<li><p><strong>image_isocentre</strong> – pixel position of isocentre (int 2D array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>images: resized images (numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.from_mask_to_bounding_box">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">from_mask_to_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaling</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#from_mask_to_bounding_box"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.from_mask_to_bounding_box" title="Permalink to this definition"></a></dt>
+<dd><p>Function to create class labels and bounding boxes starting from segmented ROIs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mask</strong> – segmented ROI of image (boolean matrix)</p></li>
+<li><p><strong>scaling</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>labels: boolean array (1:is present), shape: (n_images,1)</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>boxes: 2D array storing bounding boxes coordinates (x min, y min, x max, y max)
+normalized with image shape, shape:(n_images,4)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.import_images_and_rt">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">import_images_and_rt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtst_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">array</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">RTStructure</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#import_images_and_rt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.import_images_and_rt" title="Permalink to this definition"></a></dt>
+<dd><p>Import images and RT Structures from file and convert them to nifti.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>images_path</strong> – path of the directory containing dicom images (i.e.: CT) (Path)</p></li>
+<li><p><strong>rt_path</strong> – path of the dicom RT structure (Path)</p></li>
+<li><p><strong>labels</strong> – ROI names (i.e.: PTV/CTV) (List[dict])</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>image: nifti image (i.e.: CT) (nifti)</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>mask_nifti: nifti mask of the ROI previously selected (nifti)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.preprocess_image">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">preprocess_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patient_directory</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_rs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isocentre</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#preprocess_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.preprocess_image" title="Permalink to this definition"></a></dt>
+<dd><p>Function to resize an image and its mask to a squared image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>patient_directory</strong> – path of patient directory with considered files (e.g., CT, RS) (Path)</p></li>
+<li><p><strong>path_rs</strong> – path of RS files (Path)</p></li>
+<li><p><strong>isocentre</strong> – isocentre of the image (class Isocentre)</p></li>
+<li><p><strong>crop_size</strong> – number of pixels of final image (int)</p></li>
+<li><p><strong>label</strong> – ROI name (i.e.: PTV/CTV) (str)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>image_resized: image resized (array)</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>mask_3d_resized: array of mask resized (array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.read_niftii_from_file">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">read_niftii_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#read_niftii_from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.read_niftii_from_file" title="Permalink to this definition"></a></dt>
+<dd><p>Read niftii image from file and return it as a numpy array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> – full path of the image’s file name</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy array of pixels</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.read_npy_from_file">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">read_npy_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#read_npy_from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.read_npy_from_file" title="Permalink to this definition"></a></dt>
+<dd><p>Read numpy data from file and return it as a numpy array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> – full path of the image’s file name</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>numpy array of pixels</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.rescale_color">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">rescale_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#rescale_color"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.rescale_color" title="Permalink to this definition"></a></dt>
+<dd><p>Function to rescale color of an image in range [0,1].</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image</strong> – image to rescale (nifti)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>image: image resized (nifti)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.resize_images">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">resize_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">final_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#resize_images"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.resize_images" title="Permalink to this definition"></a></dt>
+<dd><p>crop images to final_size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>images</strong> – CT images to resize (numpy array)</p></li>
+<li><p><strong>final_size</strong> – final size (int)</p></li>
+</ul>
+</dd>
+</dl>
+<p>return: resized_images: resized images (numpy array)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.resize_z_axis">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">resize_z_axis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_patient</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask_3d</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slide_offset</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#resize_z_axis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.resize_z_axis" title="Permalink to this definition"></a></dt>
+<dd><p>Function to move images with target in name_folder. It allows to crop on the z axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name_folder</strong> – name of directory to create with target images</p></li>
+<li><p><strong>path_patient</strong> – path of patient directories with considered files (e.g., CT, RS)</p></li>
+<li><p><strong>mask_3d</strong> – mask of n_patient</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.save_niftii_to_file">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">save_niftii_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Nifti1Image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#save_niftii_to_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.save_niftii_to_file" title="Permalink to this definition"></a></dt>
+<dd><p>Save niftii image to file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> – niftii image to be saved</p></li>
+<li><p><strong>filename</strong> – full path of the image’s file name</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.save_npy_to_file">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">save_npy_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#save_npy_to_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.save_npy_to_file" title="Permalink to this definition"></a></dt>
+<dd><p>Save numpy image to file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> – numpy array of the image to be saved</p></li>
+<li><p><strong>filename</strong> – full path of the image’s file name</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.upload_all_images">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">upload_all_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#upload_all_images"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.upload_all_images" title="Permalink to this definition"></a></dt>
+<dd><p>Load images from .nii file and save them into a numpy array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> – path of .nii file with images (Path)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>images: numpy array of images (numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="libsrdl.preprocessing_functions.upload_multi_images">
+<span class="sig-prename descclassname"><span class="pre">libsrdl.preprocessing_functions.</span></span><span class="sig-name descname"><span class="pre">upload_multi_images</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">patients_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">paths_rs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">isocentre</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crop_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/libsrdl/preprocessing_functions.html#upload_multi_images"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#libsrdl.preprocessing_functions.upload_multi_images" title="Permalink to this definition"></a></dt>
+<dd><p>Merge all images into one data array and optionally save them to file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>patients_path</strong> – path of patients directories (Path)</p></li>
+<li><p><strong>paths_rs</strong> – path of rt structs (Path)</p></li>
+<li><p><strong>save</strong> – boolean variable which allows saving CT and RT in .nii (Bool)</p></li>
+<li><p><strong>pathout</strong> – path of directory in which files will be (optionally) saved (Path)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>preprocessed_cts: numpy array of all preprocessed images (numpy array)</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>preprocessed_rt_masks: numpy array of all preprocessed masks (numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-libsrdl">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-libsrdl" title="Permalink to this heading"></a></h2>
+<p>libsrdl.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="modules.html" class="btn btn-neutral float-left" title="libsrdl" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="libsrdl.test.html" class="btn btn-neutral float-right" title="libsrdl.test package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, G. Palazzo, M.G. Ubeira-Gabellini.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
