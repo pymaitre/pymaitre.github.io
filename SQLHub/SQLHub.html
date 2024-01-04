@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SQLHub package &mdash; SQLHub 00.00.01 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=d7bb8d4d"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -99,19 +102,19 @@
            <div itemprop="articleBody">
              
   <section id="sqlhub-package">
-<h1>SQLHub package<a class="headerlink" href="#sqlhub-package" title="Link to this heading"></a></h1>
+<h1>SQLHub package<a class="headerlink" href="#sqlhub-package" title="Permalink to this heading"></a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
 </section>
 <section id="module-SQLHub.sql_library">
-<span id="sqlhub-sql-library-module"></span><h2>SQLHub.sql_library module<a class="headerlink" href="#module-SQLHub.sql_library" title="Link to this heading"></a></h2>
+<span id="sqlhub-sql-library-module"></span><h2>SQLHub.sql_library module<a class="headerlink" href="#module-SQLHub.sql_library" title="Permalink to this heading"></a></h2>
 <section id="sql-library">
-<h3>sql_library<a class="headerlink" href="#sql-library" title="Link to this heading"></a></h3>
+<h3>sql_library<a class="headerlink" href="#sql-library" title="Permalink to this heading"></a></h3>
 <p>Library with Elementary SQL functions (python - SQL interaction)</p>
 </section>
 <dl class="py function">
 <dt class="sig sig-object py" id="SQLHub.sql_library.casting_types">
-<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">casting_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sql_dtypes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#casting_types"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.casting_types" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">casting_types</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sql_dtypes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#casting_types"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.casting_types" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -127,15 +130,24 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SQLHub.sql_library.exec_SQL_command">
-<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">exec_SQL_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sql_cmd</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#exec_SQL_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.exec_SQL_command" title="Link to this definition"></a></dt>
-<dd><p>Run SQL command.
-:param: sql_cmd: sql command
-:param: SQL_result: SQL Connection string</p>
+<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">exec_SQL_command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sql_cmd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#exec_SQL_command"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.exec_SQL_command" title="Permalink to this definition"></a></dt>
+<dd><p>Run SQL command.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param<span class="colon">:</span></dt>
+<dd class="field-odd"><p>sql_cmd: sql command</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>project_path</strong> – configuration file path (Path). Default None.</p>
+</dd>
+<dt class="field-odd">Param<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SQL_result: SQL Connection string</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SQLHub.sql_library.get_field_type">
-<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">get_field_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pField</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pDataTypes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#get_field_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.get_field_type" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">get_field_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pField</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pDataTypes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#get_field_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.get_field_type" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -151,14 +163,21 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SQLHub.sql_library.open_db_connection">
-<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">open_db_connection</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#open_db_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.open_db_connection" title="Link to this definition"></a></dt>
-<dd><p>Open connection to DB SQL
-:return: MSSQL Connection</p>
+<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">open_db_connection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#open_db_connection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.open_db_connection" title="Permalink to this definition"></a></dt>
+<dd><p>Open connection to DB SQL</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>project_path</strong> – configuration file path (Path). Default None.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>MSSQL Connection</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SQLHub.sql_library.put_quote">
-<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">put_quote</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pField</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pDataTypes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#put_quote"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.put_quote" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">put_quote</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pField</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pValue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pDataTypes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#put_quote"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.put_quote" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -175,29 +194,43 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SQLHub.sql_library.read_SQL">
-<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">read_SQL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">SQL</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#read_SQL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.read_SQL" title="Link to this definition"></a></dt>
-<dd><p>Returns a DataFrame corresponding to the result set of the query string.
-:param: SQL: query string
-:param: Engine: SQL Connection string
-:return: Dataframe with data query</p>
+<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">read_SQL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">SQL</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#read_SQL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.read_SQL" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a DataFrame corresponding to the result set of the query string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SQL: query string</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>project_path</strong> – configuration file path (Path). Default None.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Dataframe with data query</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SQLHub.sql_library.rtv_DB_name">
-<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_DB_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_DB_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_DB_name" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_DB_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lProjectPath</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_DB_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_DB_name" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>lProjectPath</strong> – configuration file.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SQLHub.sql_library.rtv_columns_data_type">
-<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_columns_data_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_columns_data_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_columns_data_type" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_columns_data_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_columns_data_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_columns_data_type" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>table</strong> – </p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>project_path</strong> – </p></li>
+<li><p><strong>table</strong> – </p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p></p>
@@ -207,7 +240,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SQLHub.sql_library.rtv_fetch_clause">
-<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_fetch_clause</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pFetchJS</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_fetch_clause"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_fetch_clause" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_fetch_clause</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pFetchJS</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_fetch_clause"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_fetch_clause" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>pFetchJS</strong> – </p>
@@ -220,7 +253,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SQLHub.sql_library.rtv_order_by_clause">
-<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_order_by_clause</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pOrderByJS</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_order_by_clause"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_order_by_clause" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_order_by_clause</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pOrderByJS</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_order_by_clause"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_order_by_clause" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>pOrderByJS</strong> – </p>
@@ -233,43 +266,75 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SQLHub.sql_library.rtv_parameter">
-<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameter_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_parameter" title="Link to this definition"></a></dt>
-<dd><p>Restituisce il valore di un parametro da file di configurazione.
-:param: parameter_name = Nome del parametro.
-:return: parameter_value = Valore del parametro.</p>
+<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_parameter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parameter_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_parameter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_parameter" title="Permalink to this definition"></a></dt>
+<dd><p>Restituisce il valore di un parametro da file di configurazione.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param<span class="colon">:</span></dt>
+<dd class="field-odd"><p>parameter_name = Nome del parametro.</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>project_path</strong> – configuration file path (Path). Default None.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>parameter_value = Valore del parametro.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SQLHub.sql_library.rtv_project_path">
-<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_project_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_project_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_project_path" title="Link to this definition"></a></dt>
-<dd><p>Return the project root path.
-:return: project_path: project root path.</p>
+<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_project_path</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_project_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_project_path" title="Permalink to this definition"></a></dt>
+<dd><p>Return the project root path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>project_path: project root path.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SQLHub.sql_library.rtv_sql_table">
-<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_sql_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_table</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_sql_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_sql_table" title="Link to this definition"></a></dt>
-<dd><p>Read DB local
-:param name_table:
-:return: df0:</p>
+<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_sql_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name_table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_sql_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_sql_table" title="Permalink to this definition"></a></dt>
+<dd><p>Read DB local</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name_table</strong> – </p></li>
+<li><p><strong>project_path</strong> – configuration file path (Path). Default None.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>df0:</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SQLHub.sql_library.rtv_tables_names">
-<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_tables_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">survey_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_tables_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_tables_names" title="Link to this definition"></a></dt>
-<dd><p>Retrive the name of the Tables associated to the chosen survey.
-:param survey_name: Name of the Survey chosen.
-:return: data_out: Table with the tables names.</p>
+<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_tables_names</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">survey_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbconf_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_tables_names"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_tables_names" title="Permalink to this definition"></a></dt>
+<dd><p>Retrive the name of the Tables associated to the chosen survey.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>survey_name</strong> – Name of the Survey chosen.</p></li>
+<li><p><strong>dbconf_path</strong> – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>data_out: Table with the tables names.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SQLHub.sql_library.rtv_where_clause">
-<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_where_clause</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pWhereJS</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_where_clause"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_where_clause" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">rtv_where_clause</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pWhereJS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">project_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#rtv_where_clause"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.rtv_where_clause" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>table</strong> – </p></li>
 <li><p><strong>pWhereJS</strong> – </p></li>
+<li><p><strong>project_path</strong> – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -280,7 +345,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="SQLHub.sql_library.select_data_from_SQL">
-<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">select_data_from_SQL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">whereJS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pOrderByJS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pFetchJS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#select_data_from_SQL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.select_data_from_SQL" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">SQLHub.sql_library.</span></span><span class="sig-name descname"><span class="pre">select_data_from_SQL</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">table</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">whereJS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pOrderByJS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pFetchJS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dbconf_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/SQLHub/sql_library.html#select_data_from_SQL"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#SQLHub.sql_library.select_data_from_SQL" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -288,6 +353,7 @@
 <li><p><strong>whereJS</strong> – </p></li>
 <li><p><strong>pOrderByJS</strong> – </p></li>
 <li><p><strong>pFetchJS</strong> – </p></li>
+<li><p><strong>dbconf_path</strong> – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -298,7 +364,7 @@
 
 </section>
 <section id="module-SQLHub">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-SQLHub" title="Link to this heading"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-SQLHub" title="Permalink to this heading"></a></h2>
 <p>SQLHub.</p>
 </section>
 </section>

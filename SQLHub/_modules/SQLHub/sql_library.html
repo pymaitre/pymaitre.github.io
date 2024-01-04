@@ -1,20 +1,23 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SQLHub.sql_library &mdash; SQLHub 00.00.01 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="../../_static/jquery.js?v=5d32c60e"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../_static/documentation_options.js?v=d7bb8d4d"></script>
-        <script src="../../_static/doctools.js?v=888ff710"></script>
-        <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -90,11 +93,10 @@
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 
-<div class="viewcode-block" id="rtv_project_path">
-<a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_project_path">[docs]</a>
-<span class="k">def</span> <span class="nf">rtv_project_path</span><span class="p">():</span>
+<div class="viewcode-block" id="rtv_project_path"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_project_path">[docs]</a><span class="k">def</span> <span class="nf">rtv_project_path</span><span class="p">():</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the project root path.</span>
+
 <span class="sd">    :return: project_path: project root path.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">project_path</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="c1">#pathlib.Path(__file__).parent.parent.parent.parent</span>
@@ -102,17 +104,17 @@
     <span class="k">return</span> <span class="n">project_path</span></div>
 
 
-
-<div class="viewcode-block" id="rtv_parameter">
-<a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_parameter">[docs]</a>
-<span class="k">def</span> <span class="nf">rtv_parameter</span><span class="p">(</span><span class="n">parameter_name</span><span class="p">):</span>
+<div class="viewcode-block" id="rtv_parameter"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_parameter">[docs]</a><span class="k">def</span> <span class="nf">rtv_parameter</span><span class="p">(</span><span class="n">parameter_name</span><span class="p">,</span> <span class="n">project_path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Restituisce il valore di un parametro da file di configurazione.</span>
+
 <span class="sd">    :param: parameter_name = Nome del parametro.</span>
+<span class="sd">    :param project_path: configuration file path (Path). Default None.</span>
 <span class="sd">    :return: parameter_value = Valore del parametro.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Lettura file configurazione</span>
-    <span class="n">project_path</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span> <span class="c1">#pathlib.Path(__file__).parent</span>
+    <span class="k">if</span> <span class="n">project_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">project_path</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
     <span class="n">conf_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project_path</span><span class="p">,</span> <span class="s2">&quot;conf&quot;</span><span class="p">,</span> <span class="s2">&quot;DbConf.yml&quot;</span><span class="p">)</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">conf_file_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
         <span class="n">config_parameters</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">FullLoader</span><span class="p">)</span>
@@ -122,13 +124,12 @@
     <span class="k">return</span> <span class="n">parameter_value</span></div>
 
 
-
-<div class="viewcode-block" id="rtv_tables_names">
-<a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_tables_names">[docs]</a>
-<span class="k">def</span> <span class="nf">rtv_tables_names</span><span class="p">(</span><span class="n">survey_name</span><span class="p">):</span>
+<div class="viewcode-block" id="rtv_tables_names"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_tables_names">[docs]</a><span class="k">def</span> <span class="nf">rtv_tables_names</span><span class="p">(</span><span class="n">survey_name</span><span class="p">,</span> <span class="n">dbconf_path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Retrive the name of the Tables associated to the chosen survey.</span>
+
 <span class="sd">    :param survey_name: Name of the Survey chosen.</span>
+<span class="sd">    :param dbconf_path:</span>
 <span class="sd">    :return: data_out: Table with the tables names.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">lTable</span> <span class="o">=</span> <span class="s2">&quot;survey_tables&quot;</span>
@@ -138,23 +139,23 @@
     <span class="n">lField</span><span class="p">[</span><span class="s2">&quot;operator&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;=&quot;</span>
     <span class="n">lField</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">survey_name</span>
     <span class="n">lQuery</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lField</span><span class="p">)</span>
-    <span class="n">lRetCode</span><span class="p">,</span> <span class="n">data_out</span> <span class="o">=</span> <span class="n">select_data_from_SQL</span><span class="p">(</span><span class="n">lTable</span><span class="p">,</span> <span class="n">lQuery</span><span class="p">)</span>
+    <span class="n">lRetCode</span><span class="p">,</span> <span class="n">data_out</span> <span class="o">=</span> <span class="n">select_data_from_SQL</span><span class="p">(</span><span class="n">lTable</span><span class="p">,</span> <span class="n">lQuery</span><span class="p">,</span> <span class="n">dbconf_path</span><span class="o">=</span><span class="n">dbconf_path</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">data_out</span></div>
 
 
-
-<div class="viewcode-block" id="rtv_sql_table">
-<a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_sql_table">[docs]</a>
-<span class="k">def</span> <span class="nf">rtv_sql_table</span><span class="p">(</span><span class="n">name_table</span><span class="p">):</span>
+<div class="viewcode-block" id="rtv_sql_table"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_sql_table">[docs]</a><span class="k">def</span> <span class="nf">rtv_sql_table</span><span class="p">(</span><span class="n">name_table</span><span class="p">,</span> <span class="n">project_path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Read DB local</span>
+
 <span class="sd">    :param name_table:</span>
+<span class="sd">    :param project_path: configuration file path (Path). Default None.</span>
 <span class="sd">    :return: df0:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Read configuration file</span>
-    <span class="n">project_path</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span> <span class="c1">#pathlib.Path(__file__).parent</span>
+    <span class="k">if</span> <span class="n">project_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">project_path</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
     <span class="n">db_conf_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project_path</span><span class="p">,</span> <span class="s2">&quot;conf&quot;</span><span class="p">,</span> <span class="s2">&quot;DbConf.yml&quot;</span><span class="p">)</span>
 
     <span class="c1"># with open(r&#39;./DbConf.yml&#39;) as file:</span>
@@ -189,16 +190,16 @@
     <span class="k">return</span> <span class="n">df0</span></div>
 
 
-
-<div class="viewcode-block" id="open_db_connection">
-<a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.open_db_connection">[docs]</a>
-<span class="k">def</span> <span class="nf">open_db_connection</span><span class="p">():</span>
+<div class="viewcode-block" id="open_db_connection"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.open_db_connection">[docs]</a><span class="k">def</span> <span class="nf">open_db_connection</span><span class="p">(</span><span class="n">project_path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Open connection to DB SQL</span>
+
+<span class="sd">    :param project_path: configuration file path (Path). Default None.</span>
 <span class="sd">    :return: MSSQL Connection</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Read configuration file</span>
-    <span class="n">project_path</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span> <span class="c1">#pathlib.Path(__file__).parent</span>
+    <span class="k">if</span> <span class="n">project_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">project_path</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
     <span class="n">db_conf_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project_path</span><span class="p">,</span> <span class="s2">&quot;conf&quot;</span><span class="p">,</span> <span class="s2">&quot;DbConf.yml&quot;</span><span class="p">)</span>
 
     <span class="c1"># with open(r&#39;./DbConf.yml&#39;) as file:</span>
@@ -211,13 +212,13 @@
     <span class="n">user</span> <span class="o">=</span> <span class="n">config_parameters</span><span class="p">[</span><span class="s2">&quot;DBUser&quot;</span><span class="p">]</span>
     <span class="n">password</span> <span class="o">=</span> <span class="n">config_parameters</span><span class="p">[</span><span class="s2">&quot;DBPassword&quot;</span><span class="p">]</span>
 
-    <span class="c1"># pyodbc</span>
-    <span class="c1"># conn_str = &quot;mssql+pyodbc://&quot; + user + &quot;:&quot; + password + &quot;@&quot; + database_name</span>
-    <span class="c1"># pyodbc MP version</span>
-    <span class="c1"># conn_str = &#39;mssql+pyodbc://@&#39; + server + &#39;/&#39; + database_name + &#39;?trusted_connection=yes&amp;driver=ODBC+Driver+17+for+SQL+Server&#39;</span>
-    <span class="c1"># pymssql</span>
-    <span class="n">conn_str</span> <span class="o">=</span> <span class="s2">&quot;mssql+pymssql://&quot;</span> <span class="o">+</span> <span class="n">user</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">password</span> <span class="o">+</span> <span class="s2">&quot;@&quot;</span> <span class="o">+</span> <span class="n">server</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">db_port</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">database_name</span>
-    <span class="c1"># conn_str = urllib.parse.quote_plus(conn_str)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># pymssql</span>
+        <span class="n">conn_str</span> <span class="o">=</span> <span class="s2">&quot;mssql+pymssql://&quot;</span> <span class="o">+</span> <span class="n">user</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">password</span> <span class="o">+</span> <span class="s2">&quot;@&quot;</span> <span class="o">+</span> <span class="n">server</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="n">db_port</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">database_name</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="c1"># pyodbc MP version</span>
+        <span class="n">conn_str</span> <span class="o">=</span> <span class="s1">&#39;mssql+pyodbc://@&#39;</span> <span class="o">+</span> <span class="n">server</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="n">database_name</span> <span class="o">+</span> <span class="s1">&#39;?trusted_connection=yes&amp;driver=ODBC+Driver+17+for+SQL+Server&#39;</span>
+        <span class="c1"># conn_str = &quot;mssql+pyodbc://&quot; + user + &quot;:&quot; + password + &quot;@&quot; + database_name</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="n">engine</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">create_engine</span><span class="p">(</span><span class="n">conn_str</span><span class="p">)</span>
@@ -226,18 +227,16 @@
         <span class="k">return</span> <span class="s2">&quot;Error: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">())</span></div>
 
 
-
-<div class="viewcode-block" id="read_SQL">
-<a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.read_SQL">[docs]</a>
-<span class="k">def</span> <span class="nf">read_SQL</span><span class="p">(</span><span class="n">SQL</span><span class="p">):</span>
+<div class="viewcode-block" id="read_SQL"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.read_SQL">[docs]</a><span class="k">def</span> <span class="nf">read_SQL</span><span class="p">(</span><span class="n">SQL</span><span class="p">,</span> <span class="n">project_path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns a DataFrame corresponding to the result set of the query string.</span>
+
 <span class="sd">    :param: SQL: query string</span>
-<span class="sd">    :param: Engine: SQL Connection string</span>
+<span class="sd">    :param project_path: configuration file path (Path). Default None.</span>
 <span class="sd">    :return: Dataframe with data query</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">connection_string</span> <span class="o">=</span> <span class="n">open_db_connection</span><span class="p">()</span>
+    <span class="n">connection_string</span> <span class="o">=</span> <span class="n">open_db_connection</span><span class="p">(</span><span class="n">project_path</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">SQL_query</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_query</span><span class="p">(</span><span class="n">SQL</span><span class="p">,</span> <span class="n">connection_string</span><span class="p">)</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">SQL_query</span><span class="p">)</span>
@@ -246,16 +245,15 @@
         <span class="k">return</span> <span class="mi">999</span><span class="p">,</span> <span class="s2">&quot;Error: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">())</span></div>
 
 
-
-<div class="viewcode-block" id="exec_SQL_command">
-<a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.exec_SQL_command">[docs]</a>
-<span class="k">def</span> <span class="nf">exec_SQL_command</span><span class="p">(</span><span class="n">sql_cmd</span><span class="p">):</span>
+<div class="viewcode-block" id="exec_SQL_command"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.exec_SQL_command">[docs]</a><span class="k">def</span> <span class="nf">exec_SQL_command</span><span class="p">(</span><span class="n">sql_cmd</span><span class="p">,</span> <span class="n">project_path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Run SQL command.</span>
+
 <span class="sd">    :param: sql_cmd: sql command</span>
+<span class="sd">    :param project_path: configuration file path (Path). Default None.</span>
 <span class="sd">    :param: SQL_result: SQL Connection string</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">connection_string</span> <span class="o">=</span> <span class="n">open_db_connection</span><span class="p">()</span>
+    <span class="n">connection_string</span> <span class="o">=</span> <span class="n">open_db_connection</span><span class="p">(</span><span class="n">project_path</span><span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
         <span class="n">SQL_result</span> <span class="o">=</span> <span class="n">connection_string</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sa</span><span class="o">.</span><span class="n">sql</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">sql_cmd</span><span class="p">)</span><span class="o">.</span><span class="n">execution_options</span><span class="p">(</span><span class="n">autocommit</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
@@ -264,10 +262,7 @@
         <span class="k">return</span> <span class="mi">999</span><span class="p">,</span> <span class="s2">&quot;Error: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">())</span></div>
 
 
-
-<div class="viewcode-block" id="select_data_from_SQL">
-<a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.select_data_from_SQL">[docs]</a>
-<span class="k">def</span> <span class="nf">select_data_from_SQL</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">whereJS</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">pOrderByJS</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">pFetchJS</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="select_data_from_SQL"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.select_data_from_SQL">[docs]</a><span class="k">def</span> <span class="nf">select_data_from_SQL</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">whereJS</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">pOrderByJS</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">pFetchJS</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">dbconf_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
@@ -275,13 +270,14 @@
 <span class="sd">    :param whereJS:</span>
 <span class="sd">    :param pOrderByJS:</span>
 <span class="sd">    :param pFetchJS:</span>
+<span class="sd">    :param dbconf_path:</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">lRetCode</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">lSqlCmd</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM &quot;</span> <span class="o">+</span> <span class="n">table</span>
 
-    <span class="n">lRetCode</span><span class="p">,</span> <span class="n">lWhere</span><span class="p">,</span> <span class="n">lDataTypes</span> <span class="o">=</span> <span class="n">rtv_where_clause</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">whereJS</span><span class="p">)</span>
+    <span class="n">lRetCode</span><span class="p">,</span> <span class="n">lWhere</span><span class="p">,</span> <span class="n">lDataTypes</span> <span class="o">=</span> <span class="n">rtv_where_clause</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">whereJS</span><span class="p">,</span> <span class="n">dbconf_path</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">lRetCode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">lOrderBy</span> <span class="o">=</span> <span class="n">rtv_order_by_clause</span><span class="p">(</span><span class="n">pOrderByJS</span><span class="p">)</span>
         <span class="n">lFetch</span> <span class="o">=</span> <span class="n">rtv_fetch_clause</span><span class="p">(</span><span class="n">pFetchJS</span><span class="p">)</span>
@@ -289,7 +285,7 @@
         <span class="k">if</span> <span class="n">lOrderBy</span><span class="p">:</span>
             <span class="n">lSqlCmd</span> <span class="o">+=</span> <span class="n">lFetch</span>
 
-        <span class="n">lRetCode</span><span class="p">,</span> <span class="n">lResponse</span> <span class="o">=</span> <span class="n">read_SQL</span><span class="p">(</span><span class="n">lSqlCmd</span><span class="p">)</span>
+        <span class="n">lRetCode</span><span class="p">,</span> <span class="n">lResponse</span> <span class="o">=</span> <span class="n">read_SQL</span><span class="p">(</span><span class="n">lSqlCmd</span><span class="p">,</span> <span class="n">dbconf_path</span><span class="p">)</span>
         <span class="n">lResponse</span> <span class="o">=</span> <span class="n">casting_types</span><span class="p">(</span><span class="n">lResponse</span><span class="p">,</span> <span class="n">lDataTypes</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">lResponse</span> <span class="o">=</span> <span class="n">lWhere</span>
@@ -297,10 +293,7 @@
     <span class="k">return</span> <span class="n">lRetCode</span><span class="p">,</span> <span class="n">lResponse</span></div>
 
 
-
-<div class="viewcode-block" id="casting_types">
-<a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.casting_types">[docs]</a>
-<span class="k">def</span> <span class="nf">casting_types</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">sql_dtypes</span><span class="p">):</span>
+<div class="viewcode-block" id="casting_types"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.casting_types">[docs]</a><span class="k">def</span> <span class="nf">casting_types</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">sql_dtypes</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    :param table: input df with some cols dtype to be converted to boolean.</span>
@@ -324,17 +317,16 @@
     <span class="k">return</span> <span class="n">table_c</span></div>
 
 
-
-<div class="viewcode-block" id="rtv_DB_name">
-<a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_DB_name">[docs]</a>
-<span class="k">def</span> <span class="nf">rtv_DB_name</span><span class="p">():</span>
+<div class="viewcode-block" id="rtv_DB_name"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_DB_name">[docs]</a><span class="k">def</span> <span class="nf">rtv_DB_name</span><span class="p">(</span><span class="n">lProjectPath</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
+<span class="sd">    :param lProjectPath: configuration file.</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">lProjectPath</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span> <span class="c1">#pathlib.Path(__file__).parent</span>
+    <span class="k">if</span> <span class="n">lProjectPath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">lProjectPath</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
     <span class="n">lConfFilePath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lProjectPath</span><span class="p">,</span> <span class="s2">&quot;conf&quot;</span><span class="p">,</span> <span class="s2">&quot;DbConf.yml&quot;</span><span class="p">)</span>
+
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">lConfFilePath</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
         <span class="n">config_parameters</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">FullLoader</span><span class="p">)</span>
     <span class="n">lParameterValue</span> <span class="o">=</span> <span class="n">config_parameters</span><span class="p">[</span><span class="s2">&quot;DBDatabaseName&quot;</span><span class="p">]</span>
@@ -342,30 +334,25 @@
     <span class="k">return</span> <span class="n">lParameterValue</span></div>
 
 
-
-<div class="viewcode-block" id="rtv_columns_data_type">
-<a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_columns_data_type">[docs]</a>
-<span class="k">def</span> <span class="nf">rtv_columns_data_type</span><span class="p">(</span><span class="n">table</span><span class="p">):</span>
+<div class="viewcode-block" id="rtv_columns_data_type"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_columns_data_type">[docs]</a><span class="k">def</span> <span class="nf">rtv_columns_data_type</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">project_path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
+<span class="sd">    :param project_path:</span>
 <span class="sd">    :param table:</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">db_name</span> <span class="o">=</span> <span class="n">rtv_DB_name</span><span class="p">()</span>
+    <span class="n">db_name</span> <span class="o">=</span> <span class="n">rtv_DB_name</span><span class="p">(</span><span class="n">project_path</span><span class="p">)</span>
     <span class="c1"># lSQLCmd = &quot;SELECT * FROM &quot; + table</span>
     <span class="n">lSQLCmd</span> <span class="o">=</span> <span class="p">(</span>
         <span class="s2">&quot;SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = &#39;&quot;</span> <span class="o">+</span> <span class="n">table</span> <span class="o">+</span> <span class="s2">&quot;&#39;&quot;</span>
     <span class="p">)</span>  <span class="c1"># + &quot;AND TABLE_SCHEMA = &#39;&quot; + db_name + &quot;&#39;&quot;</span>
-    <span class="n">lRetCode</span><span class="p">,</span> <span class="n">lTableDef</span> <span class="o">=</span> <span class="n">read_SQL</span><span class="p">(</span><span class="n">lSQLCmd</span><span class="p">)</span>
+    <span class="n">lRetCode</span><span class="p">,</span> <span class="n">lTableDef</span> <span class="o">=</span> <span class="n">read_SQL</span><span class="p">(</span><span class="n">lSQLCmd</span><span class="p">,</span> <span class="n">project_path</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">lRetCode</span><span class="p">,</span> <span class="n">lTableDef</span></div>
 
 
-
-<div class="viewcode-block" id="get_field_type">
-<a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.get_field_type">[docs]</a>
-<span class="k">def</span> <span class="nf">get_field_type</span><span class="p">(</span><span class="n">pField</span><span class="p">,</span> <span class="n">pDataTypes</span><span class="p">):</span>
+<div class="viewcode-block" id="get_field_type"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.get_field_type">[docs]</a><span class="k">def</span> <span class="nf">get_field_type</span><span class="p">(</span><span class="n">pField</span><span class="p">,</span> <span class="n">pDataTypes</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    :param pField:</span>
@@ -377,10 +364,7 @@
     <span class="k">return</span> <span class="n">lFieldType</span></div>
 
 
-
-<div class="viewcode-block" id="put_quote">
-<a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.put_quote">[docs]</a>
-<span class="k">def</span> <span class="nf">put_quote</span><span class="p">(</span><span class="n">pField</span><span class="p">,</span> <span class="n">pValue</span><span class="p">,</span> <span class="n">pDataTypes</span><span class="p">):</span>
+<div class="viewcode-block" id="put_quote"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.put_quote">[docs]</a><span class="k">def</span> <span class="nf">put_quote</span><span class="p">(</span><span class="n">pField</span><span class="p">,</span> <span class="n">pValue</span><span class="p">,</span> <span class="n">pDataTypes</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    :param pField:</span>
@@ -402,18 +386,16 @@
     <span class="k">return</span> <span class="n">lValueEdited</span></div>
 
 
-
-<div class="viewcode-block" id="rtv_where_clause">
-<a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_where_clause">[docs]</a>
-<span class="k">def</span> <span class="nf">rtv_where_clause</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">pWhereJS</span><span class="p">):</span>
+<div class="viewcode-block" id="rtv_where_clause"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_where_clause">[docs]</a><span class="k">def</span> <span class="nf">rtv_where_clause</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">pWhereJS</span><span class="p">,</span> <span class="n">project_path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    :param table:</span>
 <span class="sd">    :param pWhereJS:</span>
+<span class="sd">    :param project_path:</span>
 <span class="sd">    :return:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">lTable</span> <span class="o">=</span> <span class="n">table</span>
-    <span class="n">lRetCode</span><span class="p">,</span> <span class="n">lDataTypes</span> <span class="o">=</span> <span class="n">rtv_columns_data_type</span><span class="p">(</span><span class="n">lTable</span><span class="p">)</span>
+    <span class="n">lRetCode</span><span class="p">,</span> <span class="n">lDataTypes</span> <span class="o">=</span> <span class="n">rtv_columns_data_type</span><span class="p">(</span><span class="n">lTable</span><span class="p">,</span> <span class="n">project_path</span><span class="p">)</span>
     <span class="n">lWhereClause</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
     <span class="k">if</span> <span class="n">lRetCode</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">lDataTypes</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">pWhereJS</span><span class="p">:</span>
@@ -437,10 +419,7 @@
     <span class="k">return</span> <span class="n">lRetCode</span><span class="p">,</span> <span class="n">lWhereClause</span><span class="p">,</span> <span class="n">lDataTypes</span></div>
 
 
-
-<div class="viewcode-block" id="rtv_order_by_clause">
-<a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_order_by_clause">[docs]</a>
-<span class="k">def</span> <span class="nf">rtv_order_by_clause</span><span class="p">(</span><span class="n">pOrderByJS</span><span class="p">):</span>
+<div class="viewcode-block" id="rtv_order_by_clause"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_order_by_clause">[docs]</a><span class="k">def</span> <span class="nf">rtv_order_by_clause</span><span class="p">(</span><span class="n">pOrderByJS</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    :param pOrderByJS:</span>
@@ -456,10 +435,7 @@
     <span class="k">return</span> <span class="n">lOrderBy</span></div>
 
 
-
-<div class="viewcode-block" id="rtv_fetch_clause">
-<a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_fetch_clause">[docs]</a>
-<span class="k">def</span> <span class="nf">rtv_fetch_clause</span><span class="p">(</span><span class="n">pFetchJS</span><span class="p">):</span>
+<div class="viewcode-block" id="rtv_fetch_clause"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_fetch_clause">[docs]</a><span class="k">def</span> <span class="nf">rtv_fetch_clause</span><span class="p">(</span><span class="n">pFetchJS</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
@@ -480,6 +456,286 @@
 
     <span class="k">return</span> <span class="n">lFetchClause</span></div>
 
+<span class="c1">#TODO: check if those functions can be necessary</span>
+
+<span class="c1"># # def fUpdateDataIntoSQL(table, pUpdateListJS , whereJS=&quot;&quot; ):</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #</span>
+<span class="c1"># #     :param table:</span>
+<span class="c1"># #     :param pUpdateListJS:</span>
+<span class="c1"># #     :param whereJS:</span>
+<span class="c1"># #     :return:</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #</span>
+<span class="c1"># #     lResponse = &#39;&#39;</span>
+<span class="c1"># #     lRetCode = 0</span>
+<span class="c1"># #     lSetClause = &#39;&#39;</span>
+<span class="c1"># #     lFirstClause = True</span>
+<span class="c1"># #</span>
+<span class="c1"># #     lRetCode, lDataTypes = rtv_columns_data_type(table)</span>
+<span class="c1"># #     if lRetCode == 0:</span>
+<span class="c1"># #         lSqlCmd = &quot;UPDATE &quot; + table + &quot; SET &quot;</span>
+<span class="c1"># #</span>
+<span class="c1"># #         for wField, wValue in pUpdateListJS.items():</span>
+<span class="c1"># #             if not wValue and wValue !=0:</span>
+<span class="c1"># #                 wValue = &#39;NULL&#39;</span>
+<span class="c1"># #             wEditedValue = put_quote(wField, wValue, lDataTypes)</span>
+<span class="c1"># #             wClause = wField + &quot; = &quot; + wEditedValue</span>
+<span class="c1"># #             if lFirstClause:</span>
+<span class="c1"># #                 lSetClause += wClause</span>
+<span class="c1"># #                 lFirstClause = False</span>
+<span class="c1"># #             else:</span>
+<span class="c1"># #                 lSetClause += &#39;, &#39; + wClause</span>
+<span class="c1"># #</span>
+<span class="c1"># #         lSqlCmd += lSetClause</span>
+<span class="c1"># #</span>
+<span class="c1"># #         lRetCode, lWhere = rtv_where_clause(table, whereJS)</span>
+<span class="c1"># #         if lRetCode == 0:</span>
+<span class="c1"># #</span>
+<span class="c1"># #             lSqlCmd += lWhere</span>
+<span class="c1"># #</span>
+<span class="c1"># #             lRetCode, lResponse = exec_SQL_command(lSqlCmd)</span>
+<span class="c1"># #         else:</span>
+<span class="c1"># #             lResponse = lWhere</span>
+<span class="c1"># #     else:</span>
+<span class="c1"># #         lResponse = lDataTypes</span>
+<span class="c1"># #     return lRetCode, lResponse</span>
+<span class="c1"># #</span>
+<span class="c1"># # def fInsertDataIntoSQL(table, pValuesJS):</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #</span>
+<span class="c1"># #     :param table:</span>
+<span class="c1"># #     :param pValuesJS:</span>
+<span class="c1"># #     :return:</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #     lResponse = &#39;&#39;</span>
+<span class="c1"># #     lRetCode = 0</span>
+<span class="c1"># #     lFieldList = &#39;(&#39;</span>
+<span class="c1"># #     lValueList = &#39;(&#39;</span>
+<span class="c1"># #     lFirstClause = True</span>
+<span class="c1"># #</span>
+<span class="c1"># #     lRetCode, lDataTypes = rtv_columns_data_type(table)</span>
+<span class="c1"># #     if lRetCode == 0:</span>
+<span class="c1"># #         lSqlCmd = &quot;INSERT INTO &quot; + table</span>
+<span class="c1"># #</span>
+<span class="c1"># #         for wField, wValue in pValuesJS.items():</span>
+<span class="c1"># #             if not wValue and wValue != 0:</span>
+<span class="c1"># #                 wValue = &#39;NULL&#39;</span>
+<span class="c1"># #             wEditedValue = put_quote(wField, wValue, lDataTypes)</span>
+<span class="c1"># #             if lFirstClause:</span>
+<span class="c1"># #                 lFieldList += wField</span>
+<span class="c1"># #                 lValueList += wEditedValue</span>
+<span class="c1"># #                 lFirstClause = False</span>
+<span class="c1"># #             else:</span>
+<span class="c1"># #                 lFieldList += &#39;, &#39; + wField</span>
+<span class="c1"># #                 lValueList += &#39;, &#39; + wEditedValue</span>
+<span class="c1"># #</span>
+<span class="c1"># #         lFieldList += &quot;)&quot;</span>
+<span class="c1"># #         lValueList += &quot;)&quot;</span>
+<span class="c1"># #</span>
+<span class="c1"># #         lSqlCmd += lFieldList + &quot; VALUES &quot; + lValueList</span>
+<span class="c1"># #</span>
+<span class="c1"># #         lRetCode, lResponse = exec_SQL_command(lSqlCmd)</span>
+<span class="c1"># #     else:</span>
+<span class="c1"># #         lResponse = lDataTypes</span>
+<span class="c1"># #</span>
+<span class="c1"># #     return lRetCode, lResponse</span>
+<span class="c1"># #</span>
+<span class="c1"># # def fDeleteDataFromSQL(pRequest):</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #</span>
+<span class="c1"># #     :param pRequest:</span>
+<span class="c1"># #     :return:</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #</span>
+<span class="c1"># #     lTable = pRequest[&#39;Entity&#39;]</span>
+<span class="c1"># #     lSqlCmd = &quot;DELETE FROM &quot; + lTable</span>
+<span class="c1"># #     lRetCode, lPrimaryKey = RtvPrimaryKey( lTable)</span>
+<span class="c1"># #     if lRetCode == 0:</span>
+<span class="c1"># #         lWhereClause = &quot; WHERE &quot; + lPrimaryKey + &quot; = &quot; + str(pRequest[&#39;KeyValue&#39;])</span>
+<span class="c1"># #         lSqlCmd += lWhereClause</span>
+<span class="c1"># #</span>
+<span class="c1"># #         lRetCode, lResponse = exec_SQL_command(lSqlCmd)</span>
+<span class="c1"># #     else:</span>
+<span class="c1"># #         lResponse = lPrimaryKey</span>
+<span class="c1"># #</span>
+<span class="c1"># #     return lRetCode, lResponse</span>
+
+
+<span class="c1"># # def RtvPrimaryKey(table):</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #</span>
+<span class="c1"># #     :param table:</span>
+<span class="c1"># #     :return:</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #</span>
+<span class="c1"># #     lSQLCmd = &quot;SELECT Col.Column_Name &quot; \</span>
+<span class="c1"># #               &quot;from INFORMATION_SCHEMA.TABLE_CONSTRAINTS Tab, &quot; \</span>
+<span class="c1"># #               &quot;INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE Col &quot; \</span>
+<span class="c1"># #               &quot;WHERE Col.Constraint_Name = Tab.Constraint_Name &quot; \</span>
+<span class="c1"># #               &quot;AND Col.Table_Name = Tab.Table_Name &quot; \</span>
+<span class="c1"># #               &quot;AND Constraint_Type = &#39;PRIMARY KEY&#39; &quot; \</span>
+<span class="c1"># #               &quot;AND Col.Table_Name = &#39;&quot; + table + &quot;&#39;&quot;</span>
+<span class="c1"># #     lRetCode, lTablePrimaryKey = read_SQL(lSQLCmd)</span>
+<span class="c1"># #     if lRetCode == 0:</span>
+<span class="c1"># #         lResult = lTablePrimaryKey[&#39;Column_Name&#39;][0]</span>
+<span class="c1"># #     else:</span>
+<span class="c1"># #         lResult = lTablePrimaryKey</span>
+<span class="c1"># #</span>
+<span class="c1"># #     return lRetCode, lResult</span>
+<span class="c1"># #</span>
+<span class="c1"># # def RtvTableCount(table, whereJS ={}):</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #</span>
+<span class="c1"># #     :param table:</span>
+<span class="c1"># #     :return:</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #     lWhere = &quot;&quot;</span>
+<span class="c1"># #     lRetCode = 0</span>
+<span class="c1"># #     if len(whereJS):</span>
+<span class="c1"># #         lRetCode, lWhere = rtv_where_clause(table, whereJS)</span>
+<span class="c1"># #     if lRetCode == 0:</span>
+<span class="c1"># #         lSQLCmd = &quot;SELECT COUNT(*) AS cnt FROM &quot; + table + lWhere</span>
+<span class="c1"># #         lRetCode, lResult = read_SQL(lSQLCmd)</span>
+<span class="c1"># #</span>
+<span class="c1"># #         if lRetCode == 0:</span>
+<span class="c1"># #             lNumRec = lResult[&#39;cnt&#39;].values[0]</span>
+<span class="c1"># #         else:</span>
+<span class="c1"># #             lNumRec = lResult</span>
+<span class="c1"># #     else:</span>
+<span class="c1"># #         lNumRec = lWhere</span>
+<span class="c1"># #</span>
+<span class="c1"># #     return lRetCode, lNumRec</span>
+
+
+
+<span class="c1"># # def RtvResponseValues(pFunctionCalled, pRetCode, pData):</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #</span>
+<span class="c1"># #     :param pFunctionCalled:</span>
+<span class="c1"># #     :param pRetCode:</span>
+<span class="c1"># #     :param pData:</span>
+<span class="c1"># #     :return:</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #     lValues = {}</span>
+<span class="c1"># #</span>
+<span class="c1"># #     if isinstance(pData, pd.DataFrame):</span>
+<span class="c1"># #         lData = pData.copy()</span>
+<span class="c1"># #     else:</span>
+<span class="c1"># #         lData = pData</span>
+<span class="c1"># #</span>
+<span class="c1"># #     if pRetCode == 999:</span>
+<span class="c1"># #         lValues = lData</span>
+<span class="c1"># #     else:</span>
+<span class="c1"># #         if pFunctionCalled == &#39;select&#39;:</span>
+<span class="c1"># #             # itera i tipi dato e li sostituisce con quelli pandas</span>
+<span class="c1"># #             for wColumnName, wDataType in lData.dtypes.items():</span>
+<span class="c1"># #                 if wDataType == &#39;datetime64[ns]&#39;:</span>
+<span class="c1"># #                     wConvertDict = {wColumnName: &#39;str&#39;}</span>
+<span class="c1"># #                     lData = lData.astype(wConvertDict)</span>
+<span class="c1"># #             # Sostituisce i NaN con null per compatibilità con json</span>
+<span class="c1"># #             lData = lData.where(pd.notnull(lData), None)</span>
+<span class="c1"># #             lValues = lData.to_dict(&#39;index&#39;)</span>
+<span class="c1"># #</span>
+<span class="c1"># #     return lValues</span>
+<span class="c1"># #</span>
+<span class="c1"># # def fChangeDataType(pDataIn):</span>
+<span class="c1"># #</span>
+<span class="c1"># #     if isinstance(pDataIn, pd.DataFrame):</span>
+<span class="c1"># #         lData = pDataIn.copy()</span>
+<span class="c1"># #     else:</span>
+<span class="c1"># #         lData = &#39;&#39;</span>
+<span class="c1"># #</span>
+<span class="c1"># #     for wColumnName, wDataType in lData.dtypes.items():</span>
+<span class="c1"># #         if wDataType == &#39;datetime64[ns]&#39;:</span>
+<span class="c1"># #             lData[wColumnName] = lData[wColumnName].apply(lambda x: x.replace(minute=0, hour=0, second=0, microsecond=0))</span>
+<span class="c1"># #             wConvertDict = {wColumnName: &#39;str&#39;}</span>
+<span class="c1"># #             lData = lData.astype(wConvertDict)</span>
+<span class="c1"># #             lData[wColumnName] = lData[wColumnName].apply(lambda x: None if x == &quot;NaT&quot; or x ==&quot;nan&quot; else x)</span>
+<span class="c1"># #</span>
+<span class="c1"># #     lData = lData.where(pd.notnull(lData), None)</span>
+<span class="c1"># #</span>
+<span class="c1"># #     return lData</span>
+<span class="c1"># #</span>
+<span class="c1"># # def RtvCurrentIdentity(table):</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #     Ritorna l&#39;ultima identità inserita per una tabella</span>
+<span class="c1"># #     :param table:</span>
+<span class="c1"># #     :return:</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #</span>
+<span class="c1"># #     #lSQLCmd = &quot;SELECT  AUTO_INCREMENT - 1 FROM information_schema.TABLES WHERE TABLE_NAME = &#39;&quot; + table +&quot;&#39; AS LastIdentity&quot;</span>
+<span class="c1"># #     lSQLCmd = &quot;SELECT  AUTO_INCREMENT - 1 AS LastIdentity FROM information_schema.TABLES WHERE TABLE_NAME = &#39;&quot; + table + &quot;&#39;&quot;</span>
+<span class="c1"># #     lRetCode, lDataOut = read_SQL(lSQLCmd)</span>
+<span class="c1"># #     if lRetCode == 0:</span>
+<span class="c1"># #         lResult = int(lDataOut[&#39;LastIdentity&#39;][0])</span>
+<span class="c1"># #     else:</span>
+<span class="c1"># #         lResult = lDataOut</span>
+<span class="c1"># #</span>
+<span class="c1"># #     return lRetCode, lResult</span>
+<span class="c1"># #</span>
+<span class="c1"># # def GetUniqueAuthCode():</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #     Genera un AuthCode univoco ad ogni chiamata</span>
+<span class="c1"># #     :return:lRetCode, lAuthCode</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #</span>
+<span class="c1"># #     lSQLCmd = &#39;SELECT UUID() AS AuthCode&#39;</span>
+<span class="c1"># #</span>
+<span class="c1"># #     lRetCode, lDataOut = read_SQL(lSQLCmd)</span>
+<span class="c1"># #     if lRetCode == 0:</span>
+<span class="c1"># #         lAuthCode = lDataOut[&#39;AuthCode&#39;][0]</span>
+<span class="c1"># #     else:</span>
+<span class="c1"># #         lAuthCode = lDataOut</span>
+<span class="c1"># #     return lRetCode, lAuthCode</span>
+<span class="c1"># #</span>
+<span class="c1"># # def RtvSimpleFormat(table, pDataIn):</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #</span>
+<span class="c1"># #     :param table:</span>
+<span class="c1"># #     :param pDataIn:</span>
+<span class="c1"># #     :return:</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #</span>
+<span class="c1"># #     lDataframe = fChangeDataType(pDataIn)</span>
+<span class="c1"># #</span>
+<span class="c1"># #     lDataOut = lDataframe.to_dict(&#39;records&#39;)</span>
+<span class="c1"># #</span>
+<span class="c1"># #     return lDataOut</span>
+<span class="c1"># #</span>
+<span class="c1"># # def RtvDataTableFormat(table, pFetch, pOrder, pDataIn, pWhere = &quot;&quot;):</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #</span>
+<span class="c1"># #     :param table:</span>
+<span class="c1"># #     :param pFetch:</span>
+<span class="c1"># #     :param pOrder:</span>
+<span class="c1"># #     :param pDataIn:</span>
+<span class="c1"># #     :return:</span>
+<span class="c1"># #     &#39;&#39;&#39;</span>
+<span class="c1"># #</span>
+<span class="c1"># #     lDataTableOut = {}</span>
+<span class="c1"># #     lMetaData = {}</span>
+<span class="c1"># #</span>
+<span class="c1"># #     lRetCode, lTotRec = RtvTableCount(table, pWhere)</span>
+<span class="c1"># #     if lRetCode == 0:</span>
+<span class="c1"># #         lPageTotNumber = math.ceil(lTotRec / int(pFetch[&#39;perpage&#39;]))</span>
+<span class="c1"># #</span>
+<span class="c1"># #         lMetaData[&#39;page&#39;] = pFetch[&#39;page&#39;]</span>
+<span class="c1"># #         lMetaData[&#39;perpage&#39;] = pFetch[&#39;perpage&#39;]</span>
+<span class="c1"># #         lMetaData[&#39;sort&#39;] = pOrder[&#39;sort&#39;]</span>
+<span class="c1"># #         lMetaData[&#39;field&#39;] = pOrder[&#39;field&#39;]</span>
+<span class="c1"># #         lMetaData[&#39;total&#39;] = str(lTotRec)</span>
+<span class="c1"># #         lMetaData[&#39;pages&#39;] = str(lPageTotNumber)</span>
+<span class="c1"># #</span>
+<span class="c1"># #         lDataTableOut[&#39;meta&#39;] = lMetaData</span>
+<span class="c1"># #</span>
+<span class="c1"># #         lDataframe = fChangeDataType(pDataIn)</span>
+<span class="c1"># #         lData = lDataframe.to_dict(&#39;records&#39;)</span>
+<span class="c1"># #         lDataTableOut[&#39;data&#39;] = lData</span>
+<span class="c1"># #     else:</span>
+<span class="c1"># #         lDataTableOut = lTotRec</span>
+<span class="c1"># #</span>
+<span class="c1"># #     return lRetCode, lDataTableOut</span>
 </pre></div>
 
            </div>
