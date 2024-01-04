@@ -80,39 +80,36 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
 <span class="kn">import</span> <span class="nn">sqlalchemy</span> <span class="k">as</span> <span class="nn">sa</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">pathlib</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">pyodbc</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 
-<div class="viewcode-block" id="rtv_project_path"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_project_path">[docs]</a><span class="k">def</span> <span class="nf">rtv_project_path</span><span class="p">():</span>
+<div class="viewcode-block" id="rtv_project_path"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_project_path">[docs]</a><span class="k">def</span> <span class="nf">rtv_project_path</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return the project root path.</span>
 
-<span class="sd">    :return: project_path: project root path.</span>
+<span class="sd">    :return: project_path: project root path (Path).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">project_path</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="c1">#pathlib.Path(__file__).parent.parent.parent.parent</span>
+    <span class="n">project_path</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
 
     <span class="k">return</span> <span class="n">project_path</span></div>
 
 
-<div class="viewcode-block" id="rtv_parameter"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_parameter">[docs]</a><span class="k">def</span> <span class="nf">rtv_parameter</span><span class="p">(</span><span class="n">parameter_name</span><span class="p">,</span> <span class="n">project_path</span><span class="p">):</span>
+<div class="viewcode-block" id="rtv_parameter"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_parameter">[docs]</a><span class="k">def</span> <span class="nf">rtv_parameter</span><span class="p">(</span><span class="n">parameter_name</span><span class="p">,</span> <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Restituisce il valore di un parametro da file di configurazione.</span>
+<span class="sd">    Return the parameter value of a configuration file.</span>
 
-<span class="sd">    :param: parameter_name = Nome del parametro.</span>
-<span class="sd">    :param project_path: configuration file path (Path). Default None.</span>
-<span class="sd">    :return: parameter_value = Valore del parametro.</span>
+<span class="sd">    :param: parameter_name: Parameter name.</span>
+<span class="sd">    :param project_path: Configuration file path (Path). Default None.</span>
+<span class="sd">    :return: parameter_value: Parameter value.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Lettura file configurazione</span>
+    <span class="c1"># Read configuration file.</span>
     <span class="k">if</span> <span class="n">project_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">project_path</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
     <span class="n">conf_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">project_path</span><span class="p">,</span> <span class="s2">&quot;conf&quot;</span><span class="p">,</span> <span class="s2">&quot;DbConf.yml&quot;</span><span class="p">)</span>
@@ -124,12 +121,12 @@
     <span class="k">return</span> <span class="n">parameter_value</span></div>
 
 
-<div class="viewcode-block" id="rtv_tables_names"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_tables_names">[docs]</a><span class="k">def</span> <span class="nf">rtv_tables_names</span><span class="p">(</span><span class="n">survey_name</span><span class="p">,</span> <span class="n">dbconf_path</span><span class="p">):</span>
+<div class="viewcode-block" id="rtv_tables_names"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_tables_names">[docs]</a><span class="k">def</span> <span class="nf">rtv_tables_names</span><span class="p">(</span><span class="n">survey_name</span><span class="p">,</span> <span class="n">dbconf_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Retrive the name of the Tables associated to the chosen survey.</span>
 
 <span class="sd">    :param survey_name: Name of the Survey chosen.</span>
-<span class="sd">    :param dbconf_path:</span>
+<span class="sd">    :param dbconf_path: configuration file path (Path). Default None.</span>
 <span class="sd">    :return: data_out: Table with the tables names.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">lTable</span> <span class="o">=</span> <span class="s2">&quot;survey_tables&quot;</span>
@@ -144,11 +141,11 @@
     <span class="k">return</span> <span class="n">data_out</span></div>
 
 
-<div class="viewcode-block" id="rtv_sql_table"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_sql_table">[docs]</a><span class="k">def</span> <span class="nf">rtv_sql_table</span><span class="p">(</span><span class="n">name_table</span><span class="p">,</span> <span class="n">project_path</span><span class="p">):</span>
+<div class="viewcode-block" id="rtv_sql_table"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_sql_table">[docs]</a><span class="k">def</span> <span class="nf">rtv_sql_table</span><span class="p">(</span><span class="n">name_table</span><span class="p">,</span> <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Read DB local</span>
+<span class="sd">    Read DB local.</span>
 
-<span class="sd">    :param name_table:</span>
+<span class="sd">    :param name_table: Name of the Table chosen.</span>
 <span class="sd">    :param project_path: configuration file path (Path). Default None.</span>
 <span class="sd">    :return: df0:</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -190,12 +187,12 @@
     <span class="k">return</span> <span class="n">df0</span></div>
 
 
-<div class="viewcode-block" id="open_db_connection"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.open_db_connection">[docs]</a><span class="k">def</span> <span class="nf">open_db_connection</span><span class="p">(</span><span class="n">project_path</span><span class="p">):</span>
+<div class="viewcode-block" id="open_db_connection"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.open_db_connection">[docs]</a><span class="k">def</span> <span class="nf">open_db_connection</span><span class="p">(</span><span class="n">project_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Open connection to DB SQL</span>
+<span class="sd">    Open connection to DB SQL.</span>
 
 <span class="sd">    :param project_path: configuration file path (Path). Default None.</span>
-<span class="sd">    :return: MSSQL Connection</span>
+<span class="sd">    :return: MSSQL Connection (engine).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Read configuration file</span>
     <span class="k">if</span> <span class="n">project_path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -227,13 +224,13 @@
         <span class="k">return</span> <span class="s2">&quot;Error: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">())</span></div>
 
 
-<div class="viewcode-block" id="read_SQL"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.read_SQL">[docs]</a><span class="k">def</span> <span class="nf">read_SQL</span><span class="p">(</span><span class="n">SQL</span><span class="p">,</span> <span class="n">project_path</span><span class="p">):</span>
+<div class="viewcode-block" id="read_SQL"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.read_SQL">[docs]</a><span class="k">def</span> <span class="nf">read_SQL</span><span class="p">(</span><span class="n">SQL</span><span class="p">,</span> <span class="n">project_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns a DataFrame corresponding to the result set of the query string.</span>
 
-<span class="sd">    :param: SQL: query string</span>
+<span class="sd">    :param SQL: query string.</span>
 <span class="sd">    :param project_path: configuration file path (Path). Default None.</span>
-<span class="sd">    :return: Dataframe with data query</span>
+<span class="sd">    :return: code, Dataframe: code (0: ok, 999: not working), with data query.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">connection_string</span> <span class="o">=</span> <span class="n">open_db_connection</span><span class="p">(</span><span class="n">project_path</span><span class="p">)</span>
@@ -245,13 +242,13 @@
         <span class="k">return</span> <span class="mi">999</span><span class="p">,</span> <span class="s2">&quot;Error: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">())</span></div>
 
 
-<div class="viewcode-block" id="exec_SQL_command"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.exec_SQL_command">[docs]</a><span class="k">def</span> <span class="nf">exec_SQL_command</span><span class="p">(</span><span class="n">sql_cmd</span><span class="p">,</span> <span class="n">project_path</span><span class="p">):</span>
+<div class="viewcode-block" id="exec_SQL_command"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.exec_SQL_command">[docs]</a><span class="k">def</span> <span class="nf">exec_SQL_command</span><span class="p">(</span><span class="n">sql_cmd</span><span class="p">,</span> <span class="n">project_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Run SQL command.</span>
 
-<span class="sd">    :param: sql_cmd: sql command</span>
+<span class="sd">    :param sql_cmd: sql command.</span>
 <span class="sd">    :param project_path: configuration file path (Path). Default None.</span>
-<span class="sd">    :param: SQL_result: SQL Connection string</span>
+<span class="sd">    :return code, SQL_result: code (0: ok, 999: not working) SQL Connection string.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">connection_string</span> <span class="o">=</span> <span class="n">open_db_connection</span><span class="p">(</span><span class="n">project_path</span><span class="p">)</span>
 
@@ -263,17 +260,16 @@
 
 
 <div class="viewcode-block" id="select_data_from_SQL"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.select_data_from_SQL">[docs]</a><span class="k">def</span> <span class="nf">select_data_from_SQL</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">whereJS</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">pOrderByJS</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">pFetchJS</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">dbconf_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Execute a SQL SELECT query based on provided parameters.</span>
 
-<span class="sd">    :param table:</span>
-<span class="sd">    :param whereJS:</span>
-<span class="sd">    :param pOrderByJS:</span>
-<span class="sd">    :param pFetchJS:</span>
-<span class="sd">    :param dbconf_path:</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :param table: Name of the table from which data needs to be fetched.</span>
+<span class="sd">    :param whereJS: Optional WHERE clause in JavaScript format.</span>
+<span class="sd">    :param pOrderByJS: Optional ORDER BY clause in JavaScript format.</span>
+<span class="sd">    :param pFetchJS: Optional FETCH clause in JavaScript format.</span>
+<span class="sd">    :param dbconf_path: Configuration file path (Path). Default None.</span>
+<span class="sd">    :return: lRetCode, lResponse: Tuple containing return code and SQL query response.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">lRetCode</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">lSqlCmd</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM &quot;</span> <span class="o">+</span> <span class="n">table</span>
 
@@ -295,10 +291,11 @@
 
 <div class="viewcode-block" id="casting_types"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.casting_types">[docs]</a><span class="k">def</span> <span class="nf">casting_types</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">sql_dtypes</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert specified columns in a DataFrame to boolean based on original SQL data types.</span>
 
-<span class="sd">    :param table: input df with some cols dtype to be converted to boolean.</span>
-<span class="sd">    :param sql_dtypes: df of table&#39;s cols names with &#39;bit&#39; as the original SQL dtype</span>
-<span class="sd">    :return: table_c: copy of the input df with converted cols.</span>
+<span class="sd">    :param table: input DataFrame with some columns&#39; data types to be converted to boolean.</span>
+<span class="sd">    :param sql_dtypes: DataFrame of table&#39;s columns names with &#39;bit&#39; as the original SQL dtype</span>
+<span class="sd">    :return: table_c: Copy of the input DataFrame with converted columns.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">table_c</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -317,11 +314,12 @@
     <span class="k">return</span> <span class="n">table_c</span></div>
 
 
-<div class="viewcode-block" id="rtv_DB_name"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_DB_name">[docs]</a><span class="k">def</span> <span class="nf">rtv_DB_name</span><span class="p">(</span><span class="n">lProjectPath</span><span class="p">):</span>
+<div class="viewcode-block" id="rtv_DB_name"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_DB_name">[docs]</a><span class="k">def</span> <span class="nf">rtv_DB_name</span><span class="p">(</span><span class="n">lProjectPath</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrive database name from configutation file in keyword: DBDatabaseName.</span>
 
-<span class="sd">    :param lProjectPath: configuration file.</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :param lProjectPath: configuration file (Path).</span>
+<span class="sd">    :return: lParameterValue: database name.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">lProjectPath</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">lProjectPath</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
@@ -334,12 +332,13 @@
     <span class="k">return</span> <span class="n">lParameterValue</span></div>
 
 
-<div class="viewcode-block" id="rtv_columns_data_type"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_columns_data_type">[docs]</a><span class="k">def</span> <span class="nf">rtv_columns_data_type</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">project_path</span><span class="p">):</span>
+<div class="viewcode-block" id="rtv_columns_data_type"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_columns_data_type">[docs]</a><span class="k">def</span> <span class="nf">rtv_columns_data_type</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrive column data type from table in SQL.</span>
 
-<span class="sd">    :param project_path:</span>
-<span class="sd">    :param table:</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :param project_path: configuration file path (Path). Default None.</span>
+<span class="sd">    :param table: SQL table.</span>
+<span class="sd">    :return: lRetCode, lTableDef: return code and Table with types of columns in table (pd.DataFrame).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">db_name</span> <span class="o">=</span> <span class="n">rtv_DB_name</span><span class="p">(</span><span class="n">project_path</span><span class="p">)</span>
@@ -354,10 +353,11 @@
 
 <div class="viewcode-block" id="get_field_type"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.get_field_type">[docs]</a><span class="k">def</span> <span class="nf">get_field_type</span><span class="p">(</span><span class="n">pField</span><span class="p">,</span> <span class="n">pDataTypes</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrive type of pField from pDataTypes.</span>
 
-<span class="sd">    :param pField:</span>
-<span class="sd">    :param pDataTypes:</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :param pField: Field name.</span>
+<span class="sd">    :param pDataTypes: Data types dataframe.</span>
+<span class="sd">    :return: lFieldType: retrived data type of field.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">lFieldType</span> <span class="o">=</span> <span class="n">pDataTypes</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">pDataTypes</span><span class="p">[</span><span class="s2">&quot;COLUMN_NAME&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">pField</span><span class="p">][</span><span class="s2">&quot;DATA_TYPE&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
@@ -366,13 +366,13 @@
 
 <div class="viewcode-block" id="put_quote"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.put_quote">[docs]</a><span class="k">def</span> <span class="nf">put_quote</span><span class="p">(</span><span class="n">pField</span><span class="p">,</span> <span class="n">pValue</span><span class="p">,</span> <span class="n">pDataTypes</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Add quotes to a field&#39;s value based on its data type.</span>
 
-<span class="sd">    :param pField:</span>
-<span class="sd">    :param pValue:</span>
-<span class="sd">    :param pDataTypes:</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :param pField: Field name.</span>
+<span class="sd">    :param pValue: Field value.</span>
+<span class="sd">    :param pDataTypes: Data types dataframe.</span>
+<span class="sd">    :return: lValueEdited: Edited field value with quotes if necessary.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="n">lDataType</span> <span class="o">=</span> <span class="n">get_field_type</span><span class="p">(</span><span class="n">pField</span><span class="p">,</span> <span class="n">pDataTypes</span><span class="p">)</span>
 
     <span class="n">lValueEdited</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">pValue</span><span class="p">)</span>
@@ -386,13 +386,14 @@
     <span class="k">return</span> <span class="n">lValueEdited</span></div>
 
 
-<div class="viewcode-block" id="rtv_where_clause"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_where_clause">[docs]</a><span class="k">def</span> <span class="nf">rtv_where_clause</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">pWhereJS</span><span class="p">,</span> <span class="n">project_path</span><span class="p">):</span>
+<div class="viewcode-block" id="rtv_where_clause"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_where_clause">[docs]</a><span class="k">def</span> <span class="nf">rtv_where_clause</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">pWhereJS</span><span class="p">,</span> <span class="n">project_path</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrive where clause and columns data types.</span>
 
-<span class="sd">    :param table:</span>
-<span class="sd">    :param pWhereJS:</span>
-<span class="sd">    :param project_path:</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :param table: Table of sql.</span>
+<span class="sd">    :param whereJS: Optional WHERE clause in JavaScript format.</span>
+<span class="sd">    :param project_path: configuration file path (Path). Default None.</span>
+<span class="sd">    :return: lRetCode, lWhereClause, lDataTypes: return code, where clause and columns data types.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">lTable</span> <span class="o">=</span> <span class="n">table</span>
     <span class="n">lRetCode</span><span class="p">,</span> <span class="n">lDataTypes</span> <span class="o">=</span> <span class="n">rtv_columns_data_type</span><span class="p">(</span><span class="n">lTable</span><span class="p">,</span> <span class="n">project_path</span><span class="p">)</span>
@@ -421,9 +422,10 @@
 
 <div class="viewcode-block" id="rtv_order_by_clause"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_order_by_clause">[docs]</a><span class="k">def</span> <span class="nf">rtv_order_by_clause</span><span class="p">(</span><span class="n">pOrderByJS</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Reatrive clause of ordering.</span>
 
-<span class="sd">    :param pOrderByJS:</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :param pOrderByJS: Optional ORDER BY clause in JavaScript format.</span>
+<span class="sd">    :return: lOrderBy: Clause of ordering.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Se non ci sono dati per Order by, esce con stringa vuota</span>
@@ -438,9 +440,10 @@
 <div class="viewcode-block" id="rtv_fetch_clause"><a class="viewcode-back" href="../../SQLHub.html#SQLHub.sql_library.rtv_fetch_clause">[docs]</a><span class="k">def</span> <span class="nf">rtv_fetch_clause</span><span class="p">(</span><span class="n">pFetchJS</span><span class="p">):</span>
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrive Fetch clause.</span>
 
-<span class="sd">    :param pFetchJS:</span>
-<span class="sd">    :return:</span>
+<span class="sd">    :param pFetchJS: Optional FETCH clause in JavaScript format.</span>
+<span class="sd">    :return: lFetchClause: Fetch clause.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">pFetchJS</span><span class="p">:</span>
