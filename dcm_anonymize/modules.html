@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dcm_anonymize &mdash; dcm_anonymize 00.00.01 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <title>dcm_anonymize &mdash; dcm_anonymize 00.01.00 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=d7bb8d4d"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -75,31 +78,31 @@
            <div itemprop="articleBody">
              
   <section id="dcm-anonymize">
-<h1>dcm_anonymize<a class="headerlink" href="#dcm-anonymize" title="Link to this heading"></a></h1>
+<h1>dcm_anonymize<a class="headerlink" href="#dcm-anonymize" title="Permalink to this heading"></a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dcm_anonymize.html">dcm_anonymize package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="dcm_anonymize.html#subpackages">Subpackages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.main_scripts.html">dcm_anonymize.main_scripts package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="dcm_anonymize.main_scripts.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="dcm_anonymize.main_scripts.html#module-dcm_anonymize.main_scripts.anonimization_main">dcm_anonymize.main_scripts.anonimization_main module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dcm_anonymize.main_scripts.html#module-dcm_anonymize.main_scripts.anonymization_main">dcm_anonymize.main_scripts.anonymization_main module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="dcm_anonymize.main_scripts.html#module-dcm_anonymize.main_scripts">Module contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="dcm_anonymize.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dcm_anonymize.html#module-dcm_anonymize.anonimization">dcm_anonymize.anonimization module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonimization.add_not_dcm"><code class="docutils literal notranslate"><span class="pre">add_not_dcm()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonimization.anonimize"><code class="docutils literal notranslate"><span class="pre">anonimize()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonimization.check_RSRPRD"><code class="docutils literal notranslate"><span class="pre">check_RSRPRD()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonimization.compare_database"><code class="docutils literal notranslate"><span class="pre">compare_database()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonimization.modifydsc"><code class="docutils literal notranslate"><span class="pre">modifydsc()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonimization.save_control_csv"><code class="docutils literal notranslate"><span class="pre">save_control_csv()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonimization.save_info_csv"><code class="docutils literal notranslate"><span class="pre">save_info_csv()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonimization.savedsc"><code class="docutils literal notranslate"><span class="pre">savedsc()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonimization.saveinfo"><code class="docutils literal notranslate"><span class="pre">saveinfo()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonimization.simple_anonymize"><code class="docutils literal notranslate"><span class="pre">simple_anonymize()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcm_anonymize.html#module-dcm_anonymize.anonymization">dcm_anonymize.anonymization module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonymization.add_not_dcm"><code class="docutils literal notranslate"><span class="pre">add_not_dcm()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonymization.anonymize"><code class="docutils literal notranslate"><span class="pre">anonymize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonymization.check_RSRPRD"><code class="docutils literal notranslate"><span class="pre">check_RSRPRD()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonymization.compare_database"><code class="docutils literal notranslate"><span class="pre">compare_database()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonymization.modifydsc"><code class="docutils literal notranslate"><span class="pre">modifydsc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonymization.save_control_csv"><code class="docutils literal notranslate"><span class="pre">save_control_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonymization.save_info_csv"><code class="docutils literal notranslate"><span class="pre">save_info_csv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonymization.savedsc"><code class="docutils literal notranslate"><span class="pre">savedsc()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonymization.saveinfo"><code class="docutils literal notranslate"><span class="pre">saveinfo()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.html#dcm_anonymize.anonymization.simple_anonymize"><code class="docutils literal notranslate"><span class="pre">simple_anonymize()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="dcm_anonymize.html#module-dcm_anonymize">Module contents</a></li>
@@ -120,7 +123,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023, M.G. Ubeira Gabellini, G. Palazzo.</p>
+    <p>&#169; Copyright 2023, M.G. Ubeira-Gabellini, G. Palazzo.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

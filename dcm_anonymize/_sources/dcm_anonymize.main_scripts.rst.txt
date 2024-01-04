@@ -4,10 +4,10 @@ dcm\_anonymize.main\_scripts package
 Submodules
 ----------
 
-dcm\_anonymize.main\_scripts.anonimization\_main module
+dcm\_anonymize.main\_scripts.anonymization\_main module
 -------------------------------------------------------
 
-.. automodule:: dcm_anonymize.main_scripts.anonimization_main
+.. automodule:: dcm_anonymize.main_scripts.anonymization_main
    :members:
    :undoc-members:
    :show-inheritance:

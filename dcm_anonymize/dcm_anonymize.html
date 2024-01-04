@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>dcm_anonymize package &mdash; dcm_anonymize 00.00.01 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <title>dcm_anonymize package &mdash; dcm_anonymize 00.01.00 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css" />
+
+  
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=d7bb8d4d"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -51,17 +54,17 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-dcm_anonymize.anonimization">dcm_anonymize.anonimization module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonimization.add_not_dcm"><code class="docutils literal notranslate"><span class="pre">add_not_dcm()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonimization.anonimize"><code class="docutils literal notranslate"><span class="pre">anonimize()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonimization.check_RSRPRD"><code class="docutils literal notranslate"><span class="pre">check_RSRPRD()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonimization.compare_database"><code class="docutils literal notranslate"><span class="pre">compare_database()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonimization.modifydsc"><code class="docutils literal notranslate"><span class="pre">modifydsc()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonimization.save_control_csv"><code class="docutils literal notranslate"><span class="pre">save_control_csv()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonimization.save_info_csv"><code class="docutils literal notranslate"><span class="pre">save_info_csv()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonimization.savedsc"><code class="docutils literal notranslate"><span class="pre">savedsc()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonimization.saveinfo"><code class="docutils literal notranslate"><span class="pre">saveinfo()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonimization.simple_anonymize"><code class="docutils literal notranslate"><span class="pre">simple_anonymize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-dcm_anonymize.anonymization">dcm_anonymize.anonymization module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonymization.add_not_dcm"><code class="docutils literal notranslate"><span class="pre">add_not_dcm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonymization.anonymize"><code class="docutils literal notranslate"><span class="pre">anonymize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonymization.check_RSRPRD"><code class="docutils literal notranslate"><span class="pre">check_RSRPRD()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonymization.compare_database"><code class="docutils literal notranslate"><span class="pre">compare_database()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonymization.modifydsc"><code class="docutils literal notranslate"><span class="pre">modifydsc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonymization.save_control_csv"><code class="docutils literal notranslate"><span class="pre">save_control_csv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonymization.save_info_csv"><code class="docutils literal notranslate"><span class="pre">save_info_csv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonymization.savedsc"><code class="docutils literal notranslate"><span class="pre">savedsc()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonymization.saveinfo"><code class="docutils literal notranslate"><span class="pre">saveinfo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dcm_anonymize.anonymization.simple_anonymize"><code class="docutils literal notranslate"><span class="pre">simple_anonymize()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-dcm_anonymize">Module contents</a></li>
@@ -97,15 +100,15 @@
            <div itemprop="articleBody">
              
   <section id="dcm-anonymize-package">
-<h1>dcm_anonymize package<a class="headerlink" href="#dcm-anonymize-package" title="Link to this heading"></a></h1>
+<h1>dcm_anonymize package<a class="headerlink" href="#dcm-anonymize-package" title="Permalink to this heading"></a></h1>
 <section id="subpackages">
-<h2>Subpackages<a class="headerlink" href="#subpackages" title="Link to this heading"></a></h2>
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dcm_anonymize.main_scripts.html">dcm_anonymize.main_scripts package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="dcm_anonymize.main_scripts.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dcm_anonymize.main_scripts.html#module-dcm_anonymize.main_scripts.anonimization_main">dcm_anonymize.main_scripts.anonimization_main module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.main_scripts.html#dcm_anonymize.main_scripts.anonimization_main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="dcm_anonymize.main_scripts.html#module-dcm_anonymize.main_scripts.anonymization_main">dcm_anonymize.main_scripts.anonymization_main module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dcm_anonymize.main_scripts.html#dcm_anonymize.main_scripts.anonymization_main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="dcm_anonymize.main_scripts.html#module-dcm_anonymize.main_scripts">Module contents</a></li>
@@ -115,156 +118,217 @@
 </div>
 </section>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
 </section>
-<section id="module-dcm_anonymize.anonimization">
-<span id="dcm-anonymize-anonimization-module"></span><h2>dcm_anonymize.anonimization module<a class="headerlink" href="#module-dcm_anonymize.anonimization" title="Link to this heading"></a></h2>
+<section id="module-dcm_anonymize.anonymization">
+<span id="dcm-anonymize-anonymization-module"></span><h2>dcm_anonymize.anonymization module<a class="headerlink" href="#module-dcm_anonymize.anonymization" title="Permalink to this heading"></a></h2>
 <p>anonimization.py:</p>
 <p>Library with functions for anonymization</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="dcm_anonymize.anonimization.add_not_dcm">
-<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonimization.</span></span><span class="sig-name descname"><span class="pre">add_not_dcm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_folder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonimization.html#add_not_dcm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonimization.add_not_dcm" title="Link to this definition"></a></dt>
-<dd><p>Add dicom files to the list of files to be anonimized also if they have no extension .dcm.
-.mim files are excluded and copied in the new destination as they are.
-:param files: list of file names found with .dcm (str list).
-:param pathout: path to the folder to which the file will be saved (str).
-:param parent_folder: folder where data to be anonimized are (str).
-:return: files: list of file names found (str list).
-:return: unique_folder: Folders from which files were imported (selected to be unique).</p>
+<dt class="sig sig-object py" id="dcm_anonymize.anonymization.add_not_dcm">
+<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonymization.</span></span><span class="sig-name descname"><span class="pre">add_not_dcm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_folder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonymization.html#add_not_dcm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonymization.add_not_dcm" title="Permalink to this definition"></a></dt>
+<dd><p>Add dicom files to the list of files to be anonymized also if they have no extension .dcm.
+.mim files are excluded and copied in the new destination as they are.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>files</strong> – list of file names found with .dcm (str list).</p></li>
+<li><p><strong>pathout</strong> – path to the folder to which the file will be saved (str).</p></li>
+<li><p><strong>parent_folder</strong> – folder where data to be anonymized are (str).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>files: list of file names found (str list).</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>unique_folder: Folders from which files were imported (selected to be unique).</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="dcm_anonymize.anonimization.anonimize">
-<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonimization.</span></span><span class="sig-name descname"><span class="pre">anonimize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modality</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonimization.html#anonimize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonimization.anonimize" title="Link to this definition"></a></dt>
-<dd><p>Anonimize all the dicom files inside a specific folder.
+<dt class="sig sig-object py" id="dcm_anonymize.anonymization.anonymize">
+<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonymization.</span></span><span class="sig-name descname"><span class="pre">anonymize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modality</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_fields</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonymization.html#anonymize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonymization.anonymize" title="Permalink to this definition"></a></dt>
+<dd><p>anonymize all the dicom files inside a specific folder.
 Note: if none of the files are .dcm in a single folder, one of them have to be modified previously.
-For this it is needed to be known the folder’s name.
-:param parent_folder: folder where data to be anonimized are (str).
-:param modality:
-:param list_fields: list of keyword to be anonimized inside the .dcm files (str list).
-:param path: path to be considered for reading and saving (str).
-:param parallel: True if parallelization is used (bool).
-:param mim: if the analysis is done for MIM software or not.
-:return: 0</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="dcm_anonymize.anonimization.check_RSRPRD">
-<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonimization.</span></span><span class="sig-name descname"><span class="pre">check_RSRPRD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonimization.html#check_RSRPRD"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonimization.check_RSRPRD" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+For this it is needed to be known the folder’s name.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>parent_folder</strong> – </p></li>
-<li><p><strong>path</strong> – </p></li>
+<li><p><strong>parent_folder</strong> – folder where data to be anonymized are (str).</p></li>
+<li><p><strong>modality</strong> – modality of images e.g., ‘CT’.</p></li>
+<li><p><strong>list_fields</strong> – list of keyword to be anonymized inside the .dcm files (str list).</p></li>
+<li><p><strong>path</strong> – path to be considered for reading and saving (str).</p></li>
+<li><p><strong>parallel</strong> – True if parallelization is used (bool).</p></li>
+<li><p><strong>mim</strong> – if the analysis is done for MIM software or not.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>df:</p>
+<dd class="field-even"><p>0</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="dcm_anonymize.anonimization.compare_database">
-<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonimization.</span></span><span class="sig-name descname"><span class="pre">compare_database</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonimization.html#compare_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonimization.compare_database" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="dcm_anonymize.anonymization.check_RSRPRD">
+<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonymization.</span></span><span class="sig-name descname"><span class="pre">check_RSRPRD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">DataFrame</span></span></span><a class="reference internal" href="_modules/dcm_anonymize/anonymization.html#check_RSRPRD"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonymization.check_RSRPRD" title="Permalink to this definition"></a></dt>
+<dd><p>Check the number of structures, doses and plans for each patient and save an excel for it.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>parent_folder</strong> – </p></li>
-<li><p><strong>file_name</strong> – </p></li>
-<li><p><strong>path</strong> – </p></li>
+<li><p><strong>parent_folder</strong> – folder where data to be anonymized are (str).</p></li>
+<li><p><strong>path</strong> – path where to save the control file .csv.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p></p>
+<dd class="field-even"><p>df: Dataframe with informations saved (pd.DataFrame).</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="dcm_anonymize.anonimization.modifydsc">
-<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonimization.</span></span><span class="sig-name descname"><span class="pre">modifydsc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonimization.html#modifydsc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonimization.modifydsc" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="dcm_anonymize.anonymization.compare_database">
+<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonymization.</span></span><span class="sig-name descname"><span class="pre">compare_database</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonymization.html#compare_database"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonymization.compare_database" title="Permalink to this definition"></a></dt>
+<dd><p>Database comparison to check if all data where copied correctly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent_folder</strong> – folder where data to be anonymized are (str).</p></li>
+<li><p><strong>file_name</strong> – name of excel where the anonymized files are listed (str).</p></li>
+<li><p><strong>path</strong> – path where the excel is stored (str).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dcm_anonymize.anonymization.modifydsc">
+<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonymization.</span></span><span class="sig-name descname"><span class="pre">modifydsc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonymization.html#modifydsc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonymization.modifydsc" title="Permalink to this definition"></a></dt>
 <dd><p>Anonimize the dicom file. If the file has not the dicom header it will be forced to be read anyway.
-In place of ‘PatientName’ and ‘PatientID’ it will be written the patient folder ID.
-:param file: single file name (str).
-:param list: list of keyword to be anonimized inside the .dcm files (str list).
-:param folder: folder where the file is originally located (str).
-:return: ds: dicom file read and modified.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="dcm_anonymize.anonimization.save_control_csv">
-<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonimization.</span></span><span class="sig-name descname"><span class="pre">save_control_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_tot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonimization.html#save_control_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonimization.save_control_csv" title="Link to this definition"></a></dt>
-<dd><p>Save a .csv to controll if the input files and the output anonimized files are of the same number.
-:param df_tot: dataframe of anonimized files.
-:param unique_folder: Folders from which files were imported (selected to be unique).
-:param pathout: path to the folder to which the files will be saved (str).
-:param parent_folder: folder where data to be anonimized are (str).
-:param path: path where to save the control file .csv.
-:return: 0</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="dcm_anonymize.anonimization.save_info_csv">
-<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonimization.</span></span><span class="sig-name descname"><span class="pre">save_info_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_tot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modality</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonimization.html#save_info_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonimization.save_info_csv" title="Link to this definition"></a></dt>
-<dd><p>Save a .csv of the data anonimized inside the files (one for folder).
-:param df_tot: dataframe of anonimized files with specific informations.
-:param file: file name to be saved and added to the .csv.
-:param list_fields: list of keyword to be anonimized inside the .dcm files (str list).
-:param folder: folder where the file is originally located (str).
-:param path: path where to save the control file .csv.
-:param parent_folder: folder where data to be anonimized are (str).
-:param modality:
-:return: df_tot: dataframe of anonimized files with specific informations (added a new line).</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="dcm_anonymize.anonimization.savedsc">
-<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonimization.</span></span><span class="sig-name descname"><span class="pre">savedsc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileout_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonimization.html#savedsc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonimization.savedsc" title="Link to this definition"></a></dt>
-<dd><p>Save an anonimized copy of the file in a selected new folder.
-Checks are applied to reduce the file name (if the characters are too many to be saved)
-or to add the extension .dcm if the original ones had it implicit.
-:param ff: single file name (str).
-:param fileout_path: folder to which the file will be saved (str).
-:param ds: dicom file modified to be saved.
-:return: 0</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="dcm_anonymize.anonimization.saveinfo">
-<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonimization.</span></span><span class="sig-name descname"><span class="pre">saveinfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modality</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonimization.html#saveinfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonimization.saveinfo" title="Link to this definition"></a></dt>
-<dd><p>Save informations that are anonymized into a .csv.
-:param file: single file name (str).
-:param list: list of keyword to be anonimized inside the .dcm files (str list).
-:param folder: folder where the file is originally located (str).
-:param modality: modality of imaging (e.g. CT, MR …).
-:return: df: dataframe with all the informations about the single file to be saved into a .csv.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="dcm_anonymize.anonimization.simple_anonymize">
-<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonimization.</span></span><span class="sig-name descname"><span class="pre">simple_anonymize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folderOR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modality</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonimization.html#simple_anonymize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonimization.simple_anonymize" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+In place of ‘PatientName’ and ‘PatientID’ it will be written the patient folder ID.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>folderOR</strong> – </p></li>
-<li><p><strong>parent_folder</strong> – </p></li>
-<li><p><strong>list_fields</strong> – </p></li>
-<li><p><strong>unique_folder</strong> – </p></li>
-<li><p><strong>pathout</strong> – </p></li>
-<li><p><strong>path</strong> – </p></li>
-<li><p><strong>modality</strong> – </p></li>
+<li><p><strong>file</strong> – single file name (str).</p></li>
+<li><p><strong>list</strong> – list of keyword to be anonymized inside the .dcm files (str list).</p></li>
+<li><p><strong>folder</strong> – folder where the file is originally located (str).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p></p>
+<dd class="field-even"><p>ds: dicom file read and modified.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dcm_anonymize.anonymization.save_control_csv">
+<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonymization.</span></span><span class="sig-name descname"><span class="pre">save_control_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_tot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonymization.html#save_control_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonymization.save_control_csv" title="Permalink to this definition"></a></dt>
+<dd><p>Save a .csv to controll if the input files and the output anonymized files are of the same number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_tot</strong> – dataframe of anonymized files.</p></li>
+<li><p><strong>unique_folder</strong> – Folders from which files were imported (selected to be unique).</p></li>
+<li><p><strong>pathout</strong> – path to the folder to which the files will be saved (str).</p></li>
+<li><p><strong>parent_folder</strong> – folder where data to be anonymized are (str).</p></li>
+<li><p><strong>path</strong> – path where to save the control file .csv.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dcm_anonymize.anonymization.save_info_csv">
+<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonymization.</span></span><span class="sig-name descname"><span class="pre">save_info_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_tot</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modality</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonymization.html#save_info_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonymization.save_info_csv" title="Permalink to this definition"></a></dt>
+<dd><p>Save a .csv of the data anonymized inside the files (one for folder).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_tot</strong> – dataframe of anonymized files with specific informations.</p></li>
+<li><p><strong>file</strong> – file name to be saved and added to the .csv.</p></li>
+<li><p><strong>list_fields</strong> – list of keyword to be anonymized inside the .dcm files (str list).</p></li>
+<li><p><strong>folder</strong> – folder where the file is originally located (str).</p></li>
+<li><p><strong>path</strong> – path where to save the control file .csv.</p></li>
+<li><p><strong>parent_folder</strong> – folder where data to be anonymized are (str).</p></li>
+<li><p><strong>modality</strong> – modality of images e.g., ‘CT’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>df_tot: dataframe of anonymized files with specific informations (added a new line).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dcm_anonymize.anonymization.savedsc">
+<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonymization.</span></span><span class="sig-name descname"><span class="pre">savedsc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fileout_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonymization.html#savedsc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonymization.savedsc" title="Permalink to this definition"></a></dt>
+<dd><p>Save an anonymized copy of the file in a selected new folder.
+Checks are applied to reduce the file name (if the characters are too many to be saved)
+or to add the extension .dcm if the original ones had it implicit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ff</strong> – single file name (str).</p></li>
+<li><p><strong>fileout_path</strong> – folder to which the file will be saved (str).</p></li>
+<li><p><strong>ds</strong> – dicom file modified to be saved.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dcm_anonymize.anonymization.saveinfo">
+<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonymization.</span></span><span class="sig-name descname"><span class="pre">saveinfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modality</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonymization.html#saveinfo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonymization.saveinfo" title="Permalink to this definition"></a></dt>
+<dd><p>Save informations that are anonymized into a .csv.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file</strong> – single file name (str).</p></li>
+<li><p><strong>list</strong> – list of keyword to be anonymized inside the .dcm files (str list).</p></li>
+<li><p><strong>folder</strong> – folder where the file is originally located (str).</p></li>
+<li><p><strong>modality</strong> – modality of imaging (e.g. CT, MR …).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>df: dataframe with all the informations about the single file to be saved into a .csv.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="dcm_anonymize.anonymization.simple_anonymize">
+<span class="sig-prename descclassname"><span class="pre">dcm_anonymize.anonymization.</span></span><span class="sig-name descname"><span class="pre">simple_anonymize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folderOR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unique_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pathout</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">modality</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dcm_anonymize/anonymization.html#simple_anonymize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#dcm_anonymize.anonymization.simple_anonymize" title="Permalink to this definition"></a></dt>
+<dd><p>Anonymize dicom files inside a specific folder. For this it is needed to be known the folder’s name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>folderOR</strong> – specific folder to be considered (str).</p></li>
+<li><p><strong>parent_folder</strong> – folder where data to be anonymized are (str).</p></li>
+<li><p><strong>list_fields</strong> – list of keyword to be anonymized inside the .dcm files (str list).</p></li>
+<li><p><strong>unique_folder</strong> – Folders from which files were imported (selected to be unique).</p></li>
+<li><p><strong>pathout</strong> – path to be considered for saving (str).</p></li>
+<li><p><strong>path</strong> – path to be considered for reading (str).</p></li>
+<li><p><strong>modality</strong> – modality of images e.g., ‘CT’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>0</p>
 </dd>
 </dl>
 </dd></dl>
 
 </section>
 <section id="module-dcm_anonymize">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dcm_anonymize" title="Link to this heading"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dcm_anonymize" title="Permalink to this heading"></a></h2>
 <p>dcm_anonymize.</p>
 </section>
 </section>
@@ -280,7 +344,7 @@ or to add the extension .dcm if the original ones had it implicit.
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023, M.G. Ubeira Gabellini, G. Palazzo.</p>
+    <p>&#169; Copyright 2023, M.G. Ubeira-Gabellini, G. Palazzo.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

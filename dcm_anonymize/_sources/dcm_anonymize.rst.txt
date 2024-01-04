@@ -12,10 +12,10 @@ Subpackages
 Submodules
 ----------
 
-dcm\_anonymize.anonimization module
+dcm\_anonymize.anonymization module
 -----------------------------------
 
-.. automodule:: dcm_anonymize.anonimization
+.. automodule:: dcm_anonymize.anonymization
    :members:
    :undoc-members:
    :show-inheritance:
